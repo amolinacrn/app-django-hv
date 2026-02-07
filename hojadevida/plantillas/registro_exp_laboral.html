@@ -1,0 +1,284 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content_derecho%}
+
+<!--ESTILO 1-->
+
+
+<script>
+  function RegistroExperienciaLaboral(condicional, id_explab = '{{ id_actual }}', tipo_empresa, nombre_empresa,
+    cargo, tipo_contrato, departamento_contrato,
+    ciudad_contrato, pais_contrato, contacto_empresa,
+    correo_electronico_empresa, dependencia,
+    direccion_empresa, fecha_inicio, fecha_fin, soportes_experincias_laborales) {
+
+    experiencia_laboral.innerHTML = ``
+    registro_experiencia_laboral.innerHTML = `
+      <div class="class_div" style="font-size:15px;border-top: rgb(8, 26, 66) 5px solid; border-radius: 10px;">
+        {% if errform %}
+        <div style="margin:0px; padding: 1px;background-color: rgb(255, 0, 0); width:63%; margin-left: 5cm;">
+          <h5 style="color: white;margin-top:5px;">
+            <b>&nbsp&nbsp
+              No se ha podido enviar los datos, por favor revise el formulario
+            </b>
+          </h5>
+        </div>
+        <br>
+        {% endif%}
+
+        <table>
+          <tr>
+            <td width="3%">
+              <img src="{% static 'bs532/img/imghv/fad.png' %}" style="width: 100%;transform: scale(0.8)" alt="My image">
+            </td>
+            <td width="1%">
+
+            </td>
+            <td style="font-size:15px;">
+              <b class="text-uppercase">Registro experiencia laboral</b>
+            </td>
+          </tr>
+        </table>
+
+        <hr>
+        <br>
+        <form enctype="multipart/form-data" method="post" action="${id_explab}">
+          {% csrf_token %}
+
+          <div class="form-grid card bg-light" style="margin-bottom:16px">
+            <div>{{ form.tipo_empresa|as_crispy_field }}</div>
+            <div>{{ form.nombre_empresa|as_crispy_field }}</div>
+            <div>{{ form.cargo|as_crispy_field }}</div>
+
+            <div>{{ form.tipo_contrato|as_crispy_field }}</div>
+            <div>{{ form.ciudad_contrato|as_crispy_field }}</div>
+            <div>{{ form.departamento_contrato|as_crispy_field }}</div>
+
+            <div>{{ form.pais_contrato|as_crispy_field }}</div>
+            <div>{{ form.contacto_empresa|as_crispy_field }}</div>
+            <div>{{ form.correo_electronico_empresa|as_crispy_field }}</div>
+
+            <div>{{ form.direccion_empresa|as_crispy_field }}</div>
+            <div>{{ form.fecha_inicio|as_crispy_field }}</div>
+            <div>{{ form.fecha_fin|as_crispy_field }}</div>
+            <div>{{ form.dependencia|as_crispy_field }}</div>
+          </div>
+
+          <div class="form-grid card bg-light">
+            <div>
+              {{ form.soportes_experincias_laborales|as_crispy_field }}
+              <div style="color:blue" id="askdjfls">
+              </div>
+            </div>
+
+            <div>
+              <a id="ref_img_ver" onclick="funcionVisualizarModal('${soportes_experincias_laborales}')">
+              </a>
+            </div>
+          </div>
+
+          <br>
+          <hr>
+
+          <table width="100%">
+            <tr>
+              <td width="90%">
+                <button class="btn btn-sm btn-outline-primary float-end" type="submit">
+                  <b>Guardar</b>
+                </button>
+              </td>
+              <td width="1%">
+              </td>
+              <td>
+                <button onclick="ExperienciaLaboralOK()" class="btn btn-outline-danger btn-sm ">
+                  Cancelar
+                </button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      `;
+
+    if (!condicional) return;
+
+
+    const btn_ver_img = document.getElementById("ref_img_ver");
+    btn_ver_img.innerHTML = ` <img src="{% static 'bs532/img/ver_violeta.svg' %}" style="width:20px; cursor: pointer; margin-top: 40px;">`
+
+
+    const campos = {
+      tipo_empresa,
+      nombre_empresa,
+      cargo,
+      tipo_contrato,
+      departamento_contrato,
+      ciudad_contrato,
+      pais_contrato,
+      contacto_empresa,
+      correo_electronico_empresa,
+      dependencia,
+      direccion_empresa,
+      fecha_inicio,
+      fecha_fin
+    };
+
+    // Asignar valores automáticamente
+    Object.entries(campos).forEach(([id, valor]) => {
+      const elemento = document.getElementById(`id_${id}`);
+      if (elemento) elemento.value = valor ?? "";
+    });
+
+    // 🔹 Mostrar nombre del diploma de forma segura
+    if (soportes_experincias_laborales) {
+      const nombreArchivo = soportes_experincias_laborales.split("/").pop();
+      const label = document.getElementById("askdjfls");
+      if (label) label.textContent = nombreArchivo;
+    }
+
+    if (soportes_experincias_laborales) {
+      document.getElementById("id_soportes_experincias_laborales").required = false;
+    }
+
+  }
+
+  function ExperienciaLaboralOK() {
+    registro_experiencia_laboral.innerHTML = ``
+    experiencia_laboral.innerHTML = `
+      
+  <div class="class_div" style="font-size:15px;border-top: rgb(8, 26, 66) 5px solid; border-radius: 10px;">
+  
+    <table>
+      <tr>
+        <td width="3%">
+          <img src="{% static 'bs532/img/imghv/fad.png' %}" style="width: 100%;transform: scale(0.8)" alt="My image">
+        </td>
+        <td width="1%">
+
+        </td>
+        <td style="font-size:15px;">
+          <b class="text-uppercase">Experiencia laboral</b>
+        </td>
+        <td style="font-size:15px;">
+          <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+            <b>salir</b>
+          </a>
+        </td>
+
+      </tr>
+    </table>
+      <br>
+    <table width="100%">
+      <tr>
+
+        <td>
+          <a class="btn btn-sm btn-outline-success float-end" onclick="RegistroExperienciaLaboral()">
+          Agregar Experiencia
+          </a>
+        </td>
+         <td width="1%"></td>
+        <td width="35%">
+          <div class="input-group mb-0">
+              <span class="input-group-text" id="basic-addon1">buscar</span>
+            <input type="text" class="form-control" placeholder="Buscar" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="height:8px;width: 100%; background-color:rgba(255, 0, 0, 0) ;"></div>
+      <table class="competencias-table">
+              <thead>
+                  <tr>
+                      <th>  Nombre empresa</th>
+                      <th>Cargo</th>
+                      <th>Peridodo laboral</th>
+                      <th>Dependencia</th>
+                      <th>Telefono empresa</th>
+                      <th class="acciones-col">Opciones</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  {% for qrdat in querydat %}
+                  <tr>
+                    <td>
+                          {{ qrdat.nombre_empresa }}
+                        </td>
+
+                        <td >
+                          {{ qrdat.cargo }}
+                        </td>
+
+                        <td >
+                          {{qrdat.fecha_inicio|date:"d/m/Y" }} - {{qrdat.fecha_fin|date:"d/m/Y" }}
+                        </td>
+
+                        <td >
+                          {{ qrdat.dependencia }}
+                        </td>
+
+            
+                        <td >
+                          {{ qrdat.contacto_empresa }}
+                        </td>
+
+                        <td class="acciones">
+                            <!-- Ver soporte -->
+                            <button type="button" class="icon-btn"
+                                onclick="funcionVisualizarModal('{{ qrdat.documento_url }}{{ qrdat.soportes_experincias_laborales }}','Cértificado de experiencia laboral')">
+                                <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+                            </button>
+
+                            <!-- Editar -->
+                              <button type="button" class="editar-registro icon-btn" onclick="RegistroExperienciaLaboral(
+                    true,'{{ qrdat.id }}','{{qrdat.tipo_empresa}}','{{ qrdat.nombre_empresa }}','{{ qrdat.cargo }}',
+                    '{{ qrdat.tipo_contrato }}','{{ qrdat.departamento_contrato }}','{{ qrdat.ciudad_contrato }}',
+                    '{{ qrdat.pais_contrato }}', '{{ qrdat.contacto_empresa }}','{{qrdat.correo_electronico_empresa}}',
+                    '{{ qrdat.dependencia}}', '{{qrdat.direccion_empresa}}','{{qrdat.fecha_inicio|date:"Y-m-d"}}' ,'{{qrdat.fecha_fin|date:"Y-m-d"}}',
+                    '{{qrdat.documento_url}}{{qrdat.soportes_experincias_laborales }}')" style="cursor:pointer">
+                          
+                                      <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
+                                  </button>
+
+                            <!-- Eliminar -->
+                            <a href="{% url 'delete_file_record' 'ExperienciasLaborale' qrdat.id %}" class="icon-btn">
+                                <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+                            </a>
+                        </td>
+                  </tr>
+                  
+                  {% endfor %}
+              </tbody>
+          </table>
+  </div>
+`
+  }
+</script>
+
+<div class="posicion_hv_html">
+  <div id="registro_experiencia_laboral"></div>
+  <div id="experiencia_laboral"></div>
+</div>
+
+{% if errform %}
+<script>
+  window.addEventListener("load", async () => {
+    await RegistroExperienciaLaboral();
+  });
+
+</script>
+{% else %}
+<script>
+  const registro_experiencia_laboral = document.getElementById("registro_experiencia_laboral");
+  const experiencia_laboral = document.getElementById("experiencia_laboral");
+  window.addEventListener("load", async () => {
+    await ExperienciaLaboralOK();
+  });
+</script>
+{% endif %}
+
+{% endblock content_derecho %}

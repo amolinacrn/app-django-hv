@@ -1,0 +1,298 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content_derecho%}
+
+<script>
+
+    function RegistroLenguajesExtrangeros(misdatos) {
+        competencia_lengua_extrangera.innerHTML = ``
+
+        if (typeof misdatos !== "undefined") {
+            registro_lengua_extrangera.innerHTML = `${tablaEncabezadoVistaLenguasEsctrangeras("Registro de idiomas extranjeros", misdatos.id, misdatos.soporte_certificado_idioma)}`
+
+            if (!misdatos.condicional) return;
+
+            const btn_ver_img = document.getElementById("ref_img_ver");
+            btn_ver_img.innerHTML = ` <img src="{% static 'bs532/img/ver_violeta.svg' %}" style="width:20px; cursor: pointer;margin-top: 40px;;">`
+
+            // Asignar valores automáticamente
+            Object.entries(misdatos).forEach(([id, valor]) => {
+                const elemento = document.getElementById(`id_${id}`);
+                if (elemento && valor !== misdatos.soporte_certificado_idioma) {
+                    elemento.value = valor ?? ""
+                } else if (valor === misdatos.soporte_certificado_idioma) {
+                    const nombreArchivo = valor.split("/").pop();
+                    const label = document.getElementById("askdjfls");
+                    if (label) label.textContent = nombreArchivo;
+
+                }
+            });
+        } else {
+            registro_lengua_extrangera.innerHTML = `${tablaEncabezadoVistaLenguasEsctrangeras("Registro de idiomas extranjeros", '{{ id_actual }}')}`
+        }
+    }
+    function RegistroLenguajesExtrangerosOK() {
+        registro_lengua_extrangera.innerHTML = ``
+        competencia_lengua_extrangera.innerHTML = `
+      
+  <div class="class_div" style="font-size:15px;border-top: rgb(8, 26, 66) 5px solid; border-radius: 10px;">
+  
+    <table>
+      <tr>
+        <td width="3%">
+          <img src="{% static 'bs532/img/imghv/fad.png' %}" style="width: 100%;transform: scale(0.8)" alt="My image">
+        </td>
+        <td width="1%">
+
+        </td>
+        <td style="font-size:15px;">
+          <b class="text-uppercase">Idiomas extranjeros</b>
+        </td>
+        <td style="font-size:15px;">
+          <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+            <b>salir</b>
+          </a>
+        </td>
+
+      </tr>
+    </table>
+      <br>
+    <table width="100%">
+      <tr>
+
+        <td>
+          <a class="btn btn-sm btn-outline-success float-end" onclick="RegistroLenguajesExtrangeros()">
+          Agregar idioma
+          </a>
+        </td>
+         <td width="1%"></td>
+        <td width="35%">
+          <div class="input-group mb-0">
+              <span class="input-group-text" id="basic-addon1">buscar</span>
+            <input type="text" class="form-control" placeholder="Buscar" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="height:8px;width: 100%; background-color:rgba(255, 0, 0, 0) ;"></div>
+   
+    <table class="competencias-table">
+        <thead>
+            <tr>
+                <th>Idioma</th>
+                <th>Nivel</th>
+                <th>Habla</th>
+                <th>Lee</th>
+                <th>Escribe</th>
+                <th>Fecha certificado</th>
+                <th>Institución</th>
+                <th class="acciones-col">Opciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for qrdat in querydat %}
+            <tr>
+                <td>{{ qrdat.tipo_idioma }}</td>
+                 <td>{{ qrdat.nevel_certificado }}</td>
+                <td>
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ qrdat.domimio_conversacional }}%; background-color:#f97306;"
+                            aria-valuenow="{{ qrdat.domimio_conversacional }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.domimio_conversacional }}%
+                    </div>
+                </div>
+                     </td>
+                <td>
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ qrdat.dominio_lectura }}%; background-color:#f97306;"
+                            aria-valuenow="{{ qrdat.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.dominio_lectura }}%
+                    </div>
+                </div>
+                     </td>
+                <td>
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ qrdat.dominio_escritura }}%; background-color:#f97306;"
+                            aria-valuenow="{{ qrdat.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.dominio_escritura }}%
+                    </div>
+                </div>
+                     </td>
+                <td>{{ qrdat.fecha_obtecion_certificado|date:"d/m/Y" }}</td>
+                <td>{{ qrdat.institucion_expedicion_certificado }}</td>
+                <td class="acciones">
+                    <!-- Ver soporte -->
+                    <button type="button" class="icon-btn"
+                        onclick="funcionVisualizarModal('{{ qrdat.documento_url }}{{ qrdat.soporte_certificado_idioma }}','Certificado de idioma')">
+                        <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+                    </button>
+
+                    <!-- Editar -->
+                    <button type="button" class="editar-registro icon-btn" data-registro='{
+                                    "condicional": true,
+                                    "id": "{{ qrdat.id }}",
+                                    "tipo_idioma": "{{ qrdat.tipo_idioma|escapejs }}",
+                                    "nevel_certificado": "{{ qrdat.nevel_certificado|escapejs }}",
+                                    "domimio_conversacional": "{{ qrdat.domimio_conversacional|escapejs }}",
+                                    "dominio_lectura": "{{ qrdat.dominio_lectura|escapejs }}",
+                                    "dominio_escritura": "{{ qrdat.dominio_escritura|escapejs }}",
+                                    "institucion_expedicion_certificado": "{{ qrdat.institucion_expedicion_certificado|escapejs }}",
+                                    "fecha_obtecion_certificado": "{{ qrdat.fecha_obtecion_certificado|escapejs }}",
+                                    "pais_obtencion_certificado": "{{ qrdat.pais_obtencion_certificado|escapejs }}",
+                                    "departamento_obtencion_certificado": "{{ qrdat.departamento_obtencion_certificado|escapejs }}",
+                                    "ciudad_obtencion_certificado": "{{ qrdat.ciudad_obtencion_certificado|escapejs }}",
+                                    "soporte_certificado_idioma": "{{ qrdat.documento_url }}{{ qrdat.soporte_certificado_idioma }}"
+                                }'>
+                        <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
+                    </button>
+
+                    <!-- Eliminar -->
+                    <a href="{% url 'delete_file_record' 'IdiomaExtrangero' qrdat.id %}" class="icon-btn">
+                        <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+  </div>
+`;
+    }
+
+</script>
+
+<div class="posicion_hv_html">
+    <div id="registro_lengua_extrangera"></div>
+    <div id="competencia_lengua_extrangera"></div>
+</div>
+
+
+
+{% if errform %}
+<script>
+    window.addEventListener("load", async () => {
+        await RegistroLenguajesExtrangeros();
+    });
+
+</script>
+{% else %}
+<script>
+    const registro_lengua_extrangera = document.getElementById("registro_lengua_extrangera");
+    const competencia_lengua_extrangera = document.getElementById("competencia_lengua_extrangera");
+    window.addEventListener("load", async () => {
+        await RegistroLenguajesExtrangerosOK();
+    });
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".editar-registro");
+        if (!btn) return;
+
+        const data = JSON.parse(btn.dataset.registro);
+        RegistroLenguajesExtrangeros(data);
+    });
+
+</script>
+
+
+
+{% endif %}
+
+
+<script>
+    function tablaEncabezadoVistaLenguasEsctrangeras(titulo_vista, idd, soporttte) {
+        const tabla_vista = `
+               
+                    <div class="class_div" style="font-size:15px;border-top: rgb(8, 26, 66) 5px solid; border-radius: 10px;">
+                        {% if errform %}
+                        <div style="margin:0px; padding: 1px;background-color: rgb(255, 0, 0); width:63%; margin-left: 5cm;">
+                            <h5 style="color: white;margin-top:5px;">
+                                <b>&nbsp&nbsp
+                                    No se ha podido enviar los datos, por favor revise el formulario
+                                </b>
+                            </h5>
+                        </div>
+                        <br>
+                        {% endif%}
+                        <table>
+                            <tr>
+                                <td width="3%">
+                                    <img src="{% static 'bs532/img/imghv/fad.png' %}" style="width: 100%;transform: scale(0.8)"
+                                        alt="My image">
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td style="font-size:15px;">
+                                    <b class="text-uppercase">${titulo_vista}</b>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <br>
+                        ${formularioDeDatos(idd, soporttte)}
+                    </div>
+          
+        `;
+        return tabla_vista;
+    }
+
+    function formularioDeDatos(idd, certficados_evento) {
+        const datos_de_formulario_qryset = `
+            <form enctype="multipart/form-data" method="post" action="${idd}">
+            {% csrf_token %}
+
+            <div class="form-grid card bg-light" style="margin-bottom:16px">
+                <div>{{ form.tipo_idioma|as_crispy_field }}</div>
+                <div>{{ form.domimio_conversacional|as_crispy_field }}</div>
+                <div>{{ form.dominio_lectura|as_crispy_field }}</div>
+                <div>{{ form.dominio_escritura|as_crispy_field }}</div>
+                <div>{{ form.nevel_certificado|as_crispy_field }}</div>
+                <div>{{ form.institucion_expedicion_certificado|as_crispy_field }}</div>
+                <div>{{ form.fecha_obtecion_certificado|as_crispy_field }}</div>
+                <div>{{ form.pais_obtencion_certificado|as_crispy_field }}</div>
+                <div>{{ form.departamento_obtencion_certificado|as_crispy_field }}</div>
+                <div>{{ form.ciudad_obtencion_certificado|as_crispy_field }}</div>
+            </div>
+
+            <div class="form-grid card bg-light ">
+                <div>
+                    {{ form.soporte_certificado_idioma|as_crispy_field }}
+     
+                </div>
+
+            <a id="ref_img_ver" onclick="funcionVisualizarModal('${certficados_evento}')">
+                </a>
+            </div>
+            <br>
+            <hr>
+            <table width="100%">
+                <tr>
+                <td width="90%">
+                    <button class="btn btn-sm btn-outline-primary float-end" type="submit">
+                    <b>Guardar</b>
+                    </button>
+                </td>
+                <td width="1%">
+                </td>
+                <td>
+
+                <button onclick="RegistroLenguajesExtrangerosOK()" class="btn btn-outline-danger btn-sm ">
+                    Cancelar
+                </button>
+                    </a>
+                </td>
+                </tr>
+            </table>
+            </form>`
+        return datos_de_formulario_qryset;
+    }
+</script>
+
+
+
+
+{% endblock content_derecho %}

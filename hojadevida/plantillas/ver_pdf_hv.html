@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+</head>
+
+<body>
+
+    <div class="class-div" id="secciones_hoja_de_vida">
+
+        <div class="datos-personales-menu">
+            <span class="titulo-div">Datos personales</span>
+        </div>
+
+
+        <table class="Ttable-datos-personales">
+
+            <tr class="panel-datos-personales">
+
+                <td style="text-align: center; border: 0px solid;width: 55mm; ">
+                    <img src="{{foto_perfil}}" class="my_img">
+                </td>
+
+
+                <td style="border: 1px solid rgba(27, 26, 26, 0);">
+
+                    <div class="datos-personales">
+
+                        {% for e in datos_personales %}
+
+                        <div class="persona">
+
+                            <h1 class="nombre text-uppercase">
+                                {{ e.primer_nombre }} {{ e.segundo_nombre }} {{ e.primer_apellido }}
+                                {{e.segundo_apellido }}
+                            </h1>
+
+                            <div class="titulo">
+                                {{ e.titulo_mas_reciente }}
+                            </div>
+                            <div class="universidad">
+                                {{ e.universidad_titulo_mas_reciete }}
+                            </div>
+
+                            <table class="info-table">
+                                <tr>
+                                    <td>
+                                        <img src="{{ eye_icon }}documento.svg">
+                                        CC: {{ e.numero_identificacion }}
+                                    </td>
+                                    <td>
+                                        <img src="{{ eye_icon }}cake2-fill.svg">
+                                        {{e.fecha_expedicion_documento|date:"d/m/Y"}}, {{e.departamento_origen}},
+                                        {{e.pais_origen}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <img src="{{ eye_icon }}email.svg">
+                                        {{e.correo_electronico}}
+                                    </td>
+                                    <td>
+                                        <img src="{{ eye_icon }}house.svg">
+                                        {{e.direccion_residencia}}, {{e.ciudad_residencia}}, {{e.departamento_origen}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <img src="{{ eye_icon }}telephone.svg">
+                                        {{e.telefono_celular}}
+                                    </td>
+                                    <td>
+                                        <img src="{{ eye_icon }}linkedin.svg">
+                                        <a href="{{e.cuenta_github}}">{{e.cuenta_github}}</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">Perfil profesional</span>
+        </div>
+
+        <table class="Ttable-perfil" style="margin-bottom: 0.5cm;">
+            <tr class="menu-tablas-hv">
+                <td colspan="3" style="color: #ffffff">
+                    <b>Descripción del perfil profesional</b>
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                {% for e in datos_personales %}
+                <td style="text-align: justify;">
+                    {{e.perfil_profesional}}
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">formación académica</span>
+        </div>
+
+        <table class="tabla-personalizada">
+            <tr class="menu-tablas-hv" style="text-align: center;">
+                <td><b>Título</b></td>
+                <td><b>Empresa</b></td>
+                <td><b>Periodo</b></td>
+                <td><b>Modalidad</b></td>
+                <td><b>País</b></td>
+                <td><b>Ver</b></td>
+            </tr>
+
+            {% for e in estudios %}
+            <tr class="color-cuerpo-tablas" style="text-align: center;">
+                <td>{{ e.titulo_obtenido }}</td>
+                <td>{{ e.institucion_universitaria }}</td>
+                <td>{{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_finalizacion|date:"m/Y" }}</td>
+                <td>{{ e.modalidad_academica }}</td>
+                <td>{{ e.pais_titulo }}</td>
+                <td style="text-align: center;">
+                    <a href="#{{ e.link }}">
+                        <img src="{{ eye_icon }}eye-fill.svg">
+                    </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">experiencia laboral</span>
+        </div>
+
+
+        <table class="tabla-personalizada">
+
+            <tr class="menu-tablas-hv" style="text-align: center;">
+                <td><b>Cargo</b></td>
+                <td><b>Empresa</b></td>
+                <td><b>Ubicación</b></td>
+                <td style="width: 120px;"><b>Periodo laboral</b></td>
+                <td><b>Telefono</b></td>
+                <td><b>Ver</b></td>
+            </tr>
+            {% for e in experiencias_laborales %}
+            <tr class="color-cuerpo-tablas" style="text-align: center;">
+                <td>
+                    {{ e.cargo }}
+                </td>
+
+                <td>
+                    {{ e.nombre_empresa }}
+                </td>
+
+                <td>
+                    {{ e.departamento_contrato }} - {{ e.pais_contrato }}
+                </td>
+
+                <td>
+                    {{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_fin|date:"m/Y" }}
+                </td>
+
+                <td>
+                    {{ e.contacto_empresa }}
+                </td>
+
+                <td style="text-align: center;">
+                    <a href="#{{ e.link }}">
+                        <img src="{{ eye_icon }}eye-fill.svg">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">Idioma extranjero</span>
+        </div>
+
+        <table class="tabla-personalizada">
+
+            <tr class="menu-tablas-hv" style="text-align: center;">
+                <td>
+                    <b>Idioma</b>
+                </td>
+                <td>
+                    <b>
+                        Nivel
+                    </b>
+
+                </td>
+                <td>
+                    <b>Conversación</b>
+                </td>
+                <td>
+                    <b>Escritura</b>
+                </td>
+                <td>
+                    <b>Lectura</b>
+                </td>
+                <td>
+                    <b>Ver</b>
+                </td>
+            </tr>
+
+            {% for idioma in idioma_extrangero %}
+            <tr class="color-cuerpo-tablas">
+
+                <!-- Nombre del idioma -->
+                <td style="text-align: center;">
+                    {{ idioma.tipo_idioma }}
+                </td>
+                <td style="text-align: center;">
+                    {{ idioma.nevel_certificado }}
+                </td>
+                <!-- Niveles -->
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.domimio_conversacional }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.domimio_conversacional }}" aria-valuemin="0"
+                                aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.domimio_conversacional }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.dominio_lectura }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.dominio_lectura }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.dominio_escritura }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.dominio_escritura }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 5%;text-align: center;">
+                    <a href="#{{ idioma.link }}" style="color: blue; text-decoration: none;">
+                        <img src="{{ eye_icon }}eye-fill.svg">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">Producción académica</span>
+        </div>
+
+        {% for p in produccion_academica %}
+        <table class="tabla-personalizada">
+
+            {% if forloop.first %}
+            <tr class="menu-tablas-hv">
+                <td colspan="4">
+                    <b>Trabajos de investigación y artículos publicados en revistas</b>
+                </td>
+            </tr>
+            {% endif %}
+
+            <tr class="color-cuerpo-tablas">
+                <td style="width: 30%; padding: 3px 10px;">
+                    <b>Producción investigativa:</b>
+                </td>
+                <td colspan="3">
+                    {{ p.nombre_trabajo }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Revista científica:</b>
+                </td>
+                <td colspan="3">
+                    {{ p.nombre_revista }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Area de concentración:</b>
+                </td>
+                <td colspan="3">
+                    {{ p.area_concentracion }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Línea de investigación:</b>
+                </td>
+                <td colspan="3">
+                    {{ p.linea_pesquisa }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Fecha publicación:</b>
+                </td>
+                <td colspan="3">
+                    {{ p.fecha_publicacion|date:"d/m/Y" }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Ver publicación:</b>
+                </td>
+                <td colspan="3">
+                    <a href="{{ p.doi_link_publicacion }}" style="color: blue; text-decoration: none;">
+                        {{ p.doi_link_publicacion }}
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+
+        {% if not forloop.last %}
+        <hr class="linea-hr">
+        {% endif %}
+
+        {% endfor %}
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">Participación científica</span>
+        </div>
+
+        {% for e in participacion_cientifica %}
+        <table class="tabla-personalizada">
+
+            {% if forloop.first %}
+
+            <tr class="menu-tablas-hv">
+                <td colspan="2">
+                    <b>Participación en eventos científicos: congresos, seminarios, simposios, etc. </b>
+                </td>
+            </tr>
+            {% endif %}
+            <tr class="color-cuerpo-tablas">
+                <td style="width: 30%">
+                    <b>Nombre del evento:</b>
+                </td>
+                <td>
+                    {{ e.nombre_evento_cientifico }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Lugar o ubicación:</b>
+                </td>
+                <td>
+                    {{ e.institucion_evento }} - {{ e.ciudad_evento }} - {{ e.departamento_evento }} -
+                    {{ e.pais_evento }}
+                </td>
+            </tr>
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Tipo de evento:</b>
+                </td>
+                <td>
+                    {{ e.tipo_evento }}
+                </td>
+            </tr>
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Periodo de permanencia:</b>
+                </td>
+                <td>
+                    {{ e.fecha_inicio_evento }} - {{ e.fecha_fin_evento }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Rol o desempeño:</b>
+                </td>
+                <td>
+                    {{ e.modalidad_evento }}
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    <b>Ver el certificado:</b>
+                </td>
+                <td>
+                    <a href="#{{ e.link }}">
+                        <img src="{{ eye_icon }}eye-fill.svg">
+                    </a>
+                </td>
+            </tr>
+
+
+        </table>
+        {% if not forloop.last %}
+        <hr class="linea-hr">
+        {% endif %}
+        {% endfor %}
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">competencias técnicas</span>
+        </div>
+
+
+        <table class="tabla-personalizada">
+
+            <tr class="menu-tablas-hv" style="text-align: center;">
+                <td style="width: 10%;">
+                    <b>Herramienta</b>
+                </td>
+                <td>
+                    <b>Básico</b>
+                </td>
+                <td>
+                    <b>Intermedio</b>
+                </td>
+                <td>
+                    <b>Avanzado</b>
+                </td>
+                <td>
+                    <b>Ver:</b>
+                </td>
+            </tr>
+            </tr>
+
+            {% for idioma in competencias_tecnicas_computacionale %}
+            <tr class="color-cuerpo-tablas">
+
+                <!-- Nombre del idioma -->
+                <td style="text-align: center;">
+                    {{ idioma.herramienta_tecnica }}
+                </td>
+                <!-- Niveles -->
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.dominio_basico }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.dominio_basico }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.dominio_medio }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.dominio_medio }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 22%;">
+                    <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                        <div
+                            style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ idioma.dominio_avanzado }}%; background-color:#f97306; color: transparent;;"
+                                aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">""
+                            </div>
+                            <div
+                                style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                {{ idioma.dominio_avanzado }}%
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 5%; text-align: center;">
+                    <a href="#{{ idioma.link }}" style="color: blue; text-decoration: none;">
+                        <img src="{{ eye_icon }}eye-fill.svg">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+
+        <div class="datos-personales-div">
+            <span class="titulo-div">documentos de soporte</span>
+        </div>
+
+        <table class="tabla-personalizada" style="margin-left: 33mm; width: 179mm;">
+            <tr class="menu-tablas-hv">
+                <td>
+                    <b>
+                        Documentos aportados: diplomas, experiencias laborales, certificados, etc.
+                    </b>
+                </td>
+            </tr>
+            {% for documentacion in documentacion_completa %}
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    {{documentacion.grado_academico}} - {{documentacion.programa_academico}} -
+                    {{documentacion.titulo_obtenido}} - {{documentacion.institucion_universitaria}} -
+                    {{documentacion.departamento_titulo}} - {{documentacion.pais_titulo}}
+
+                </td>
+            </tr>
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    {{documentacion.nombre_empresa}} - {{documentacion.cargo}} -
+                    {{documentacion.ciudad_contrato}} - {{documentacion.departamento_contrato}} -
+                    {{documentacion.pais_contrato}}
+
+                </td>
+            </tr>
+
+            <tr class="color-cuerpo-tablas">
+                <td>
+                    {{documentacion.nombre_evento_cientifico}} - {{documentacion.tipo_evento}} -
+                    {{documentacion.institucion_evento}} - {{documentacion.ciudad_evento}} -
+                    {{documentacion.departamento_evento}} - {{documentacion.pais_evento}}
+
+                </td>
+            </tr>
+
+            {% endfor %}
+        </table>
+
+        {% for conjuto_doc, link_ref, url_file in matriz_imagenes_base64 %}
+        {% for doc_hojas in conjuto_doc %}
+        <table class="tabla-personalizada">
+
+            <tr>
+                <td>
+                    <a href="">
+                        <img src="data:image/jpeg;base64,{{ doc_hojas }}" style="width:100%;" id="{{ link_ref }}">
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+        <table style="position: fixed; bottom: 0; width: 100%; text-align: right;">
+            <tr>
+                <td>
+                    <a href="{{url_file}}">
+                        <img src="{{ eye_icon }}descargar.svg">
+                    </a>
+                </td>
+                <td style="width: 15px;">
+                    <a href="#secciones_hoja_de_vida">
+                        <img src="{{ eye_icon }}volver-inicio.svg">
+                    </a>
+                </td>
+            </tr>
+        </table>
+        {% endfor %}
+        {% endfor %}
+
+    </div>
+</body>
+
+</html>

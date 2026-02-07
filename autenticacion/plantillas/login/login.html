@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block left_content %}
+
+<div class="cls_login">
+
+    <form action=" " method="post">
+
+        {% csrf_token %}
+
+        <div style="width:100%">
+
+            <!--div style="padding: 0.2vw;">
+                <b style="font-size:15px;">Iniciar sesión</b>
+            </div-->
+
+            <img src="https://raw.githubusercontent.com/amolinacrn/index/refs/heads/main/imagenes/imfg.jpeg"
+                style="width: 100%;transform: scale(1);">
+
+
+            <div>
+
+
+
+                <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
+
+                <div style="padding: 0.2vw;">
+                    {{form.username|as_crispy_field}}
+                </div>
+
+                <div style="padding:0.2vw;">
+                    {{form.password|as_crispy_field}}
+                </div>
+                {% if form.non_field_errors %}
+                <div style="font-size: 15px; margin-top: -35px;">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+            </div>
+            <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
+            <table width="100%">
+                <tr>
+
+                    <td width="35%"></td>
+
+                    <td width="10%">
+                        <button class="btn btn-sm  btn-outline-primary float-end" type="submit">INGRESAR</button>
+                    </td>
+
+                    <td width="10%"></td>
+
+
+                    <td width="10%">
+                        <a href="{% url 'autenticacion' %}" class="btn btn-sm btn-outline-danger float-end">REGISTRO</a>
+                    </td>
+
+                    <td width="35%"></td>
+
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+{% endblock %}
