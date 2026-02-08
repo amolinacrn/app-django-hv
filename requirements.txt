@@ -5,7 +5,6 @@ whitenoise
 django
 django-crispy-forms
 crispy-bootstrap5
-numpy
 WeasyPrint
 xhtml2pdf
 django_cleanup
