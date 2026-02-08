@@ -1,4 +1,3 @@
-import numpy as np
 from django import forms
 from .models import *
 from .validator import MaxZiseFileValidator
