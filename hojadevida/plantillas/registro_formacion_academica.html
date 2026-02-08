@@ -159,7 +159,7 @@
 
     // 🔹 Mostrar nombre del diploma de forma segura
     if (diploma_titulo) {
-      const nombreArchivo = diploma_titulo.split("/").pop();
+      const nombreArchivo = diploma_titulo.split(".pdf")[0];
       const label = document.getElementById("askdjfls");
       if (label) label.textContent = nombreArchivo;
     }
@@ -255,7 +255,7 @@
                 <td class="acciones">
                     <!-- Ver soporte -->
                     <button type="button" class="icon-btn"
-                        onclick="funcionVisualizarModal('{{ qrdat.diploma_titulo }}','Título académico')">
+                        onclick="funcionVisualizarModal('{{ qrdat.documento_diploma_url }}','Título académico')">
                         <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
                     </button>
 
@@ -266,7 +266,7 @@
                   '{{ qrdat.programa_academico }}','{{ qrdat.modalidad_academica }}','{{ qrdat.numero_targeta_profesional }}',
                   '{{ qrdat.graudado_universitario }}', '{{ qrdat.titulo_disertacion }}','{{qrdat.fecha_finalizacion|date:"Y-m-d"}}', '{{ qrdat.fecha_inicio|date:"Y-m-d" }}'
                   ,'{{ qrdat.pais_titulo}}', '{{qrdat.departamento_titulo}}'
-              , '{{qrdat.ciudad_titulo }}' ,'{{qrdat.diploma_titulo }}')" style="cursor:pointer">
+              , '{{qrdat.ciudad_titulo }}' ,'{{qrdat.documento_diploma_url }}')" style="cursor:pointer">
              
                         <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
                     </button>
@@ -277,6 +277,7 @@
                     </a>
                 </td>
             </tr>
+            
             {% endfor %}
         </tbody>
     </table>

@@ -11,6 +11,7 @@ from pdf2image import convert_from_bytes
 from itertools import chain
 # from pdf2image import convert_from_path
 from supabase import create_client
+from storages.backends.s3boto3 import S3Boto3Storage
 from io import BytesIO
 import requests
 import base64
@@ -25,20 +26,20 @@ import unicodedata
 import re
 
 
-supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
+# supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
 
-def get_signed_url(request):
-    print("hola como estamos todo bine")
-    file_path = request.GET.get("path")
+# def get_signed_url(request):
+    
+#     file_path = request.GET.get("path")
 
-    if not file_path:
-        return JsonResponse({"error": "No path provided"}, status=400)
+#     if not file_path:
+#         return JsonResponse({"error": "No path provided"}, status=400)
 
-    try:
-        res = supabase.storage.from_("media").create_signed_url(file_path, 3600)
-        return JsonResponse({"signed_url": res["signedURL"]})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+#     try:
+#         res = supabase.storage.from_("media").create_signed_url(file_path, 3600)
+#         return JsonResponse({"signed_url": res["signedURL"]})
+#     except Exception as e:
+#         return JsonResponse({"error": str(e)}, status=500)
 
 
 def slugify(texto: str) -> str:
@@ -175,30 +176,35 @@ def view_pdf_HV(request):
         ))
 
 
-        for _, info in  conjuto_modelos.items():
-            if info["queryset"].count() != 0:
-                for modelo in info["queryset"]:
-                    campo_pdf = info["certificado_pdf"]
-                    archivo = getattr(modelo, campo_pdf)
+        # for _, info in  conjuto_modelos.items():
+        #     if info["queryset"].count() != 0:
+        #         for modelo in info["queryset"]:
+        #             campo_pdf = info["certificado_pdf"]
+        #             archivo = getattr(modelo, campo_pdf)
+                    
+        #             if archivo:
+        #                 # pdf_path = archivo.url
+        #                 #storage = S3Boto3Storage()
+        #                 path = archivo.name
+        #                 pdf_url = supabase.storage.from_("media").create_signed_url(path, 3600)["signedURL"]
+                                              
+        #                 response = requests.get(pdf_url)
+        #                 if response.status_code != 200:
+        #                     print(response.status_code)
+        #                     raise Exception("No se pudo descargar el PDF")
+                           
+        #                 pdf_bytes = BytesIO(response.content)
 
-                    if archivo:
-                        pdf_path = archivo.url
-                        response = requests.get(pdf_path)
-                        if response.status_code != 200:
-                            raise Exception("No se pudo descargar el PDF")
+        #                 # Convertir a imágenes
+        #                 pages = convert_from_bytes(pdf_bytes.read(), dpi=200)
 
-                        pdf_bytes = BytesIO(response.content)
-
-                        # Convertir a imágenes
-                        pages = convert_from_bytes(pdf_bytes.read(), dpi=200)
-
-                        imagenes_base64 = []
-                        for page in pages:
-                            buffer = BytesIO()
-                            page.save(buffer, format="JPEG", quality=70)  # comprime
-                            img_str = base64.b64encode(buffer.getvalue()).decode()
-                            imagenes_base64.append(img_str)
-                        matriz_imagenes_base64.append((imagenes_base64,modelo.link,archivo.url))
+        #                 imagenes_base64 = []
+        #                 for page in pages:
+        #                     buffer = BytesIO()
+        #                     page.save(buffer, format="JPEG", quality=70)  # comprime
+        #                     img_str = base64.b64encode(buffer.getvalue()).decode()
+        #                     imagenes_base64.append(img_str)
+        #                 matriz_imagenes_base64.append((imagenes_base64,modelo.link,archivo.url))
 
         contexto={ 
             'eye_icon': eye_icon,
@@ -440,15 +446,13 @@ class FormacionAcademicaHV(View):
                 nombre_usuario_id=request.user.id
             )
 
-   
-            url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-            
-                       
-            for e in queryset_dat:
-                e.documento_diploma_url = url_absoluta
+            # url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
+            # if foto_perfil and foto_perfil.first().foto_perfil:
+            if queryset_dat and queryset_dat.first().diploma_titulo.url:
+                url_diploma = request.build_absolute_uri(queryset_dat.first().diploma_titulo.url)  
+                for e in queryset_dat:
+                    e.documento_diploma_url = url_diploma
 
-
-           
             contexto = {
                 "form": formacion_academica,
                 "querydat": queryset_dat,

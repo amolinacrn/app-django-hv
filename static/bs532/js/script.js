@@ -35,109 +35,63 @@ Array.from(var_files).forEach(async (f) => {
   });
 });
 
-
-const createEl = (tag) => document.createElement(tag);
-
-const inputs = document.querySelectorAll(".upload-img");
-
-let imgUsuario = null; // guardamos la respuesta una sola vez
-
-// 🔥 1 sola petición al servidor
-async function cargarImagenServidor() {
-  try {
-    const response = await fetch("");
-    console.log(response);
-    const data = await response.json();
-    imgUsuario = data.img_usuario || [];
-  } catch (error) {
-    console.error("Error cargando imagen:", error);
-    imgUsuario = [];
-  }
-}
-
-function crearUIInputFile(f) {
-  const label = createEl("label");
-  const spanText = createEl("span");
-  const spanName = createEl("span");
-  const spanButton = createEl("span");
+const create_img = (str) => document.createElement(str);
+const var_img = document.querySelectorAll(".upload-img");
+Array.from(var_img).forEach(async (f) => {
+  const label = create_img("label");
+  const span_text = create_img("span");
+  const span_name = create_img("span");
+  const span_button = create_img("span");
 
   label.htmlFor = f.id;
 
-  spanText.className = "upload-img__upload-img-name";
-  spanButton.className = "upload-img__upload-img-button";
+  span_text.className = "upload-img__upload-img-name";
+  span_button.className = "upload-img__upload-img-button";
 
-  // 🔹 Texto inicial
-  if (imgUsuario.length === 0) {
-    spanName.textContent = f.dataset.empty || "Cargue una foto";
-  } else {
-    spanName.textContent = imgUsuario[0].nameimg;
+  try {
+    const response = await fetch("./get_phot");
+    const dafots = await response.json();
+    var estadtupla = Object.entries(dafots.img_usuario).length;
+    if (estadtupla == 0) {
+      span_name.innerHTML = f.dataset.empty || "Cargue una foto";
+    } else {
+      span_name.innerHTML = f.dataset.empty || dafots.img_usuario[0].nameimg;
+    }
+  } catch (error) {
+    console.log(error);
   }
 
-  spanButton.textContent = f.dataset.button || "Subir";
+  span_button.innerHTML = f.dataset.button || "";
 
-  spanText.appendChild(spanName);
-  label.appendChild(spanText);
-  label.appendChild(spanButton);
+  label.appendChild(span_text);
+  label.appendChild(span_button);
+  span_text.appendChild(span_name);
   f.parentNode.appendChild(label);
 
-  // 🔹 Ajustar ancho correctamente cuando el DOM ya pintó
-  requestAnimationFrame(() => {
-    spanName.style.width = spanText.clientWidth - 20 + "px";
+  span_name.style.width = span_text.clientWidth - 20 + "px";
+
+  f.addEventListener("change", async (e) => {
+    if (f.files.length == 0) {
+      span_name.innerHTML = f.dataset.empty || "Cargar foto";
+    } else {
+      span_name.innerHTML = f.files[0].name;
+    }
   });
+});
 
-  // 🔹 Evento cambio de archivo
-  f.addEventListener("change", () => {
-    spanName.textContent = f.files.length
-      ? f.files[0].name
-      : (f.dataset.empty || "Cargar foto");
-  });
-}
+window.addEventListener("load", async () => {
+  await imgFoto();
+});
 
-// // 🚀 Flujo principal
-// (async () => {
-//   await cargarImagenServidor(); // solo una vez
-//   inputs.forEach(crearUIInputFile);
-// })();
+MathJax = {
+  tex: {
+    inlineMath: [
+      ["$", "$"],
+      ["\\(", "\\)"],
+    ],
+  },
+  svg: {
+    fontCache: "global",
+  },
+};
 
-
-
-
-// const imgFoto = async () => {
-//   var idimgfot = document.getElementById("idimgfot");
-//   var fotomodal = document.getElementById("fotomodal");
-
-//   try {
-//     const response = await fetch("./get_phot");
-//     const datsfots = await response.json();
-
-//     var estadtupla = Object.entries(datsfots.img_usuario).length;
-
-//     if (estadtupla == 0) {
-//       idimgfot.innerHTML = `<img class="clsimg" src='/static/bs532/img/einstein_883032.png' style="position: relative; width: 100%;" alt="My image">`;
-//       fotomodal.innerHTML = `<img  src='/static/bs532/img/einstein_883032.png' style="position: relative;  width: 10cm; height:10cm;transform: scale(1)"" alt="My image">`;
-//     } else {
-//       idimgfot.innerHTML = `<img src='/media/${datsfots.img_usuario[0].fotoperfil}'
-//                             class="clsimg my_img_html" style="width: 100%;  ;" alt="My image">`;
-//       fotomodal.innerHTML = `<img src='/media/${datsfots.img_usuario[0].fotoperfil}'
-//                             class="clsimg my_img_html" style="width: 10cm; height:10cm;transform: scale(1)" alt="My image">`;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// window.addEventListener("load", async () => {
-//   await imgFoto();
-// });
-
-// MathJax = {
-//   tex: {
-//     inlineMath: [
-//       ["$", "$"],
-//       ["\\(", "\\)"],
-//     ],
-//   },
-//   svg: {
-//     fontCache: "global",
-//   },
-// };

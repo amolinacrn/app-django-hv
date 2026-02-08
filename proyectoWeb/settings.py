@@ -19,17 +19,32 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# AWS_ACCESS_KEY_ID="276a3df3955eb2ef6cc5ff5d6bdec0b8"
+# AWS_SECRET_ACCESS_KEY="1fb9a30d0b4029a7d9a48a569dce6e4de5a67c2405aa326ad0d959fd1c6615ef"
+# HOST="aws-0-us-west-2.pooler.supabase.com"
+# NAME="postgres"
+# PASSWORD="6Z5gpoBixHlNuwdl"
+# PORT="6543"
+# SECRET_KEY="django-insecure-pdion^t*fyk8mzv_8a65^oq6nzdz21cot_dzpw#sjlg#auq99w"
+# USER="postgres.qxncaqxoiaforsbyjytb"
+# SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4bmNhcXhvaWFmb3JzYnlqeXRiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2OTExNjQzNywiZXhwIjoyMDg0NjkyNDM3fQ.UlbiRLeaavpF8c_NM7OV7d1-U51_r-6R9f2RuyulJY"
+# SUPABASE_URL="https://qxncaqxoiaforsbyjytb.supabase.co"
+# AWS_STORAGE_BUCKET_NAME="media"
+# AWS_S3_ENDPOINT_URL="https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/s3"
+# AWS_S3_REGION_NAME="us-west-2"
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DB_SECRET_KEY")
+SECRET_KEY = "django-insecure-pdion^t*fyk8mzv_8a65^oq6nzdz21cot_dzpw#sjlg#auq99w"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ["app-hv.onrender.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -63,22 +78,27 @@ STORAGES = {
 }
 
 
-#variables de entorno
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL")
-AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_SERVICE_ROLE_KEY =  os.environ.get("") 
 
+# AWS_ACCESS_KEY_ID = "68aafa97aa82de1281e4e777f591ac97"
+# AWS_SECRET_ACCESS_KEY = "405fbd3e10591af04aa845592c8f80ab0a3a4612698c228bc28006c902efa69c"
+# SUPABASE_URL = "https://tkkhlfkmsbbbqmdsbhug.supabase.co"
+# AWS_STORAGE_BUCKET_NAME = "media"
+# AWS_S3_ENDPOINT_URL = "https://tkkhlfkmsbbbqmdsbhug.storage.supabase.co/storage/v1/s3"
+# SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsIneyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRra2hsZmttc2JiYnFtZHNiaHVnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDUyMjUxMSwiZXhwIjoyMDg2MDk4NTExfQ.l63eSdms5bL5UVu6ZihCjNITvOApIgFJufIieucPtPw"
+# AWS_S3_REGION_NAME = 'us-east-2'
 
-##se pueden quedar aqui
+AWS_STORAGE_BUCKET_NAME = os.environ.get("DB_AWS_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = os.environ.get("DB_AWS_S3_ENDPOINT_URL")
+AWS_S3_REGION_NAME = os.environ.get("DB_AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("DB_AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("DB_AWS_SECRET_ACCESS_KEY")
+SUPABASE_URL = os.environ.get("DB_SUPABASE_URL")
+SUPABASE_SERVICE_ROLE_KEY =  os.environ.get("DB_SUPABASE_SERVICE_ROLE_KEY") 
+
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_ADDRESSING_STYLE = "path"
 AWS_DEFAULT_ACL = None
 AWS_QUERYSTRING_AUTH = True
-
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -139,15 +159,24 @@ DATABASES = {
     #     "NAME": BASE_DIR / "db.sqlite3",
     # }
 
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": "postgres",
+    #     "USER": "postgres.tkkhlfkmsbbbqmdsbhug",
+    #     "PASSWORD": "ES1dmwPHkCP3dWIg",
+    #     "HOST": "aws-1-us-east-2.pooler.supabase.com",
+    #     "PORT": "6543",
+    #     "OPTIONS": {"sslmode": "require"},
+    # }
     "default": {
-          "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("NAME"),
         "USER": os.environ.get("USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
         "HOST": os.environ.get("HOST"),
         "PORT": os.environ.get("PORT"),
         "OPTIONS": {"sslmode": "require"},
-    }
+        }
 }
 
 # Password validation
@@ -193,11 +222,11 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # MEDIA_URL = '/media/'
 
 
-#MEDIA_ROOT = BASE_DIR / "media"
-#MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
 
 # MEDIA_URL = "https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/object/public/media/"
-MEDIA_URL = "https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/object/public/media/"
+# MEDIA_URL = "https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/object/public/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

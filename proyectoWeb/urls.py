@@ -20,14 +20,14 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
-from hojadevida.views import get_signed_url
+# from hojadevida.views import get_signed_url
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hojadevida/", include("hojadevida.urls")),
     # path("physimathcode/", include("physimathcode.urls")),
     path("autenticacion/", include("autenticacion.urls")),
-    path("signed-url/", get_signed_url, name="signed-url"),
+    # path("signed-url/", get_signed_url, name="signed-url"),
     
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

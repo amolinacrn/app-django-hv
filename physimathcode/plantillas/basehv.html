@@ -267,7 +267,7 @@
 
                 var dirdiplomas = document.getElementById("indentificacion_del_modal")
                 identificador_titulo = document.getElementById("identificador_titulo")
-                /*
+
                 function funcionVisualizarModal(exp_lab, soporete_adjunto) {
                     identificador_titulo.innerHTML = soporete_adjunto;
                     dirdiplomas.innerHTML = `<embed src="${exp_lab}" type="application/pdf" width="100%" height="100%"
@@ -276,31 +276,32 @@
                         $('#verexplab').modal('toggle')
                     });
 
-                }*/
-                function funcionVisualizarModal(exp_lab, soporete_adjunto) {
-                    console.log(exp_lab + " " + soporete_adjunto);
-
-                    identificador_titulo.innerHTML = soporete_adjunto;
-
-                    fetch(`/signed-url/?path=${exp_lab}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            dirdiplomas.innerHTML = `
-                        <embed src="${data.signed_url}" 
-                               type="application/pdf" 
-                               width="100%" 
-                               height="100%" 
-                               style="height: 20cm;" />
-                    `;
-
-                            $('#verexplab').modal('toggle');
-                        })
-                        .catch(error => {
-                            console.error("Error obteniendo URL firmada:", error);
-                            alert("No se pudo cargar el documento.");
-                        });
                 }
-
+                /*
+                 function funcionVisualizarModal(exp_lab, soporete_adjunto) {
+                     console.log(exp_lab + " " + soporete_adjunto);
+ 
+                     identificador_titulo.innerHTML = soporete_adjunto;
+ 
+                     fetch(`/signed-url/?path=${exp_lab}`)
+                         .then(response => response.json())
+                         .then(data => {
+                             dirdiplomas.innerHTML = `
+                         <embed src="${data.signed_url}" 
+                                type="application/pdf" 
+                                width="100%" 
+                                height="100%" 
+                                style="height: 20cm;" />
+                     `;
+ 
+                             $('#verexplab').modal('toggle');
+                         })
+                         .catch(error => {
+                             console.error("Error obteniendo URL firmada:", error);
+                             alert("No se pudo cargar el documento.");
+                         });
+                 }
+                    */
 
             </script>
 

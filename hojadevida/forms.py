@@ -6,7 +6,7 @@ from .validator import MaxZiseImageValidator
 from django.contrib.auth.models import User
 from .choises import *
 from django.core.validators import RegexValidator
-
+from django.utils.safestring import mark_safe
 
 class FotosPersonalesForm(forms.ModelForm):
 
@@ -72,14 +72,14 @@ class DatosPersonalesForm(forms.ModelForm):
                 self.fields[field_name].initial = getattr(db_obj, field_name)
 
     documento_identificacion = forms.CharField(
-        max_length=50,
-        label="<h7 style='color:red'>*</h7> Tipo Documento:",
-        required=True,
-        widget=forms.Select(choices=TIPO_DOCUMENTO),
+    max_length=50,
+    label=mark_safe("<span style='color:red'>*</span> Tipo Documento:"),
+    required=True,
+    widget=forms.Select(choices=TIPO_DOCUMENTO),
     )
 
     numero_identificacion = forms.CharField(
-        label="<h7 style='color:red'>*</h7> Número de documento:",
+        label=mark_safe("<span style='color:red'>*</span> Número de documento:"),
         required=True,
         widget=forms.NumberInput(),
     )
@@ -93,107 +93,111 @@ class DatosPersonalesForm(forms.ModelForm):
 
     ciudad_expedicion_documento = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Ciudad de expedición:",
+        label=mark_safe("<span style='color:red'>*</span> Ciudad de expedición:"),
         required=True,
     )
 
     primer_nombre = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Primer nombre:",
+        label=mark_safe("<span style='color:red'>*</span> Primer nombre:"),
         required=True,
     )
 
     segundo_nombre = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Segundo nombre:",
+        label=mark_safe("<span style='color:red'>*</span> Segundo nombre:"),
         required=True,
     )
 
     primer_apellido = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Primer apellido:",
+        label=mark_safe("<span style='color:red'>*</span> Primer apellido:"),
         required=True,
     )
 
     segundo_apellido = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Segundo apellido:",
+        label=mark_safe("<span style='color:red'>*</span> Segundo apellido:"),
         required=True,
     )
 
     genero_sexual = forms.CharField(
         max_length=15,
-        label="<h7 style='color:red'>*</h7> Sexo biológico:",
+        label=mark_safe("<span style='color:red'>*</span> Sexo biológico:"),
         required=True,
         widget=forms.Select(choices=TIPO_SEXO),
     )
 
     grupo_sanguineo = forms.CharField(
         max_length=15,
-        label="<h7 style='color:red'>*</h7> Grupo sanguineo:",
+        label=mark_safe("<span style='color:red'>*</span> Grupo sanguineo:"),
         required=True,
         widget=forms.Select(choices=TIPO_SANGRE),
     )
 
     estado_civil = forms.CharField(
         max_length=15,
-        label="<h7 style='color:red'>*</h7> Estado civil:",
+        label=mark_safe("<span style='color:red'>*</span> Estado civil:"),
         required=True,
         widget=forms.Select(choices=ESTADO_CIVIL_TIPO),
     )
 
     ciudad_nacimiento = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Ciudad de nacimiento:",
+        label=mark_safe("<span style='color:red'>*</span> Ciudad de nacimiento:"),
         required=True,
     )
 
     fecha_nacimiento = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha de nacimiento:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha de nacimiento:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
 
     pais_origen = forms.CharField(
-        max_length=20, label="<h7 style='color:red'>*</h7> País:", required=True,
+        max_length=20,
+        label=mark_safe("<span style='color:red'>*</span> País:"),
+        required=True,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
 
     departamento_origen = forms.CharField(
-        max_length=20, 
-        label="<h7 style='color:red'>*</h7> Departamento:",
+        max_length=20,
+        label=mark_safe("<span style='color:red'>*</span> Departamento:"),
         required=True,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
 
     nacionalidad = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Nacionalidad:",
+        label=mark_safe("<span style='color:red'>*</span> Nacionalidad:"),
         required=True,
         widget=forms.Select(choices=NACIONALIDAD_CLASE),
     )
 
     ciudad_residencia = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Ciudad de residencia:",
+        label=mark_safe("<span style='color:red'>*</span> Ciudad de residencia:"),
         required=True,
     )
 
     direccion_residencia = forms.CharField(
-        max_length=50, label="Dirección:", required=False
+        max_length=50,
+        label="Dirección:",
+        required=False
     )
 
     telefono_celular = forms.CharField(
         max_length=13,
-        label="<h7 style='color:red'>*</h7> Celular:",
+        label=mark_safe("<span style='color:red'>*</span> Celular:"),
         required=True,
         widget=forms.NumberInput(),
     )
 
     correo_electronico = forms.EmailField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> Correo electrónico:",
+        label=mark_safe("<span style='color:red'>*</span> Correo electrónico:"),
         required=True,
     )
 
@@ -212,15 +216,17 @@ class DatosPersonalesForm(forms.ModelForm):
     )
 
     cuenta_github = forms.URLField(
-        max_length=50, label="Cuenta github:", required=False
+        max_length=50,
+        label="Cuenta github:",
+        required=False
     )
 
     fotocopia_documento = forms.FileField(
         label="Fotocopia Cédula (pdf):",
         required=False,
-        widget=forms.FileInput(),#(attrs={'class': 'upload-img green'}),
+        widget=forms.FileInput(),
         validators=[MaxZiseFileValidator(max_file_size=1)]
-        )
+    )
 
     perfil_profesional = forms.CharField(
         max_length=1500,
@@ -235,15 +241,15 @@ class DatosPersonalesForm(forms.ModelForm):
     )
 
     titulo_mas_reciente = forms.CharField(
-    max_length=50,
-    label="<h7 style='color:red'>*</h7> Último título obtenido:",
-    required=True,
+        max_length=50,
+        label=mark_safe("<span style='color:red'>*</span> Último título obtenido:"),
+        required=True,
     )
 
     universidad_titulo_mas_reciete = forms.CharField(
-    max_length=50,
-    label="<h7 style='color:red'>*</h7> Univerisdad último título:",
-    required=True,
+        max_length=50,
+        label=mark_safe("<span style='color:red'>*</span> Univerisdad último título:"),
+        required=True,
     )
 
 
@@ -262,40 +268,40 @@ class FormularioTitulosAcademicos(forms.ModelForm):
 
     grado_academico = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Titulación académica:",
+        label=mark_safe("<span style='color:red'>*</span> Titulación académica:"),
         required=True,
         widget=forms.Select(choices=GRADO_ACADEMICO_PROFESIONAL),
     )
     titulo_obtenido = forms.CharField(
         max_length=100,
-        label="<h7 style='color:red'>*</h7> Título obtenido:",
+        label=mark_safe("<span style='color:red'>*</span> Título obtenido:"),
         required=True,
     )
     institucion_universitaria = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Institución universitaria:",
+        label=mark_safe("<span style='color:red'>*</span> Institución universitaria:"),
         required=True,
     )
     programa_academico = forms.CharField(
         max_length=100,
-        label="Programa académico:",
+        label=mark_safe("Programa académico:"),
         required=False,
     )
     modalidad_academica  = forms.CharField(
         max_length=20,
-        label="<h7 style='color:red'>*</h7> Modalidad académica:",
+        label=mark_safe("<span style='color:red'>*</span> Modalidad académica:"),
         required=True,
         widget=forms.Select(choices=MODALIDAD_ACADEMICA),
     )
     fecha_inicio = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha de inicio:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha de inicio:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
     graudado_universitario = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Graduado:",
+        label=mark_safe("<span style='color:red'>*</span> Graduado:"),
         required=True,
         widget=forms.Select(choices=ES_GRADUADO_UNIVERSITARIO),
     )
@@ -311,7 +317,7 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         ),
     )
     fecha_finalizacion = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha de finalización:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha de finalización:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
@@ -322,13 +328,13 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         required=False,
     )
     pais_titulo = forms.CharField(
-         max_length=20, label="<h7 style='color:red'>*</h7> País:", required=True,
+         max_length=20, label=mark_safe("<span style='color:red'>*</span> País:"), required=True,
          widget=forms.Select(choices=LISTA_PAISES_MUNDO),
          
         )
 
     departamento_titulo = forms.CharField(
-        max_length=20, label="<h7 style='color:red'>*</h7> Departamento:", required=True,
+        max_length=20, label=mark_safe("<span style='color:red'>*</span> Departamento:"), required=True,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
     ciudad_titulo = forms.CharField(
@@ -336,7 +342,7 @@ class FormularioTitulosAcademicos(forms.ModelForm):
     )
 
     diploma_titulo = forms.FileField(
-        label="Soporte titulación  (<b>.pdf</b>):",
+        label=mark_safe("Adjuntar diploma en (<b><span style='color:red'>.pdf</span></b>):"),
         required=False,
         widget=forms.FileInput(),#(attrs={'class': 'upload-img green'}),
         validators=[
@@ -363,13 +369,17 @@ class FormExperienciaLaboral(forms.ModelForm):
         required=False,
         widget=forms.Select(choices=TIPO_DE_EMPRESA_LABORAL),
     )
+
     nombre_empresa = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Nombre empresa:",
+        label=mark_safe("<span style='color:red'>*</span> Nombre empresa:"),
         required=True,
     )
+
     cargo = forms.CharField(
-        max_length=80, label="<h7 style='color:red'>*</h7>  Cargo:", required=True
+        max_length=80,
+        label=mark_safe("<span style='color:red'>*</span>  Cargo:"),
+        required=True
     )
 
     tipo_contrato = forms.CharField(
@@ -378,20 +388,23 @@ class FormExperienciaLaboral(forms.ModelForm):
         required=False,
         widget=forms.Select(choices=TITPO_CONTRATO_EMPRESA_LABORAL),
     )
+
     departamento_contrato = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> Departamento:",
+        label=mark_safe("<span style='color:red'>*</span> Departamento:"),
         required=True,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
+
     ciudad_contrato = forms.CharField(
         max_length=50,
         label="Ciudad:",
         required=False,
     )
+
     pais_contrato = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> País:",
+        label=mark_safe("<span style='color:red'>*</span> País:"),
         required=True,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
@@ -399,7 +412,7 @@ class FormExperienciaLaboral(forms.ModelForm):
     contacto_empresa = forms.CharField(
         max_length=12,
         required=True,
-        label="<h7 style='color:red'>*</h7> Telefono empresa:",
+        label=mark_safe("<span style='color:red'>*</span> Telefono empresa:"),
         widget=forms.NumberInput(),
         validators=[
             RegexValidator(
@@ -407,15 +420,14 @@ class FormExperienciaLaboral(forms.ModelForm):
                 message="Ingrese un número de 12 dígitos"
             )
         ]
-
     )
-
 
     correo_electronico_empresa = forms.EmailField(
         max_length=50,
         label="Email empresa:",
         required=False,
     )
+
     dependencia = forms.CharField(
         max_length=80,
         label="Dependencia:",
@@ -427,27 +439,31 @@ class FormExperienciaLaboral(forms.ModelForm):
         label="Dirección empresa:",
         required=False,
     )
+
     fecha_inicio = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha inicio:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha inicio:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
 
     fecha_fin = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha finalización:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha finalización:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
+
     soportes_experincias_laborales = forms.FileField(
-        label="Soporte experiencia laboral (<b>.jpg</b>):",
+        label=mark_safe("Soporte experiencia laboral (<b>.jpg</b>):"),
         required=False,
         widget=forms.FileInput(),
         validators=[
             MaxZiseFileValidator(max_file_size=1),
         ],
     )
+
+
 
 
 class FormularioProduccionAcademica(forms.ModelForm):
@@ -464,37 +480,42 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     autores_trabajo = forms.CharField(
         max_length=200,
-        label="<h7 style='color:red'>*</h7>  Nombres de los autores:",
+        label=mark_safe("<span style='color:red'>*</span>  Nombres de los autores:"),
         required=True,
     )
+
     nombre_trabajo = forms.CharField(
         max_length=300,
-        label="<h7 style='color:red'>*</h7> Nombre publicación:",
+        label=mark_safe("<span style='color:red'>*</span> Nombre publicación:"),
         required=True,
     )
+
     pais_publicacion = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7>  País:",
+        label=mark_safe("<span style='color:red'>*</span>  País:"),
         required=True,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
 
     fecha_publicacion = forms.DateField(
-        label="<h7 style='color:red'>*</h7>  Fecha publicaciòn:",
+        label=mark_safe("<span style='color:red'>*</span>  Fecha publicaciòn:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
+
     nombre_revista = forms.CharField(
         max_length=100,
-        label="<h7 style='color:red'>*</h7> Nombre revista:",
+        label=mark_safe("<span style='color:red'>*</span> Nombre revista:"),
         required=True,
     )
+
     area_concentracion = forms.CharField(
         max_length=150,
         label="Area de concentración:",
         required=False,
     )
+
     linea_pesquisa = forms.CharField(
         max_length=150,
         label="Linea de investigación:",
@@ -503,9 +524,10 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     doi_link_publicacion = forms.URLField(
         max_length=100,
-        label="<h7 style='color:red'>*</h7> Link o DOI:",
+        label=mark_safe("<span style='color:red'>*</span> Link o DOI:"),
         required=True,
     )
+
 
 
 class FormularioParticipacionCientifica(forms.ModelForm):
@@ -521,47 +543,53 @@ class FormularioParticipacionCientifica(forms.ModelForm):
         self.fields["nombre_usuario"].initial = self.current_user
 
     nombre_evento_cientifico = forms.CharField(
-        max_length=200,
-        label="<h7 style='color:red'>*</h7>  Nombre del evento:",
-        required=True,
+    max_length=200,
+    label=mark_safe("<span style='color:red'>*</span>  Nombre del evento:"),
+    required=True,
     )
+
     tipo_evento = forms.CharField(
         max_length=150,
-        label="<h7 style='color:red'>*</h7> Tipo de evento:",
+        label=mark_safe("<span style='color:red'>*</span> Tipo de evento:"),
         required=True,
         widget=forms.Select(choices=TIPO_EVENTO_CIENTIFICO),
     )
+
     institucion_evento = forms.CharField(
         max_length=100,
-        label="<h7 style='color:red'>*</h7>  Institución del evento:",
+        label=mark_safe("<span style='color:red'>*</span>  Institución del evento:"),
         required=True,
     )
 
     ciudad_evento = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7>  Ciudad del evento:",
+        label=mark_safe("<span style='color:red'>*</span>  Ciudad del evento:"),
         required=True,
     )
+
     departamento_evento = forms.CharField(
         max_length=50,
         label="Departamento del evento:",
         required=False,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
+
     pais_evento = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> Pais del evento:",
+        label=mark_safe("<span style='color:red'>*</span> Pais del evento:"),
         required=True,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
+
     fecha_inicio_evento = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha inicio:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha inicio:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
+
     fecha_fin_evento = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha fin:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha fin:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
@@ -569,20 +597,17 @@ class FormularioParticipacionCientifica(forms.ModelForm):
 
     modalidad_evento = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Rol en el evento:",
+        label=mark_safe("<span style='color:red'>*</span> Rol en el evento:"),
         required=True,
         widget=forms.Select(choices=MODALIDAD_EVENTO_CIENTIFICO),
     )
 
     soportes_eventos_cientificos = forms.FileField(
-        label="soporte del evento (<b>.pdf</b>):",
+        label=mark_safe("soporte del evento (<b>.pdf</b>):"),
         required=False,
         widget=forms.FileInput(),
-        validators=[
-            MaxZiseFileValidator(max_file_size=1),
-        ],
+        validators=[MaxZiseFileValidator(max_file_size=1)],
     )
-
 
 class FormularioIdiomaExtrangero(forms.ModelForm):
 
@@ -597,43 +622,48 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
         self.fields["nombre_usuario"].initial = self.current_user
 
     tipo_idioma = forms.CharField(
-        max_length=30,
-        label="<h7 style='color:red'>*</h7>  Idioma:",
-        required=True,
-        widget=forms.Select(choices=DOMINIO_LENGUAGES),
+    max_length=30,
+    label=mark_safe("<span style='color:red'>*</span>  Idioma:"),
+    required=True,
+    widget=forms.Select(choices=DOMINIO_LENGUAGES),
     )
+
     domimio_conversacional = forms.CharField(
         max_length=3,
-        label="<h7 style='color:red'>*</h7> Dominio conversacional:",
+        label=mark_safe("<span style='color:red'>*</span> Dominio conversacional:"),
         required=True,
         widget=forms.Select(choices=NIVEL_SUFICIENCIA_INGLES),
     )
+
     dominio_lectura = forms.CharField(
         max_length=3,
-        label="<h7 style='color:red'>*</h7>  Dominio de la lectura:",
+        label=mark_safe("<span style='color:red'>*</span>  Dominio de la lectura:"),
         required=True,
         widget=forms.Select(choices=NIVEL_SUFICIENCIA_INGLES),
     )
 
     dominio_escritura = forms.CharField(
         max_length=3,
-        label="<h7 style='color:red'>*</h7> Dominio de la escritura:",
+        label=mark_safe("<span style='color:red'>*</span> Dominio de la escritura:"),
         required=True,
         widget=forms.Select(choices=NIVEL_SUFICIENCIA_INGLES),
     )
+
     nevel_certificado = forms.CharField(
         max_length=3,
-        label="<h7 style='color:red'>*</h7> Nivel:",
+        label=mark_safe("<span style='color:red'>*</span> Nivel:"),
         required=True,
         widget=forms.Select(choices=NIVEL_INGLES_CERTIFICADO),
     )
+
     institucion_expedicion_certificado = forms.CharField(
         max_length=80,
-        label="<h7 style='color:red'>*</h7> Institución expedición del certificado:",
+        label=mark_safe("<span style='color:red'>*</span> Institución expedición del certificado:"),
         required=True,
     )
+
     fecha_obtecion_certificado = forms.DateField(
-        label="<h7 style='color:red'>*</h7> Fecha del certificado:",
+        label=mark_safe("<span style='color:red'>*</span> Fecha del certificado:"),
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
@@ -641,32 +671,31 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
 
     pais_obtencion_certificado = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> País:",
+        label=mark_safe("<span style='color:red'>*</span> País:"),
         required=True,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
 
     departamento_obtencion_certificado = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> Departamento:",
+        label=mark_safe("<span style='color:red'>*</span> Departamento:"),
         required=True,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
 
     ciudad_obtencion_certificado = forms.CharField(
         max_length=50,
-        label="<h7 style='color:red'>*</h7> Ciudad:",
+        label=mark_safe("<span style='color:red'>*</span> Ciudad:"),
         required=True,
     )
 
     soporte_certificado_idioma = forms.FileField(
-        label="Soporte certificado de idioma (<b>.pdf</b>):",
+        label=mark_safe("Soporte certificado de idioma (<b>.pdf</b>):"),
         required=False,
         widget=forms.FileInput(),
-        validators=[
-            MaxZiseFileValidator(max_file_size=1),
-        ],
+        validators=[MaxZiseFileValidator(max_file_size=1)],
     )
+
 
 
 class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
@@ -682,36 +711,37 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
         self.fields["nombre_usuario"].initial = self.current_user
 
 
-    herramienta_tecnica=forms.CharField(
+    herramienta_tecnica = forms.CharField(
         max_length=30,
-        label="<h7 style='color:red'>*</h7> Competencias técnicas:",
+        label=mark_safe("<span style='color:red'>*</span> Competencias técnicas:"),
         required=True,
         widget=forms.Select(choices=COMPETENCIAS_TECNICAS_COMPUTACIONALES),
     )
-    dominio_basico =forms.CharField(
+
+    dominio_basico = forms.CharField(
         max_length=30,
-        label="<h7 style='color:red'>*</h7> Dominio básico:",
+        label=mark_safe("<span style='color:red'>*</span> Dominio básico:"),
         required=True,
         widget=forms.Select(choices=DOMINIO_BASICO_COMPOTENCIA),
     )
-    dominio_medio =forms.CharField(
+
+    dominio_medio = forms.CharField(
         max_length=30,
-        label="<h7 style='color:red'>*</h7> Dominio medio:",
+        label=mark_safe("<span style='color:red'>*</span> Dominio medio:"),
         required=True,
         widget=forms.Select(choices=DOMINIO_MEDIO_COMPOTENCIA),
     )
-    dominio_avanzado =forms.CharField(
+
+    dominio_avanzado = forms.CharField(
         max_length=30,
-        label="<h7 style='color:red'>*</h7> Dominio avanzado:",
+        label=mark_safe("<span style='color:red'>*</span> Dominio avanzado:"),
         required=True,
         widget=forms.Select(choices=DOMINIO_AVANZADO_COMPOTENCIA),
     )
 
     soporte_competencia_computacional = forms.FileField(
-        label="Agregar certificado (<b>.pdf</b>):",
+        label=mark_safe("Agregar certificado (<b>.pdf</b>):"),
         required=False,
         widget=forms.FileInput(),
-        validators=[
-            MaxZiseFileValidator(max_file_size=1),
-        ],
+        validators=[MaxZiseFileValidator(max_file_size=1)],
     )

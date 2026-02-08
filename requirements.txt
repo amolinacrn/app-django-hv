@@ -4,10 +4,11 @@ boto3
 whitenoise
 django
 django-crispy-forms
-crispy-bootstrap5==0.1
+crispy-bootstrap5
 numpy
-WeasyPrint==51
-xhtml2pdf==0.2.15
+WeasyPrint
+xhtml2pdf
 django_cleanup
 sorl-thumbnail
 pdf2image
+psycopg2-binary
