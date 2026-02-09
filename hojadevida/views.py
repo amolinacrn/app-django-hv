@@ -175,36 +175,26 @@ def view_pdf_HV(request):
             participacion_cientifica
         ))
 
-
-        # for _, info in  conjuto_modelos.items():
-        #     if info["queryset"].count() != 0:
-        #         for modelo in info["queryset"]:
-        #             campo_pdf = info["certificado_pdf"]
-        #             archivo = getattr(modelo, campo_pdf)
-                    
-        #             if archivo:
-        #                 # pdf_path = archivo.url
-        #                 #storage = S3Boto3Storage()
-        #                 path = archivo.name
-        #                 pdf_url = supabase.storage.from_("media").create_signed_url(path, 3600)["signedURL"]
-                                              
-        #                 response = requests.get(pdf_url)
-        #                 if response.status_code != 200:
-        #                     print(response.status_code)
-        #                     raise Exception("No se pudo descargar el PDF")
-                           
-        #                 pdf_bytes = BytesIO(response.content)
-
-        #                 # Convertir a imágenes
-        #                 pages = convert_from_bytes(pdf_bytes.read(), dpi=200)
-
-        #                 imagenes_base64 = []
-        #                 for page in pages:
-        #                     buffer = BytesIO()
-        #                     page.save(buffer, format="JPEG", quality=70)  # comprime
-        #                     img_str = base64.b64encode(buffer.getvalue()).decode()
-        #                     imagenes_base64.append(img_str)
-        #                 matriz_imagenes_base64.append((imagenes_base64,modelo.link,archivo.url))
+        for _, info in  conjuto_modelos.items():
+            if info["queryset"].count() != 0:
+                for modelo in info["queryset"]:
+                    campo_pdf = info["certificado_pdf"]
+                    archivo = getattr(modelo, campo_pdf)
+                    if archivo and archivo.name:
+                        path = archivo.name
+                        result = supabase.storage.from_("media").create_signed_url(path, 3600)
+                        pdf_url = result.get("signedURL") or result.get("signedUrl")
+                        response = requests.get(pdf_url)
+                        response.raise_for_status()
+                        #  AQUÍ SE CONVIERTE EL PDF A PÁGINAS
+                        pages = convert_from_bytes(response.content, dpi=200)
+                        imagenes_base64 = []
+                        for page in pages:
+                            buffer = BytesIO()
+                            page.save(buffer, format="JPEG", quality=70)  # comprime
+                            img_str = base64.b64encode(buffer.getvalue()).decode()
+                            imagenes_base64.append(img_str)
+                        matriz_imagenes_base64.append((imagenes_base64,modelo.link,archivo.url))
 
         contexto={ 
             'eye_icon': eye_icon,
