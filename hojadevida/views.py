@@ -25,8 +25,7 @@ import os.path
 import unicodedata
 import re
 
-
-# supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
+supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
 
 # def get_signed_url(request):
     
