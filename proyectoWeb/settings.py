@@ -124,18 +124,6 @@ WSGI_APPLICATION = "proyectoWeb.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.mysql",
-    #     "NAME": "db_physimath_mysql",
-    #     "USER": "root",
-    #     "PASSWORD": "reT@urnSm20Q",
-    #     "HOST": "localhost",
-    #     "PORT": "3306",
-    # }
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
 
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -218,6 +206,7 @@ LATEX_INTERPRETER = "pdflatex"
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
+
 
 
 
