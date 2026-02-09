@@ -446,10 +446,10 @@ class FormacionAcademicaHV(View):
                 nombre_usuario_id=request.user.id
             )
 
-            # url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-            # if foto_perfil and foto_perfil.first().foto_perfil:
-            if queryset_dat and queryset_dat.first().diploma_titulo.url:
-                url_diploma = request.build_absolute_uri(queryset_dat.first().diploma_titulo.url)  
+            obj = queryset_dat.first()
+            if obj and obj.diploma_titulo and obj.diploma_titulo.url:
+                archivo_url = obj.diploma_titulo.url
+                url_diploma = request.build_absolute_uri(archivo_url)  
                 for e in queryset_dat:
                     e.documento_diploma_url = url_diploma
 
