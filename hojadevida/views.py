@@ -174,6 +174,7 @@ def view_pdf_HV(request):
             participacion_cientifica
         ))
 
+
         for _, info in  conjuto_modelos.items():
             if info["queryset"].count() != 0:
                 for modelo in info["queryset"]:
