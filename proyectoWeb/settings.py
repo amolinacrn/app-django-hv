@@ -53,30 +53,30 @@ INSTALLED_APPS = [
 # Configuración de los mensajes (esto es opcional, pero es recomendable)
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-#     },
-#     "staticfiles": {
-#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-#     },
-# }
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 
 
-# AWS_STORAGE_BUCKET_NAME = os.environ.get("DB_AWS_STORAGE_BUCKET_NAME")
-# AWS_S3_ENDPOINT_URL = os.environ.get("DB_AWS_S3_ENDPOINT_URL")
-# AWS_S3_REGION_NAME = os.environ.get("DB_AWS_S3_REGION_NAME")
-# AWS_ACCESS_KEY_ID = os.environ.get("DB_AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.environ.get("DB_AWS_SECRET_ACCESS_KEY")
-# SUPABASE_URL = os.environ.get("DB_SUPABASE_URL")
-# SUPABASE_SERVICE_ROLE_KEY =  os.environ.get("DB_SUPABASE_SERVICE_ROLE_KEY") 
-# SUPABASE_KEY= os.environ.get("DB_SUPABASE_KEY") 
+AWS_STORAGE_BUCKET_NAME = os.environ.get("DB_AWS_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = os.environ.get("DB_AWS_S3_ENDPOINT_URL")
+AWS_S3_REGION_NAME = os.environ.get("DB_AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("DB_AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("DB_AWS_SECRET_ACCESS_KEY")
+SUPABASE_URL = os.environ.get("DB_SUPABASE_URL")
+SUPABASE_SERVICE_ROLE_KEY =  os.environ.get("DB_SUPABASE_SERVICE_ROLE_KEY") 
+SUPABASE_KEY= os.environ.get("DB_SUPABASE_KEY") 
 
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# AWS_S3_ADDRESSING_STYLE = "path"
-# AWS_DEFAULT_ACL = None
-# AWS_QUERYSTRING_AUTH = True
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = "path"
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = True
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -219,6 +219,7 @@ LATEX_INTERPRETER = "pdflatex"
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
+
 
 
 
