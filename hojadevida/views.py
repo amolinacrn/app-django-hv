@@ -446,12 +446,11 @@ class FormacionAcademicaHV(View):
                 nombre_usuario_id=request.user.id
             )
 
-            obj = queryset_dat.first()
-            if obj and obj.diploma_titulo and obj.diploma_titulo.url:
-                archivo_url = obj.diploma_titulo.url
-                url_diploma = request.build_absolute_uri(archivo_url)  
-                for e in queryset_dat:
-                    e.documento_diploma_url = url_diploma
+        for objeto in queryset_dat:
+                if objeto and objeto.diploma_titulo and objeto.diploma_titulo.url:
+                    archivo_url = objeto.diploma_titulo.url
+                    url_diploma = request.build_absolute_uri(archivo_url)  
+                    objeto.documento_diploma_url = url_diploma
 
             contexto = {
                 "form": formacion_academica,
