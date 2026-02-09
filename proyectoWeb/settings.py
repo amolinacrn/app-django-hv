@@ -191,11 +191,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # MEDIA_URL = '/media/'
 
 
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "media/"
+#MEDIA_ROOT = BASE_DIR / "media"
+#MEDIA_URL = "media/"
 
-# MEDIA_URL = "https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/object/public/media/"
-# MEDIA_URL = "https://qxncaqxoiaforsbyjytb.storage.supabase.co/storage/v1/object/public/media/"
+MEDIA_URL = "https://tkkhlfkmsbbbqmdsbhug.storage.supabase.co/storage/v1/object/public/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -219,6 +218,7 @@ LATEX_INTERPRETER = "pdflatex"
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
+
 
 
 
