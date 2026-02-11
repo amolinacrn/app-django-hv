@@ -1,0 +1,227 @@
+.my_img {
+  width: 3.5cm;
+  height: 4.5cm;
+  border-radius: 5%;
+  border: 5px solid rgb(255, 255, 255);
+}
+
+.my_img_html {
+  width: 3.5cm;
+  height: 4.5cm;
+  border-radius: 1px;
+  border: 3px solid rgb(255, 255, 255);
+}
+
+.formato_div_carga {
+  margin: 0px;
+  padding: 5px;
+  background-color: white;
+  position: absolute;
+  margin-top: -52px;
+  margin-left: 4.5cm;
+  color: rgb(0, 0, 0);
+  width: 5vw;
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ptable,
+.ptd {
+  border: 1px solid rgb(255, 255, 255);
+  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0.5px;
+
+}
+
+.ptd {
+  margin: 0px;
+  padding: 3px;
+  padding-left: 10px;
+}
+
+.ptbody {
+  background: white;
+}
+
+.askdj {
+  background-color: #dddddd;
+}
+
+.ptr {
+  background-color: rgb(148, 148, 148);
+}
+
+table,
+tr,
+td {
+  border: 0px solid black;
+  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0.5px;
+  margin-left: -0.5px;
+}
+
+
+/* button:hover {
+      -webkit-transform: scale(1.5);
+      -moz-transform: scale(1.5);
+      -o-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+      transform: scale(1.05);
+      transition: all .3s ease-in;
+    } */
+/*
+img:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.2);
+  /*transition: all .0s ease-in;
+}
+*/
+.clsimg:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.03);
+  /*transition: all .0s ease-in;*/
+}
+
+.botonexper:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.06);
+  /*transition: all .0s ease-in;*/
+}
+
+.clsimage:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.1);
+  /*transition: all .0s ease-in;*/
+}
+
+.class_registro {
+  border: silver 1px solid;
+  margin: 10px;
+  padding: 30px;
+  margin-left: 230px;
+  margin-right: 230px;
+  background-color: #f3f3f3;
+  font-family: "arial";
+}
+
+.class_hv {
+  border: silver 1px solid;
+  margin: 10px;
+  padding: 30px;
+  margin-left: 120px;
+  margin-right: 120px;
+  background-color: #f3f3f3;
+  font-family: "arial";
+}
+
+.class_div {
+  border: rgba(192, 192, 192, 0.225) 1px solid;
+  margin: 0px;
+  padding: 1vw;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #f3f3f3;
+  font-family: "arial";
+  font-size: 15px;
+  border-top: rgb(21, 21, 21) 5px solid;
+  border-radius: 10px;
+}
+
+.div_class_foto {
+  position: absolute;
+  border: rgba(192, 192, 192, 0) 1px solid;
+  padding: 0px;
+  margin-left: 63px;
+  margin-right: 0px;
+  background-color: #bf0f0f00;
+  font-family: "arial";
+  margin-top: 97px;
+  width: 3.85cm;
+}
+
+.div_guardar_foto {
+  width: 3.5cm;
+  margin: 0px;
+}
+
+.class_div_class {
+  margin-top: 1vw;
+  margin-left: 2vw;
+  margin-right: 10vw;
+  background-color: #bcbbbb;
+  padding: 1vw;
+  font-family: "arial";
+  border-radius: 15px;
+}
+
+.class_div_div {
+  margin-top: 1vw;
+  margin-left: 2vw;
+  margin-right: 10vw;
+  background-color: #bcbbbb;
+  padding: 1vw;
+  border-radius: 15px;
+}
+
+
+/* ---------.......-------*/
+@media (max-width: 50rem) {
+  .class_div_div {
+    margin-left: 4vw;
+    margin-right: 4vw;
+  }
+}
+
+/* ---------.......-------*/
+@media (min-width: 50rem) {
+  .formato_div_carga {
+    width: 4vw;
+  }
+}
+
+.class_hv_portada {
+  border: rgb(203, 203, 203) 1px solid;
+  margin: 3vw;
+  height: 50vh;
+  padding: 3vw;
+  margin-left: 0vw;
+  margin-right: 80vw;
+  background-color: #f3f3f3;
+  font-family: "arial";
+  /* border-top: solid rgb(8, 26, 66) 5px; */
+
+}
+
+.asteriskField {
+  display: none;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/* Esto aqui es para quitar las flechitas que ponen numeros
+    hacia arriba y hacia abajo */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox  */
