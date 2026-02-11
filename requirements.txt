@@ -12,3 +12,4 @@ sorl-thumbnail
 pdf2image
 psycopg2-binary
 gunicorn
+numpy
