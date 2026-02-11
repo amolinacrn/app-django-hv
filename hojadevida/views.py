@@ -510,7 +510,7 @@ class FormacionAcademicaHV(View):
 
 class ExperienciaLaboralHV(View):
 
-    def get(self, request, id_explab=0):
+    def get(self, request, id_explab):
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -519,10 +519,12 @@ class ExperienciaLaboralHV(View):
             nombre_usuario_id=request.user.id
         )
 
-        url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-        
-        for e in queryset_dat:
-                e.documento_url = url_absoluta
+        for objeto in queryset_dat:
+            if objeto and objeto.soportes_experincias_laborales and objeto.soportes_experincias_laborales.url:
+                archivo_url = objeto.soportes_experincias_laborales.url
+                url_diploma = request.build_absolute_uri(archivo_url)  
+                objeto.documento_diploma_url = url_diploma
+                
 
         contexto = {
             "form": expe_laboral,
@@ -653,10 +655,11 @@ class ParticipacionCientificaHV(View):
                 nombre_usuario_id=request.user.id
             )
 
-            url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-
-            for e in queryset_dat:
-                e.documento_url = url_absoluta
+            for objeto in queryset_dat:
+                if objeto and objeto.soportes_eventos_cientificos and objeto.soportes_eventos_cientificos.url:
+                    archivo_url = objeto.soportes_eventos_cientificos.url
+                    url_diploma = request.build_absolute_uri(archivo_url)  
+                    objeto.documento_url = url_diploma
 
             contexto = {
                 "form": expe_laboral,
@@ -725,11 +728,12 @@ class CompetenciasTecnicasComputacionalesHV(View):
                 nombre_usuario_id=request.user.id
             )
 
-            url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-        
-            for e in queryset_dat:
-                e.documento_url = url_absoluta
-
+            for objeto in queryset_dat:
+                if objeto and objeto.soporte_competencia_computacional and objeto.soporte_competencia_computacional.url:
+                    archivo_url = objeto.soporte_competencia_computacional.url
+                    url_diploma = request.build_absolute_uri(archivo_url)  
+                    objeto.documento_url = url_diploma
+                    
             contexto = {
                 "form": expe_laboral,
                 "querydat": queryset_dat,
@@ -786,6 +790,7 @@ class CompetenciasTecnicasComputacionalesHV(View):
         else:
             return redirect("logear")
 
+
 def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
                                      models_model,plantilla_html):
     expe_laboral = formulario_forms(
@@ -795,10 +800,11 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
         nombre_usuario_id=request.user.id
     )
     
-    url_absoluta = request.build_absolute_uri(settings.MEDIA_URL)
-
-    for e in queryset_dat:
-        e.documento_url = url_absoluta
+    for objeto in queryset_dat:
+        if objeto and objeto.soporte_certificado_idioma and objeto.soporte_certificado_idioma.url:
+            archivo_url = objeto.soporte_certificado_idioma.url
+            url_diploma = request.build_absolute_uri(archivo_url)  
+            objeto.documento_url = url_diploma
 
     contexto = {
         "form": expe_laboral,
