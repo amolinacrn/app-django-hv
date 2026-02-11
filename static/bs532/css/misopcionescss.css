@@ -130,13 +130,16 @@ img:hover {
 }
 
 .class_div {
-  border: rgba(192, 192, 192, 0.381) 1px solid;
+  border: rgba(192, 192, 192, 0.225) 1px solid;
   margin: 0px;
-  padding: 2vw;
+  padding: 1vw;
   margin-left: 0px;
   margin-right: 0px;
   background-color: #f3f3f3;
   font-family: "arial";
+  font-size: 15px;
+  border-top: rgb(21, 21, 21) 5px solid;
+  border-radius: 10px;
 }
 
 .div_class_foto {
