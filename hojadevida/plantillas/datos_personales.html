@@ -1,0 +1,303 @@
+{% extends "basehv.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content_derecho%}
+
+<!-- <iframe src="./guardar_foto" style="width:4.5cm; height:200px; position: absolute;"></iframe> -->
+
+<!--nuevo modal--->
+
+<!-- Inicion Modal -->
+
+<div class="modal fade " id="cargarfoto" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cargarfotoLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center;">
+        <h6 class="modal-title" id="cargarfotoLabel" style="text-align: left;color: rgb(255, 255, 255);">
+          <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
+            <div style="padding: 10px;   background-color: #ff0101b4;">
+              <b>
+                Por favor, cargue una foto menor 1 MB y en formatos .png o .jpg. Otra clase de archivo no esta
+                permitido.
+              </b>
+            </div>
+          </div>
+
+        </h6>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body">
+
+        <!---inicio de la funcio guardar foto --->
+        <form enctype="multipart/form-data" method="post" action="phot_profil" id="guardarmifoto">
+
+          {% csrf_token %}
+
+          <table style="width: 100%">
+            <tr>
+
+              <td style="text-align: center;" id="fotomodal">
+
+                {% if foto_perfil %}
+                <img src="{{foto_perfil}}" style="position: relative; width: 60%; ">
+                {% else %}
+                <img src="{% static '/bs532/img/einstein_883032.png' %}" style="position: relative;  width: 60%;">
+                {% endif %}
+              </td>
+
+            </tr>
+          </table>
+
+          <br>
+          <table style="width: 100%">
+            <tr>
+
+              <td style="width: 9.5%">
+
+              </td>
+              <td style="width: 40%">
+                {{fotoform.foto_perfil}}
+              </td>
+              <td style="width: 1%;">
+
+              </td>
+              <td style="width: 40%">
+                <a href="delete_phot">
+
+                  <button type="button" class="btn btn-outline-danger btn-sm float-end">
+                    Eliminar foto de perfil
+                  </button>
+
+                </a>
+              </td>
+              <td style="width: 9.5%">
+
+              </td>
+
+            </tr>
+
+          </table>
+
+        </form>
+
+        <!---fin funcion guardar fot --->
+      </div>
+      <div class="modal-footer">
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 80%;">
+              <button type="button" class="btn btn-primary btn-sm float-end" data-bs-dismiss="modal">Cerrar</button>
+
+            </td>
+            <td>
+              <button class="btn btn-primary btn-sm float-end" type="submit" form="guardarmifoto">Guardar</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---fin modal -->
+
+<div class="posicion_hv_html">
+  <div class="class_div">
+
+    <table>
+      <tr>
+        <td width="30px">
+          <img src="{% static 'bs532/img/imghv/avatar.svg' %}" style=" border-radius: 15px; width: 100%;"
+            alt="My image">
+        </td>
+        <td width="20px">
+
+        </td>
+        <td style="font-size:15px;">
+          <b class="text-uppercase">Registro datos personales</b>
+        </td>
+      </tr>
+    </table>
+
+    <hr>
+
+
+
+
+    <form enctype="multipart/form-data" action="person_dat" method="post">
+      {% csrf_token %}
+
+      <!-- FOTO + DATOS PRINCIPALES -->
+      <div class="card mb-3 p-3 bg-light">
+        <div class="row g-3 align-items-start">
+
+          <!-- FOTO -->
+          <div class="col-md-3 text-center">
+            <table style="width:170px">
+              <tr>
+                <td>
+
+                  <!-- FOTO -->
+                  <div>
+                    <a data-bs-toggle="modal" data-bs-target="#cargarfoto" class="foto-box d-block">
+                      {% if foto_perfil %}
+                      <img class="clsimg my_img_html" src="{{foto_perfil}}" style="position: relative; width: 100%; ">
+                      {% else %}
+                      <img class=" clsimg my_img_html" src="{% static '/bs532/img/einstein_883032.png' %}"
+                        style="position: relative;  width: 100%;">
+                      {% endif %}
+                    </a>
+
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- <a data-bs-toggle=" modal" data-bs-target="#cargarfoto" id="idimgfot" class="foto-box d-block"></a>
+                    -->
+
+          </div>
+
+          <!-- CAMPOS FILA 1 -->
+          <div class="col-md-9">
+            <div class="row g-3">
+              <div class="col-md-4">{{form.documento_identificacion|as_crispy_field}}</div>
+              <div class="col-md-4">{{form.numero_identificacion|as_crispy_field}}</div>
+              <div class="col-md-4">{{form.titulo_mas_reciente|as_crispy_field}}</div>
+
+              <div class="col-md-4">{{form.fecha_expedicion_documento|as_crispy_field}}</div>
+              <div class="col-md-4">{{form.ciudad_expedicion_documento|as_crispy_field}}</div>
+              <div class="col-md-4">{{form.universidad_titulo_mas_reciete|as_crispy_field}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3 p-3">
+        {{form.perfil_profesional|as_crispy_field}}
+      </div>
+      <div class="card mb-3 p-3 bg-light">
+        <div class="row g-3">
+          <div class="col-md-3">{{form.primer_nombre|as_crispy_field}}</div>
+          <div class="col-md-3">{{form.segundo_nombre|as_crispy_field}}</div>
+          <div class="col-md-3">{{form.primer_apellido|as_crispy_field}}</div>
+          <div class="col-md-3">{{form.segundo_apellido|as_crispy_field}}</div>
+        </div>
+      </div>
+      <div class="card mb-3 p-3 bg-light">
+        <div class="row g-3">
+          <div class="col-md-4">{{form.genero_sexual|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.grupo_sanguineo|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.estado_civil|as_crispy_field}}</div>
+
+          <div class="col-md-4">{{form.pais_origen|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.departamento_origen|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.nacionalidad|as_crispy_field}}</div>
+
+          <div class="col-md-4">{{form.ciudad_nacimiento|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.fecha_nacimiento|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.ciudad_residencia|as_crispy_field}}</div>
+
+          <div class="col-md-4">{{form.direccion_residencia|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.telefono_celular|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.correo_electronico|as_crispy_field}}</div>
+
+          <div class="col-md-4">{{form.libreta_militar|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.distrito_militar|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.cuenta_github|as_crispy_field}}</div>
+        </div>
+      </div>
+      <div class="card mb-3 p-3 bg-light">
+        <div class="row align-items-end">
+          <div class="col-md-6">
+            {{form.fotocopia_documento|as_crispy_field}}
+          </div>
+
+          {% if estvar %}
+          <div class="col-md-6 d-flex gap-2 align-items-center">
+            <a onclick="funcionVisualizarModal('{{url_absoluta}}{{doc_name_PDF.fotocopia_documento}}','Documento')"
+              data-bs-toggle="modal" data-bs-target="#vercedula">
+              <img src="{% static 'bs532/img/ver_violeta.svg' %}" width="20" style="margin-bottom: 25px">
+            </a>
+
+            <a href="delete_file">
+              <img src="{% static 'bs532/img/eliminar.svg' %}" width="20" style="margin-bottom: 25px;">
+            </a>
+
+
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button class="btn btn-sm btn-outline-success" type="submit">
+          <table>
+            <tr>
+              <td>
+                <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                  style="display: flex; width:20px;align-items: center;" alt="My image">
+              </td>
+              <td>
+                Guardar
+              </td>
+            </tr>
+          </table>
+
+        </button>
+
+
+        <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger">
+
+          <table>
+            <tr>
+              <td>
+                <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                  style="display: flex; width:20px;align-items: center;" alt="My image">
+              </td>
+              <td>
+                Cancelar
+              </td>
+            </tr>
+          </table>
+        </a>
+
+      </div>
+
+    </form>
+
+
+  </div>
+</div>
+
+<script src="{% static 'bs532/js/script.js' %}"></script>
+
+<!-- <script>
+  var idimgfot = document.getElementById("idimgfot");
+  var fotomodal = document.getElementById("fotomodal");
+  fotomodal.innerHTML = `<img  src='/static/bs532/img/einstein_883032.png' style="position: relative;  width: 10cm; height:10cm;transform: scale(1)"" alt="My image">`;
+  idimgfot.innerHTML = `<img src='{{foto_perfil}}'>`;
+</script> -->
+
+
+
+<!-- <script>
+  const imgFoto = async () => {
+
+    var fotomodal = document.getElementById("fotomodal");
+
+    var estadtupla = Object.entries(datsfots.img_usuario).length;
+
+    if (estadtupla == 0) {
+      idimgfot.innerHTML = `<img class="clsimg" src='{{foto_perfil}}' style="position: relative; width: 100%;" alt="My image">`;
+      fotomodal.innerHTML = `<img  src='/static/bs532/img/einstein_883032.png' style="position: relative;  width: 10cm; height:10cm;transform: scale(1)"" alt="My image">`;
+    } else {
+      idimgfot.innerHTML = `<img src='{{foto_perfil}}'
+                            class="clsimg my_img_html" style="width: 100%;  ;" alt="My image">`;
+      fotomodal.innerHTML = `<img src='{{foto_perfil}}'
+                            class="clsimg my_img_html" style="width: 10cm; height:10cm;transform: scale(1)" alt="My image">`;
+    }
+  } 
+</script> -->
+
+
+{% endblock content_derecho %}

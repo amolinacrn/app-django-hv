@@ -1,0 +1,320 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content_derecho%}
+
+<script>
+
+    function RegistroCompetenciasComputacionales(misdatos) {
+        competencia_computacional_tecnica.innerHTML = ``
+
+        if (typeof misdatos !== "undefined") {
+            registro_comtencia_computacional.innerHTML = `${tablaEncabezadoVista("Registro de competencias tecnicas y computacionales", misdatos.id, misdatos.soporte_competencia_computacional)}`
+
+            if (!misdatos.condicional) return;
+
+            const btn_ver_img = document.getElementById("ref_img_ver");
+            btn_ver_img.innerHTML = ` <img src="{% static 'bs532/img/ver_violeta.svg' %}" style="width:20px; cursor: pointer; margin-top: 40px;">`
+
+
+            // Asignar valores automáticamente
+            Object.entries(misdatos).forEach(([id, valor]) => {
+                const elemento = document.getElementById(`id_${id}`);
+                if (elemento && valor !== misdatos.soporte_competencia_computacional) {
+                    elemento.value = valor ?? ""
+                } else if (valor === misdatos.soporte_competencia_computacional) {
+                    const nombreArchivo = valor.split("/").pop();
+                    const label = document.getElementById("askdjfls");
+                    if (label) label.textContent = nombreArchivo;
+
+                }
+            });
+        } else {
+            registro_comtencia_computacional.innerHTML = `${tablaEncabezadoVista("Registro de Competencias tecnicas y computacionales", '{{ id_actual }}')}`
+        }
+    }
+    function RegistroCompetenciasComputacionalesOK() {
+        registro_comtencia_computacional.innerHTML = ``
+        competencia_computacional_tecnica.innerHTML = `
+        
+  <div class="class_div" >
+  
+    <table style="width:100%">
+      <tr>
+        <td width="35px">
+          <img src="{% static 'bs532/img/imghv/evaluacion.svg' %}" style="width: 100%;transform: scale(0.8)" alt="My image">
+        </td>
+        <td width="15px">
+
+        </td>
+        <td style="font-size:15px;">
+          <b class="text-uppercase">Competencias tecnicas y computacionales</b>
+        </td>
+        <td style="font-size:15px;">
+          <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+            <b>salir</b>
+          </a>
+        </td>
+
+      </tr>
+    </table>
+      <br>
+    <table width="100%">
+      <tr>
+
+        <td>
+          <a class="btn btn-sm btn-outline-success float-end" onclick="RegistroCompetenciasComputacionales()">
+          Agregar competencia técnica
+          </a>
+        </td>
+         <td width="1%"></td>
+        <td width="35%">
+          <div class="input-group mb-0">
+              <span class="input-group-text" id="basic-addon1">buscar</span>
+            <input type="text" class="form-control" placeholder="Buscar" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="height:8px;width: 100%; background-color:rgba(255, 0, 0, 0) ;"></div>
+   <div class="container-vertical">
+    <table class="competencias-table">
+        <thead>
+            <tr>
+                <th>Competencia técnica</th>
+                <th>Dominio básico</th>
+                <th>Dominio medio</th>
+                <th>Dominio avanzado</th>
+                <th class="acciones-col">Alternativas</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for qrdat in querydat %}
+            <tr>
+                <td>{{ qrdat.herramienta_tecnica }}</td>
+                <td>
+                {% if qrdat.dominio_basico|stringformat:"s" != "0" %}
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ qrdat.dominio_basico }}%; background-color:#f97306;"
+                            aria-valuenow="{{ qrdat.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.dominio_basico }}%
+                        </div>
+                    </div>
+                {% else %}
+                    {{ qrdat.dominio_basico }}%
+                {% endif %}
+
+                     </td>
+                <td>
+                    {% if qrdat.dominio_medio|stringformat:"s" != "0" %}
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ qrdat.dominio_medio }}%; background-color:#f97306;"
+                            aria-valuenow="{{ qrdat.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.dominio_medio }}%
+                    </div>
+                    {% else %}
+                        {{ qrdat.dominio_medio }}%
+                    {% endif %}
+                </div>
+                     </td>
+                <td>
+                    {% if qrdat.dominio_avanzado|stringformat:"s" != "0" %}
+                    <div class="progress" style="height: 20px; width: 90%; margin-left: 5px; background-color: #ffffff;">
+                            <div class="progress-bar" role="progressbar" style="width: {{ qrdat.dominio_avanzado }}%; background-color:#f97306;"
+                                aria-valuenow="{{ qrdat.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">{{ qrdat.dominio_avanzado }}%
+                        </div>
+                    </div>
+                    {% else %}
+                        {{ qrdat.dominio_avanzado }}%
+                    {% endif %}
+                     </td>
+
+                <td class="acciones">
+                    <!-- Ver soporte -->
+                    <button type="button" class="icon-btn"
+                        onclick="funcionVisualizarModal('{{ qrdat.documento_url }}','Certificado en {{ qrdat.herramienta_tecnica }}')">
+                        <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+                    </button>
+
+                    <!-- Editar -->
+                    <button type="button" class="editar-registro icon-btn" data-registro='{
+                                    "condicional": true,
+                                    "id": "{{ qrdat.id }}",
+                                    "herramienta_tecnica": "{{ qrdat.herramienta_tecnica|escapejs }}",
+                                    "dominio_basico": "{{ qrdat.dominio_basico|escapejs }}",
+                                    "dominio_medio": "{{ qrdat.dominio_medio|escapejs }}",
+                                    "dominio_avanzado": "{{ qrdat.dominio_avanzado|escapejs }}",
+                                    "soporte_competencia_computacional": "{{ qrdat.documento_url|escapejs }}"
+                                }'>
+                                
+                        <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
+                    </button>
+
+                    <!-- Eliminar -->
+                    
+                    <a href="{% url 'delete_file_record' 'CompetenciasTecnicasComputacionale' qrdat.id %}" class="icon-btn">
+                        <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+  </div>
+`;
+    }
+
+</script>
+
+
+
+
+<div class="posicion_hv_html">
+    <div id="registro_comtencia_computacional"></div>
+    <div id="competencia_computacional_tecnica"></div>
+</div>
+
+{% if errform %}
+<script>
+    window.addEventListener("load", async () => {
+        await RegistroCompetenciasComputacionales();
+    });
+
+</script>
+{% else %}
+<script>
+    const registro_comtencia_computacional = document.getElementById("registro_comtencia_computacional");
+    const competencia_computacional_tecnica = document.getElementById("competencia_computacional_tecnica");
+    window.addEventListener("load", async () => {
+        await RegistroCompetenciasComputacionalesOK();
+    });
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".editar-registro");
+        if (!btn) return;
+
+        const data = JSON.parse(btn.dataset.registro);
+        RegistroCompetenciasComputacionales(data);
+    });
+
+</script>
+
+
+{% endif %}
+
+<script>
+    function tablaEncabezadoVista(titulo_vista, idd, soporttte) {
+        const tabla_vista = `
+               
+                <div class="class_div">
+                    {% if errform %}
+                    <div style="margin:0px; padding: 1px;background-color: rgb(255, 0, 0); width:63%; margin-left: 5cm;">
+                        <h5 style="color: white;margin-top:5px;">
+                            <b>&nbsp&nbsp
+                                No se ha podido enviar los datos, por favor revise el formulario
+                            </b>
+                        </h5>
+                    </div>
+                    <br>
+                    {% endif%}
+                    <table style="width:100%">
+                        <tr>
+                            <td width="35px">
+                                <img src="{% static 'bs532/img/imghv/evaluacion.svg' %}" style="width: 100%;transform: scale(0.8)"
+                                    alt="My image">
+                            </td>
+                            <td width="15px">
+
+                            </td>
+                            <td style="font-size:15px;">
+                                <b class="text-uppercase">${titulo_vista}</b>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <br>
+                    ${formularioDeDatos(idd, soporttte)}
+                </div>
+            
+        `;
+        return tabla_vista;
+    }
+
+
+
+
+
+    function formularioDeDatos(idd, certficados_evento) {
+        const datos_de_formulario_qryset = `
+      
+                <form enctype="multipart/form-data" method="post" action="${idd}">
+                    {% csrf_token %}
+                    <div class="form-grid card bg-light" style="margin-bottom:16px">
+                        <div>{{ form.herramienta_tecnica|as_crispy_field }}</div>
+                        <div>{{ form.dominio_basico|as_crispy_field }}</div>
+                        <div>{{ form.dominio_medio|as_crispy_field }}</div>
+                        <div>{{ form.dominio_avanzado|as_crispy_field }}</div>
+                    </div>
+                    <div class="form-grid card bg-light">
+                        {{ form.soporte_competencia_computacional|as_crispy_field }}
+                        <a id="ref_img_ver" onclick="funcionVisualizarModal('${certficados_evento}')">
+
+                        </a>
+                    </div>
+                    <br>
+                    <hr>
+                    <table width="100%">
+                        <tr>
+                            <td width="90%">
+                                <div class="d-flex justify-content-end gap-2 mt-3">
+                                    <button class="btn btn-sm btn-outline-success" type="submit">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                                                        style="display: flex; width:20px;align-items: center;" alt="My image">
+                                                </td>
+                                                <td>
+                                                    Guardar
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </button>
+
+                                    <a onclick="RegistroCompetenciasComputacionalesOK()" class="btn btn-sm btn-outline-danger">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                                                        style="display: flex; width:20px;align-items: center;" alt="My image">
+                                                </td>
+                                                <td>
+                                                    Cancelar
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </a>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+      
+        
+        `;
+
+        return datos_de_formulario_qryset;
+    }
+
+</script>
+
+
+{% endblock content_derecho %}

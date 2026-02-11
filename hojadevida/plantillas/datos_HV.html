@@ -1,0 +1,326 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content_derecho %}
+
+<div class="posicion_hv_html">
+  <div class="class_div container-vertical font-size-presentacion">
+    <!-- ================= DATOS PERSONALES ================= -->
+    <section class="bloque">
+      <h2 class="titulo-seccion">Datos personales</h2>
+
+      <div class="cabecera">
+        <img src="{{ foto_perfil }}" class="foto">
+
+        <div>
+          {% for e in datos_personales %}
+          <h2 class="text-uppercase">{{ e.primer_nombre }} {{ e.segundo_nombre }} {{ e.primer_apellido }}
+            {{e.segundo_apellido }}</h1>
+            <h3>{{ e.titulo_mas_reciente }}</h3>
+            <p>{{ e.universidad_titulo_mas_reciete }}</p>
+
+            <div class="grid-datos">
+              <span>Documento: {{ e.numero_identificacion }}</span>
+              <span>Nacimiento: {{ e.fecha_nacimiento|date:"d/m/Y" }}, {{ e.departamento_origen }},
+                {{ e.pais_origen}}</span>
+              <span>Email: {{ e.correo_electronico }}</span>
+              <span>Celular: {{ e.telefono_celular }}</span>
+              <span>Dirección: {{ e.direccion_residencia }}</span>
+              <span><a href="{{ e.cuenta_github }}" style="color: #ffffff;">{{ e.cuenta_github }}</a></span>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PERFIL ================= -->
+    <section class="bloque">
+      <h2 class="titulo-seccion">Perfil profesional</h2>
+      {% for e in datos_personales %}
+      <p class="texto-justificado">{{ e.perfil_profesional }}</p>
+      {% endfor %}
+    </section>
+
+
+    <!-- ================= FORMACIÓN ================= -->
+    <section class="bloque">
+      <h2 class="titulo-seccion">Formación académica</h2>
+
+      <table class="tabla">
+        <tr>
+          <th>Título</th>
+          <th>Institución</th>
+          <th>Periodo</th>
+          <th>Modalidad</th>
+          <th>País</th>
+        </tr>
+        {% for e in estudios %}
+        <tr>
+          <td>{{ e.titulo_obtenido }}</td>
+          <td>{{ e.institucion_universitaria }}</td>
+          <td>{{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_finalizacion|date:"m/Y" }}</td>
+          <td>{{ e.modalidad_academica }}</td>
+          <td>{{ e.pais_titulo }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+
+    <!-- ================= EXPERIENCIA ================= -->
+    <section class="bloque">
+      <h2 class="titulo-seccion">Experiencia laboral</h2>
+
+      <table class="tabla">
+        <tr>
+          <th>Cargo</th>
+          <th>Empresa</th>
+          <th>Ubicación</th>
+          <th>Periodo</th>
+        </tr>
+        {% for e in experiencias_laborales %}
+        <tr>
+          <td>{{ e.cargo }}</td>
+          <td>{{ e.nombre_empresa }}</td>
+          <td>{{ e.departamento_contrato }} - {{ e.pais_contrato }}</td>
+          <td>{{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_fin|date:"m/Y" }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+
+    <!-- ================= IDIOMAS ================= -->
+    <section class="bloque">
+      <h2 class="titulo-seccion">Idiomas</h2>
+
+      <table class="tabla">
+        <tr>
+          <th>
+            <b>Idioma</b>
+          </th>
+          <th>
+            <b>
+              Nivel
+            </b>
+          </th>
+          <th>
+            <b>Conversación</b>
+          </th>
+          <th>
+            <b>Escritura</b>
+          </th>
+          <th>
+            <b>Lectura</b>
+          </th>
+          <th>
+            <b>Ver</b>
+          </th>
+        </tr>
+        {% for idioma in idioma_extrangero %}
+        <tr>
+
+          <!-- Nombre del idioma -->
+          <td>
+            {{ idioma.tipo_idioma }}
+          </td>
+          <td>
+            {{ idioma.nevel_certificado }}
+          </td>
+          <!-- Niveles -->
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.domimio_conversacional }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.domimio_conversacional }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.domimio_conversacional }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.dominio_lectura }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.dominio_lectura }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.dominio_escritura }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.dominio_escritura }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 5%;text-align: center;">
+            <a href="#{{ idioma.link }}" style="color: rgb(255, 255, 255); text-decoration: none;">
+              <img src="{{ eye_icon }}eye-fill.svg">
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+    <!-- ================= Producción intelectual ================= -->
+
+    <section class="bloque">
+      <h2 class="titulo-seccion">Producción académica</h2>
+      <table class="tabla">
+        <tr>
+          <th>Producción investigativa</th>
+          <th>Revista científica</th>
+          <th>Área de concentración</th>
+          <th>Línea de investigación:</th>
+          <th>Fecha publicación</th>
+          <th>Ver publicación:</th>
+        </tr>
+        {% for p in produccion_academica %}
+        <tr>
+          <td>{{ p.nombre_trabajo }}</td>
+          <td>{{ p.nombre_revista }}</td>
+          <td>{{ p.area_concentracion }}</td>
+          <td>{{ p.linea_pesquisa }}</td>
+          <td>{{ p.fecha_publicacion|date:"d/m/Y" }}</td>
+          <td>
+            <a href="{{ p.doi_link_publicacion }}" style="color: blue; text-decoration: none;">
+              <img src="{{ eye_icon }}eye-fill.svg">
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+    <!-- ================= Participación científica ================= -->
+
+    <section class="bloque">
+      <h2 class="titulo-seccion">Participación científica</h2>
+      <table class="tabla">
+        <tr>
+          <th>Nombre del evento</th>
+          <th>Lugar o ubicación</th>
+          <th>Tipo de evento</th>
+          <th>Periodo de permanencia</th>
+          <th>Rol o desempeño</th>
+          <th>Ver certificado</th>
+        </tr>
+        {% for e in participacion_cientifica %}
+        <tr>
+          <td>{{ e.nombre_evento_cientifico }}</td>
+          <td> {{ e.institucion_evento }} - {{ e.ciudad_evento }} - {{ e.departamento_evento }} -
+            {{ e.pais_evento }}</td>
+          <td>{{ e.tipo_evento }}</td>
+          <td> {{ e.fecha_inicio_evento }} - {{ e.fecha_fin_evento }}</td>
+          <td>{{ e.modalidad_evento }} </td>
+          <td><a href="#{{ e.ancla }}">
+              <img src="{{ eye_icon }}eye-fill.svg">
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+
+    <!-- ================= Competencias técnicas ================= -->
+
+    <section class="bloque">
+      <h2 class="titulo-seccion">Competencias Técnicas</h2>
+      <table class="tabla">
+        <tr>
+          <th>Herramienta</th>
+          <th>Básico</th>
+          <th>Intermedio</th>
+          <th>Avanzado</th>
+          <th>ver</th>
+        </tr>
+        {% for idioma in competencias_tecnicas_computacionale %}
+        <tr class="color-cuerpo-tablas">
+
+          <!-- Nombre del idioma -->
+          <td>
+            {{ idioma.herramienta_tecnica }}
+          </td>
+          <!-- Niveles -->
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.dominio_basico }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.dominio_basico }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.dominio_medio }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.dominio_medio }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 22%;">
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+              <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                <div class="progress-bar" role="progressbar"
+                  style="width: {{ idioma.dominio_avanzado }}%; background-color:#f97306; color: transparent;;"
+                  aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">""
+                </div>
+                <div
+                  style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                  {{ idioma.dominio_avanzado }}%
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 5%; text-align: center;">
+            <a href="#{{ idioma.link }}" style="color: blue; text-decoration: none;">
+              <img src="{{ eye_icon }}eye-fill.svg">
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+    </section>
+  </div>
+</div>
+
+{% endblock content_derecho %}
+
+
+<!--- <label for="name">Nombre:</label!>
+  <input type="text" placeholder="escribe aqui" maxlength="5" name="el_dato_enviado"/ id="name">
+--->
