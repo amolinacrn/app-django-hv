@@ -26,21 +26,6 @@ import unicodedata
 import re
 
 
-supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
-
-def get_signed_url(file_path):
-    
-    # file_path = request.GET.get("path")
-
-    if not file_path:
-        return JsonResponse({"error": "No existe el archivo"}, status=400)
-    try:
-        res = supabase.storage.from_("media").create_signed_url(file_path, 3600)
-        return JsonResponse({"signed_url": res["signedURL"]})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-
-
 def slugify(texto: str) -> str:
     texto = texto.lower()
     texto = unicodedata.normalize("NFD", texto)
@@ -110,6 +95,8 @@ def delete_regist(request, id_file):
 @login_required(login_url="/autenticacion/logear")
 def view_pdf_HV(request):
     if request.user.is_authenticated:
+        supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY)
+        
         foto_perfil = FotosPersonale.objects.filter(nombre_usuario_id=request.user.id)
         datos_personales = DatosPersonale.objects.filter(nombre_usuario_id=request.user.id)
         diplomas_de_estudio = TitulosAcademico.objects.filter(nombre_usuario_id=request.user.id)
