@@ -1,0 +1,55 @@
+.upload-img {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.upload-img+label {
+  display: flex;
+  flex: 1;
+}
+
+.upload-img__upload-img-name,
+.upload-img__upload-img-button {
+  padding: 5px 10px;
+}
+
+.upload-img__upload-img-name {
+  background: #ffffff;
+  border: 1px solid #cecece;
+  border-radius: 4px 0 0 4px;
+  flex: 1;
+  min-width: 0;
+  /* 👈 esto es lo correcto en flexbox */
+}
+
+.upload-img__upload-img-name span {
+  position: relative;
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.upload-img__upload-img-button {
+  background: #ffffff url(./cargar.svg) 6px center/25px no-repeat;
+  border: 1px solid #00000000;
+  white-space: nowrap;
+  border-radius: 0 4px 4px 0;
+  padding-left: 26px;
+  cursor: pointer;
+}
+
+/* .upload-img.red+label>.upload-img__upload-img-button {
+  background-color: #d9534f;
+  border-color: #d64641;
+} */
+
+.upload-img.green+label>.upload-img__upload-img-button {
+  background-color: #32b056;
+  border-color: #9393935e;
+
+}
