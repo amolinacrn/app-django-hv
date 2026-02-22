@@ -129,50 +129,7 @@ def Menu_HV(request):
         contexto
     )
 
-# def Menu_HV(request):
-#     foto_perfil = FotosPersonale.objects.filter(nombre_usuario_id=request.user.id)
-#     datos_personales = DatosPersonale.objects.filter(nombre_usuario_id=request.user.id)
-#     diplomas_de_estudio = TitulosAcademico.objects.filter(nombre_usuario_id=request.user.id)
-#     experiencias_laborales = ExperienciasLaborale.objects.filter(nombre_usuario_id=request.user.id)
-#     idioma_extrangero = IdiomaExtrangero.objects.filter(nombre_usuario_id=request.user.id)
-#     produccion_academica= ProduccionAcademica.objects.filter(nombre_usuario_id=request.user.id)
-#     participacion_cientifica=ParticipacionCientifica.objects.filter(nombre_usuario_id=request.user.id)
-#     competencias_tecnicas_computacionale=CompetenciasTecnicasComputacionale.objects.filter(nombre_usuario_id=request.user.id)
 
-#     eye_icon = request.build_absolute_uri(static('bs532/img/'))
-    
-#     foto_url_perfil=""
-
-#     foto=foto_perfil.first().foto_perfil
-
-#     if foto_perfil and foto:
-#         foto_url_perfil = request.build_absolute_uri(foto.url)
-        
-#     for e,qry_set in enumerate(participacion_cientifica):
-#         qry_set.link = "produccion_academica_"+str(e)
-
-#     for e,qry_set in enumerate(experiencias_laborales):
-#         qry_set.link = "experiencias_laborales_"+str(e)
-
-#     for e,qry_set in enumerate(idioma_extrangero):
-#         qry_set.link = "idioma_extrangero_"+str(e)
-    
-#     for e,qry_set in enumerate(diplomas_de_estudio):
-#         qry_set.link = "titulo_obtenido_"+str(e)
-
-#     contexto={ 
-#         'eye_icon': eye_icon,
-#         "datos_personales":datos_personales,
-#         "estudios": diplomas_de_estudio,
-#         "experiencias_laborales":experiencias_laborales,
-#         "foto_perfil":foto_url_perfil,
-#         "idioma_extrangero": idioma_extrangero, 
-#         "produccion_academica": produccion_academica,
-#         "participacion_cientifica": participacion_cientifica,
-#         "competencias_tecnicas_computacionale":competencias_tecnicas_computacionale,
-#                 }
-#     response = render(request,"datos_HV.html", contexto)
-#     return response
 
 @login_required(login_url="/autenticacion/logear")
 def view_pdf_HV(request):
