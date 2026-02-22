@@ -1,0 +1,188 @@
+body {
+    font-family: "arial";
+    font-size: 15px;
+    background-color: #ffffff;
+    transform: scale(0.937);
+    transform-origin: top left;
+}
+
+@page {
+    size: Letter;
+    margin-bottom: -1cm;
+    margin-top: 0.9cm;
+    margin-left: 0cm;
+    margin-right: 0cm;
+    break-before: page;
+}
+
+.class-div {
+    border: 0.01px solid rgba(240, 7, 7, 0);
+    width: 30mm;
+    background-color: #303030;
+    margin-top: 0cm;
+    margin-left: 0.9cm;
+    break-before: page;
+}
+
+.tabla-personalizada,
+tr,
+td {
+    border: 0px solid rgb(10, 10, 10);
+    border-collapse: collapse;
+    vertical-align: middle;
+    border-collapse: separate;
+    border-spacing: 1px;
+    margin-bottom: 0.5cm;
+}
+
+.tabla-personalizada {
+    margin-left: 33mm;
+    width: 180mm;
+}
+
+td {
+    padding: 3px 10px;
+}
+
+.Ttable-perfil {
+    border-collapse: collapse;
+    margin-left: 33mm;
+    width: 180mm;
+    margin-bottom: 0.5cm;
+}
+
+.Ttable-datos-personales {
+    border-collapse: collapse;
+    margin-bottom: 0cm;
+    margin-left: 33mm;
+    margin-left: 1cm;
+    margin-top: 1cm;
+    width: 201mm;
+    text-align: left;
+    border: 4mm solid #ffffff;
+    border-right: 1mm solid #ffffff00;
+}
+
+.table_t {
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+
+.my_img {
+    width: 4.5cm;
+    height: 4.5cm;
+    border-radius: 50%;
+    border: 5px solid rgb(255, 255, 255);
+}
+
+.datos-personales {
+    margin: 0.5cm 0;
+    color: #ffffff;
+}
+
+.persona {
+    page-break-inside: avoid;
+    margin-bottom: 0.7cm;
+}
+
+.nombre {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 0.2cm;
+}
+
+.titulo {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.universidad {
+    font-size: 19px;
+    margin-bottom: 0.4cm;
+}
+
+.info-table {
+    width: 100%;
+    margin-left: -9px;
+    font-size: 15px;
+}
+
+.info-table img {
+    width: 16px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.datos-personales-menu {
+    position: absolute;
+    margin-left: 146mm;
+    width: 67mm;
+    height: 1cm;
+    background-color: #303030;
+    display: flex;
+    align-items: center;
+    /* centra vertical */
+    padding-left: 8px;
+    /* reemplaza &nbsp */
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+
+
+.datos-personales-div {
+    position: absolute;
+    margin-left: 146mm;
+    width: 67mm;
+    height: 1cm;
+    background-color: #303030;
+    display: flex;
+    align-items: center;
+    /* centra vertical */
+    padding-left: 8px;
+    /* reemplaza &nbsp */
+    font-size: 16px;
+    border-radius: 15px;
+    position: relative;
+    margin-bottom: 4mm;
+}
+
+.titulo-div {
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.menu-tablas-hv {
+    background-color: #038cc1;
+    color: #ffffff;
+    height: 30px;
+    text-align: left;
+}
+
+/*Esto es para colorar el body del panel datos pesonales*/
+
+.panel-datos-personales {
+    background-color: #038cc1
+}
+
+/*esto es para colorear el cuermpo pde las tabla*/
+.color-cuerpo-tablas {
+    background-color: rgba(0, 191, 255, 0.142);
+}
+
+.linea-hr {
+    border: 1px rgb(112, 112, 112) solid;
+    margin-left: 33mm;
+    width: 180mm;
+}
