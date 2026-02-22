@@ -1,0 +1,280 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content_derecho%}
+<div class="posicion_hv_html">
+    <div class="hidden-field-one">
+        <div class="class_div">
+            {% if es_valido is False %}
+            <div style="padding: 1px; text-align: center;">
+                <h5 style="color: rgb(255, 0, 0);margin-top:5px;">
+                    <b>
+                        No se ha podido enviar los datos, por favor revise el formulario
+                    </b>
+                </h5>
+            </div>
+            <br>
+            {% endif%}
+            <table style="width:100%">
+                <tr>
+                    <td width="35px">
+                        <img src="{% static 'bs532/img/imghv/idioma.svg' %}" style="width: 100%;transform: scale(0.8)"
+                            alt="My image">
+                    </td>
+                    <td width="15px">
+
+                    </td>
+                    <td style="font-size:15px;">
+                        <b class="text-uppercase">Idiomas extranjeros</b>
+                    </td>
+                    <td style="font-size:15px;">
+                        <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+                            <b>salir</b>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <br>
+            <form enctype="multipart/form-data" method="post" id="editar_datos_formulario">
+                {% csrf_token %}
+
+                <div class="form-grid card bg-light" style="margin-bottom:16px">
+                    <div>{{ form.tipo_idioma|as_crispy_field }}</div>
+                    <div>{{ form.domimio_conversacional|as_crispy_field }}</div>
+                    <div>{{ form.dominio_lectura|as_crispy_field }}</div>
+                    <div>{{ form.dominio_escritura|as_crispy_field }}</div>
+                    <div>{{ form.nevel_certificado|as_crispy_field }}</div>
+                    <div>{{ form.institucion_expedicion_certificado|as_crispy_field }}</div>
+                    <div>{{ form.fecha_obtecion_certificado|as_crispy_field }}</div>
+                    <div>{{ form.pais_obtencion_certificado|as_crispy_field }}</div>
+                    <div>{{ form.departamento_obtencion_certificado|as_crispy_field }}</div>
+                    <div>{{ form.ciudad_obtencion_certificado|as_crispy_field }}</div>
+                </div>
+                <div class="card form-grid bg-light mb-3 p-3">
+
+                    <div class="full diploma-row">
+                        <div>
+                            <label style="width:350px" for="documento_soporte">Adjuntar certificado en (<b
+                                    style='color:red'>.pdf</b>)
+                                <div style="margin-top:7px">
+                                    <input type="file" name="documento_soporte" id="documento_soporte"
+                                        class="upload-img green">
+                                </div>
+                            </label>
+                            <div class="error-upload">
+                                {{ form.documento_soporte.errors.as_text }}
+                            </div>
+                        </div>
+
+                        <a id="ref_img_ver" class="ojo_ver_pdf">
+                        </a>
+
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <table width="100%">
+                    <tr>
+                        <td width="90%">
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button class="btn btn-sm btn-outline-success" type="submit">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                                                    style="display: flex; width:20px;align-items: center;"
+                                                    alt="My image">
+                                            </td>
+                                            <td>
+                                                Guardar
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </button>
+
+
+                                <a onclick="TablaDeRegistros()" class="btn btn-sm btn-outline-danger">
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                                                    style="display: flex; width:20px;align-items: center;"
+                                                    alt="My image">
+                                            </td>
+                                            <td>
+                                                Cancelar
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+    <div class="hidden-field-two">
+        <div class="class_div">
+
+            <table style="width:100%">
+                <tr>
+                    <td width="35px">
+                        <img src="{% static 'bs532/img/imghv/idioma.svg' %}" style="width: 100%;transform: scale(0.8)"
+                            alt="My image">
+                    </td>
+                    <td width="15px">
+
+                    </td>
+                    <td style="font-size:15px;">
+                        <b class="text-uppercase">Idiomas extranjeros</b>
+                    </td>
+                    <td style="font-size:15px;">
+                        <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+                            <b>salir</b>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+            <br>
+            <table width="100%">
+                <tr>
+
+                    <td>
+                        <a class="btn btn-sm btn-outline-success float-end" onclick="DiligenciarFormulario(this)">
+                            Agregar idioma
+                        </a>
+                    </td>
+                    <td width="1%"></td>
+                    <td width="35%">
+                        <div class="input-group mb-0">
+                            <span class="input-group-text" id="basic-addon1">buscar</span>
+                            <input type="text" class="form-control" placeholder="Buscar" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="height:8px;width: 100%; background-color:rgba(255, 0, 0, 0) ;"></div>
+            <div class="container-vertical">
+                <table class="competencias-table">
+                    <thead>
+                        <tr>
+                            <th>Idioma</th>
+                            <th>Nivel</th>
+                            <th>Habla</th>
+                            <th>Lee</th>
+                            <th>Escribe</th>
+                            <th>Fecha certificado</th>
+                            <th>Institución</th>
+                            <th class="acciones-col">Alternativas</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for qrdat in querydat %}
+                        <tr>
+                            <td>{{ qrdat.tipo_idioma }}</td>
+                            <td>{{ qrdat.nevel_certificado }}</td>
+                            <td>
+                                <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                                    <div
+                                        style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                                        <div class="progress-bar" role="progressbar"
+                                            style="width: {{ qrdat.domimio_conversacional }}%; background-color:#f97306; color: transparent;;"
+                                            aria-valuenow="{{ qrdat.domimio_conversacional }}" aria-valuemin="0"
+                                            aria-valuemax="100">""
+                                        </div>
+                                        <div
+                                            style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                                            {{ qrdat.domimio_conversacional }}%
+                                        </div>
+                                    </div>
+                                </div>
+            </div>
+            </td>
+            <td>
+                <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                    <div
+                        style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                        <div class="progress-bar" role="progressbar"
+                            style="width: {{ qrdat.dominio_lectura }}%; background-color:#f97306; color: transparent;;"
+                            aria-valuenow="{{ qrdat.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">""
+                        </div>
+                        <div
+                            style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                            {{ qrdat.dominio_lectura }}%
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </td>
+        <td>
+            <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
+                <div
+                    style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
+                    <div class="progress-bar" role="progressbar"
+                        style="width: {{ qrdat.dominio_escritura }}%; background-color:#f97306; color: transparent;;"
+                        aria-valuenow="{{ qrdat.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">""
+                    </div>
+                    <div
+                        style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
+                        {{ qrdat.dominio_escritura }}%
+                    </div>
+                </div>
+            </div>
+    </div>
+    </td>
+    <td>{{ qrdat.fecha_obtecion_certificado|date:"d/m/Y" }}</td>
+    <td>{{ qrdat.institucion_expedicion_certificado }}</td>
+    <td class="acciones">
+        <!-- Ver soporte -->
+        <button type="button" class="icon-btn"
+            onclick="funcionVisualizarModal('{{ qrdat.documento_url }}','Certificado de idioma {{ qrdat.tipo_idioma }}')">
+            <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+        </button>
+
+        <!-- Editar -->
+        <button type="button" style="cursor:pointer" class="editar-registro icon-btn" data-id="{{ qrdat.id }}"
+            onclick="DiligenciarFormulario(this)" data-tipo_idioma="{{ qrdat.tipo_idioma }}"
+            data-documento_soporte="{{ qrdat.documento_soporte }}"
+            data-nevel_certificado="{{ qrdat.nevel_certificado }}"
+            data-domimio_conversacional="{{ qrdat.domimio_conversacional }}"
+            data-dominio_lectura="{{ qrdat.dominio_lectura }}" data-dominio_escritura="{{ qrdat.dominio_escritura }}"
+            data-institucion_expedicion_certificado="{{ qrdat.institucion_expedicion_certificado }}"
+            data-fecha_obtecion_certificado="{{ qrdat.fecha_obtecion_certificado|date:'Y-m-d' }}"
+            data-pais_obtencion_certificado="{{ qrdat.pais_obtencion_certificado }}"
+            data-departamento_obtencion_certificado="{{ qrdat.departamento_obtencion_certificado }}"
+            data-ciudad_obtencion_certificado="{{ qrdat.ciudad_obtencion_certificado }}"
+            data-documento_url="{{ qrdat.documento_url }}">
+            <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
+        </button>
+
+
+        <!-- Eliminar -->
+        <a href="{% url 'delete_file_record' 'IdiomaExtrangero' qrdat.id %}" class="icon-btn">
+            <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+        </a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+{% endblock content_derecho %}
