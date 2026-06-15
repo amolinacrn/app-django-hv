@@ -23,14 +23,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DB_SECRET_KEY")
+SECRET_KEY = "django-insecure-pdion^t*fyk8mzv_8a65^oq6nzdz21cot_dzpw#sjlg#auq99w"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["app-django-hv.onrender.com"]
+#ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = [
+    "amolina.top",
+    "www.amolina.top",
+   ]
 
 # Application definition
 
@@ -45,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_cleanup.apps.CleanupConfig",
     "sorl.thumbnail",
-    "storages",
+    #"storages",
     "physimathcode",
     "autenticacion",
     "hojadevida",
@@ -53,31 +57,6 @@ INSTALLED_APPS = [
 # Configuración de los mensajes (esto es opcional, pero es recomendable)
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-
-
-
-AWS_STORAGE_BUCKET_NAME = os.environ.get("DB_AWS_STORAGE_BUCKET_NAME")
-AWS_S3_ENDPOINT_URL = os.environ.get("DB_AWS_S3_ENDPOINT_URL")
-AWS_S3_REGION_NAME = os.environ.get("DB_AWS_S3_REGION_NAME")
-AWS_ACCESS_KEY_ID = os.environ.get("DB_AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("DB_AWS_SECRET_ACCESS_KEY")
-SUPABASE_URL = os.environ.get("DB_SUPABASE_URL")
-SUPABASE_SERVICE_ROLE_KEY =  os.environ.get("DB_SUPABASE_SERVICE_ROLE_KEY") 
-SUPABASE_KEY= os.environ.get("DB_SUPABASE_KEY") 
-
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_ADDRESSING_STYLE = "path"
-AWS_DEFAULT_ACL = None
-AWS_QUERYSTRING_AUTH = True
-
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -87,7 +66,6 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -100,8 +78,9 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             BASE_DIR / "physimathcode/plantillas",
-              BASE_DIR / "autenticacion/plantillas",
+            BASE_DIR / "autenticacion/plantillas",
             BASE_DIR / "hojadevida/plantillas",
+            BASE_DIR / "proyectoWeb/plantillas", #### cambio aqui: para vista principal
 
         ],
         "APP_DIRS": True,
@@ -124,17 +103,16 @@ WSGI_APPLICATION = "proyectoWeb.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-        "OPTIONS": {"sslmode": "require"},
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'databasehv',
+        'USER': 'databasehvuser',
+        'PASSWORD': 'reT@urnSm20Q',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -170,7 +148,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [ BASE_DIR / "static",
     # BASE_DIR / "media",
 ]
@@ -180,7 +158,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
 #MEDIA_URL = "https://tkkhlfkmsbbbqmdsbhug.storage.supabase.co/storage/v1/object/public/media/"
 
@@ -207,7 +185,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 
 XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
 
-
+LOGIN_URL = 'logear'
 
 
 

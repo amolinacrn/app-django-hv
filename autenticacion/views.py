@@ -12,6 +12,9 @@ from .forms import *
 
 # Create your views here.
 
+def acceso_denegado(request):
+    return render(request, "acceso_denegado.html")
+
 
 class VRegistro(View):
 
@@ -29,7 +32,7 @@ class VRegistro(View):
 
             login(request, usuario)
 
-            return redirect("hojadevida")
+            return redirect("home")
 
         else:
             for msg in form.error_messages:
@@ -41,7 +44,7 @@ class VRegistro(View):
 def cerrar_sesion(request):
     logout(request)
 
-    return redirect("hojadevida")
+    return redirect("home")
 
 
 def logear(request):
@@ -57,7 +60,7 @@ def logear(request):
             )
             if usuario is not None:
                 login(request, usuario)
-                return redirect("hojadevida")
+                return redirect("home")
 
     return render(request, "login/login.html", {"form": form})
 
@@ -90,3 +93,4 @@ class PermisosDocentesView(View):
                 return render(request, "permisosdocentes.html", {"form": form})
         else:
             return redirect("logear")
+

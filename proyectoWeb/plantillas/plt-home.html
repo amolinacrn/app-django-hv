@@ -1,0 +1,115 @@
+{% extends "base-principal.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block left_Panel_base %}
+
+<div class="portada-tres-cuerpos">
+    <div class="cv-container">
+        <!-- FOTO Y DATOS PERSONALES -->
+        <section class="card-cv">
+            <div class="perfil-header">
+
+                <div>
+                    <div class="cls-login-name-user">
+                        Datos Personales
+                    </div>
+
+                    <div style="padding: 10px;">
+                        {% for e in datos_personales %}
+                        <P>
+                            <img src="{{foto_perfil}}"
+                                style="width:150px;border-radius: 10%; border: 1px solid rgb(255, 183, 0);">
+                        </P>
+                        <ul class="lista-cv">
+                            <li> <img src="{{ eye_icon }}avatar_black.svg" style="width: 20px; height: 20px;">
+                                {{ e.primer_nombre }} {{ e.segundo_nombre }} {{ e.primer_apellido }}
+                                {{e.segundo_apellido }}</li>
+                            <li> <img src="{{ eye_icon }}house_black.svg">
+                                {{e.ciudad_residencia}} - {{e.departamento_origen}}</li>
+
+                            <li><img src="{{ eye_icon }}email_black.svg">
+                                {{ e.correo_electronico }}</li>
+
+                            <li>
+                                <img src="{{ eye_icon }}linkedin_black.svg">
+                                <a href="{{e.cuenta_github}}" target="_blank">Cuenta GitHub</a>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="cls-login-name-user">
+                        Formación Académica
+                    </div>
+
+                    <div style="padding: 10px;">
+                        {% for e in estudios|slice:":2" %}
+
+                        <ul class="lista-cv">
+                            <li> <img src="{{ eye_icon }}titulo-black.svg" style="height: 27px;width: 23px;">
+                                {{ e.titulo_obtenido }}
+                            </li>
+                            <li>
+                                <img src="{{ eye_icon }}academica-black.svg" style="height: 25px; width: 20px;">
+                                {{e.institucion_universitaria}}
+                            </li>
+
+                            <li> <img src="{{ eye_icon }}ubicacion-Universidad-black.svg"
+                                    style="width: 22px; height: 25px;">
+                                {{e.ciudad_titulo}} - {{ e.departamento_titulo }} - {{ e.pais_titulo }}</li>
+                            </li>
+                        </ul>
+
+			{% if not forloop.last %}
+			<hr style="border: 1px solid  rgb(0, 0, 0);">
+        		{% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!--div class="cls-login-name-user">
+                        Experiencia laboral
+                    </div>
+
+                    <div style="padding: 10px;">
+                        {% for e in experiencias_laborales %}
+                        <ul class="lista-cv">
+                            <li> <img src="{{ eye_icon }}avatar_black.svg" style="width: 20px; height: 20px;">
+                                {{ e.cargo }} - {{e.nombre_empresa}} - {{e.fecha_inicio}} / {{e.fecha_fin}}
+                            </li>
+                            <li><img src="{{ eye_icon }}email_black.svg">
+                                {{ e.ciudad_contrato }} - {{e.departamento_contrato}} - {{ e.pais_contrato }}</li>
+                            </li>
+                        </ul>
+                        <hr style="border: 1px solid  rgb(0, 0, 0);">
+                        {% endfor %}
+                    </div>
+
+                </div-->
+
+            </div>
+        </section>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block center_Panel_base %}
+
+<div class="portada-tres-cuerpos">
+    asdfasdf
+</div>
+
+{% endblock %}
+
+{% block right_Panel_base %}
+
+
+<div class="portada-tres-cuerpos">
+    asdfasdf
+</div>
+
+{% endblock %}

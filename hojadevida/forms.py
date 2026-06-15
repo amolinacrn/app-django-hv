@@ -416,8 +416,8 @@ class FormExperienciaLaboral(forms.ModelForm):
         widget=forms.NumberInput(),
         validators=[
             RegexValidator(
-                regex=r'^\d{12}$',
-                message="Ingrese un número de 12 dígitos"
+                regex=r'^\d{10}$',
+                message="Ingrese un número de 10 dígitos"
             )
         ]
     )
@@ -649,42 +649,42 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
 
     nevel_certificado = forms.CharField(
         max_length=3,
-        label=mark_safe("<span style='color:red'>*</span> Nivel:"),
-        required=True,
+        label=mark_safe("Nivel:"),
+        required=False,
         widget=forms.Select(choices=NIVEL_INGLES_CERTIFICADO),
     )
 
     institucion_expedicion_certificado = forms.CharField(
         max_length=80,
-        label=mark_safe("<span style='color:red'>*</span> Institución expedición del certificado:"),
-        required=True,
+        label=mark_safe("Institución expedición del certificado:"),
+        required=False,
     )
 
     fecha_obtecion_certificado = forms.DateField(
-        label=mark_safe("<span style='color:red'>*</span> Fecha del certificado:"),
-        required=True,
+        label=mark_safe("Fecha del certificado:"),
+        required=False,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
 
     pais_obtencion_certificado = forms.CharField(
         max_length=50,
-        label=mark_safe("<span style='color:red'>*</span> País:"),
-        required=True,
+        label=mark_safe("País:"),
+        required=False,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
 
     departamento_obtencion_certificado = forms.CharField(
         max_length=50,
-        label=mark_safe("<span style='color:red'>*</span> Departamento:"),
-        required=True,
+        label=mark_safe("Departamento:"),
+        required=False,
         widget=forms.Select(choices=DEPARTAMENTOS_COLOMBIA),
     )
 
     ciudad_obtencion_certificado = forms.CharField(
         max_length=50,
-        label=mark_safe("<span style='color:red'>*</span> Ciudad:"),
-        required=True,
+        label=mark_safe("Ciudad:"),
+        required=False,
     )
 
     documento_soporte = forms.FileField(

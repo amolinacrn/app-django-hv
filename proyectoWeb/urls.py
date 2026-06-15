@@ -20,7 +20,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
+from .views import home
 # from hojadevida.views import get_signed_url
+
+#### cambio aqui:  se agrega esta libreria nueva para vista principal
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,6 +31,8 @@ urlpatterns = [
     # path("physimathcode/", include("physimathcode.urls")),
     path("autenticacion/", include("autenticacion.urls")),
     # path("signed-url/", get_signed_url, name="signed-url"),
+    path("", home, name='home'),  #### cambio aqui: para vista principal
+    
     
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

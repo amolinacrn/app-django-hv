@@ -51,7 +51,7 @@
                                     </td>
                                     <td>
                                         <img src="{{ eye_icon }}cake2-fill.svg">
-                                        {{e.fecha_expedicion_documento|date:"d/m/Y"}}, {{e.departamento_origen}},
+                                        {{e.fecha_nacimiento|date:"d/m/Y"}}, {{e.departamento_origen}},
                                         {{e.pais_origen}}
                                     </td>
                                 </tr>
@@ -121,10 +121,9 @@
 
         <table class="tabla-personalizada">
             <tr class="menu-tablas-hv" style="text-align: center;">
-                <td><b>Título</b></td>
-                <td><b>Empresa</b></td>
-                <td><b>Periodo</b></td>
-                <td><b>Modalidad</b></td>
+                <td style="width:30%"><b>Título</b></td>
+                <td style="width:25%"><b>Empresa</b></td>
+                <td style="width:25%"><b>Periodo académico</b></td>
                 <td><b>País</b></td>
                 <td><b>Ver</b></td>
             </tr>
@@ -134,7 +133,6 @@
                 <td>{{ e.titulo_obtenido }}</td>
                 <td>{{ e.institucion_universitaria }}</td>
                 <td>{{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_finalizacion|date:"m/Y" }}</td>
-                <td>{{ e.modalidad_academica }}</td>
                 <td>{{ e.pais_titulo }}</td>
                 <td style="text-align: center;">
                     <a href="#{{ e.link }}">
@@ -220,10 +218,10 @@
                     <b>Conversación</b>
                 </td>
                 <td>
-                    <b>Escritura</b>
+                    <b>Lectura</b>
                 </td>
                 <td>
-                    <b>Lectura</b>
+                    <b>Escritura</b>
                 </td>
                 <td>
                     <b>Ver</b>
@@ -482,9 +480,9 @@
                 <td>
                     <b>Avanzado</b>
                 </td>
-                <td>
+                <!--td>
                     <b>Ver:</b>
-                </td>
+                </td-->
             </tr>
             </tr>
 
@@ -502,7 +500,11 @@
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
                                 style="width: {{ idioma.dominio_basico }}%; background-color:#f97306; color: transparent;;"
-                                aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">""
+                                aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">
+                                {% if idioma.dominio_basico != "0" %}
+
+                                ""
+                                {% endif %}
                             </div>
                             <div
                                 style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
@@ -517,7 +519,11 @@
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
                                 style="width: {{ idioma.dominio_medio }}%; background-color:#f97306; color: transparent;;"
-                                aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">""
+                                aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">
+                                {% if idioma.dominio_medio != "0" %}
+
+                                ""
+                                {% endif %}
                             </div>
                             <div
                                 style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
@@ -532,7 +538,11 @@
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
                                 style="width: {{ idioma.dominio_avanzado }}%; background-color:#f97306; color: transparent;;"
-                                aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">""
+                                aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">
+                                {% if idioma.dominio_avanzado != "0" %}
+
+                                ""
+                                {% endif %}
                             </div>
                             <div
                                 style="width: 100%; background-color: rgba(255, 255, 255, 0); text-align: center; position: absolute; top: 0px;">
@@ -541,65 +551,74 @@
                         </div>
                     </div>
                 </td>
-                <td style="width: 5%; text-align: center;">
+                <!--td style="width: 5%; text-align: center;">
                     <a href="#{{ idioma.link }}" style="color: blue; text-decoration: none;">
                         <img src="{{ eye_icon }}eye-fill.svg">
                     </a>
-                </td>
+                </td-->
             </tr>
             {% endfor %}
 
         </table>
         {% endif %}
 
-
-        {% if documentacion_completa %}
-
         <div class="datos-personales-div">
-            <span class="titulo-div">documentos de soporte</span>
+            <span class="titulo-div">documentación</span>
         </div>
+
+
 
         <table class="tabla-personalizada" style="margin-left: 33mm; width: 179mm;">
             <tr class="menu-tablas-hv">
-                <td>
+                <td colspan="2" style="width: 10%;">
                     <b>
                         Documentos aportados: diplomas, experiencias laborales, certificados, etc.
                     </b>
                 </td>
             </tr>
-            {% for documentacion in documentacion_completa %}
 
+
+            {% for d in diplomas_de_estudio %}
             <tr class="color-cuerpo-tablas">
-                <td>
-                    {{documentacion.grado_academico}} - {{documentacion.programa_academico}} -
-                    {{documentacion.titulo_obtenido}} - {{documentacion.institucion_universitaria}} -
-                    {{documentacion.departamento_titulo}} - {{documentacion.pais_titulo}}
-
+                {% if forloop.first %}
+                <td rowspan="{{ diplomas_de_estudio|length }}">
+                  <b>Formación académica</b>
                 </td>
+                {% endif %}
+                <td>{{d.titulo_obtenido}}, {{d.institucion_universitaria}}, {{d.pais_titulo}}</td>
             </tr>
-            <tr class="color-cuerpo-tablas">
-                <td>
-                    {{documentacion.nombre_empresa}} - {{documentacion.cargo}} -
-                    {{documentacion.ciudad_contrato}} - {{documentacion.departamento_contrato}} -
-                    {{documentacion.pais_contrato}}
-
-                </td>
-            </tr>
-
-            <tr class="color-cuerpo-tablas">
-                <td>
-                    {{documentacion.nombre_evento_cientifico}} - {{documentacion.tipo_evento}} -
-                    {{documentacion.institucion_evento}} - {{documentacion.ciudad_evento}} -
-                    {{documentacion.departamento_evento}} - {{documentacion.pais_evento}}
-
-                </td>
-            </tr>
-
             {% endfor %}
+
+            {% for e in experiencias_laborales %}
+            <tr class="color-cuerpo-tablas">
+                {% if forloop.first %}
+                <td rowspan="{{ experiencias_laborales|length }}">
+                    <b>Experiencia loboral</b>
+                </td>
+                {% endif %}
+                <td>{{e.cargo}}, {{e.nombre_empresa}}, {{e.departamento_contrato}}, {{e.pais_contrato}}</td>
+            </tr>
+            {% endfor %}
+
+            {% for c in participacion_cientifica %}
+            <tr class="color-cuerpo-tablas">
+                {% if forloop.first %}
+                <td rowspan="{{ participacion_cientifica|length }}">
+                    Estudios
+                </td>
+                {% endif %}
+                <td>{{c.nombre_evento_cientifico}}, {{c.tipo_evento}}, {{c.pais_evento}}</td>
+            </tr>
+            {% endfor %}
+
+
         </table>
 
-        {%endif%}
 
+
+
+
+       
         {% if matriz_imagenes_base64 %}
 
         {% for conjuto_doc, link_ref, url_file in matriz_imagenes_base64 %}

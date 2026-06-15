@@ -106,20 +106,14 @@ img:hover {
     gap: 16px;
   }
 
-
-
-
   .cls_login {
-    width: 34vw;
+    width: 100%;
     font-family: 'Barlow';
-    border-radius: 0.1vw;
+    border-radius: 2px;
     background-color: rgba(196, 196, 196, 0.801);
     border: rgb(187, 187, 187) 0px solid;
-    padding: 3vw;
+    padding: 2vw;
     font-size: 20px;
-    margin-left: 33vw;
-    margin-right: 33vw;
-    margin-top: 2vw;
   }
 
   .class_login {
@@ -167,3 +161,196 @@ img:hover {
   }
 
   /* ---------.......-------*/
+
+  /*se agrega esto como codigo nuevo para los tres cuerpos de la portada*/
+
+  #container-ccsbase {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding-top: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #ebebeb;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .left-Panel-base {
+    width: 25%;
+    background-color: #f2f2f200;
+
+  }
+
+  .center-Panel-base {
+    width: 50%;
+    background-color: #ffffff00;
+
+  }
+
+  .right-Panel-base {
+    width: 25%;
+    background-color: #eaeaea00;
+
+  }
+
+  /*esto es para los botones orizontales del munu principal*/
+
+  /* fondo degradado moderno */
+  .custom-navbar {
+    background: linear-gradient(90deg, #f38807, #f9a947);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    padding: 10px 15px;
+  }
+
+  /* links */
+  .custom-navbar .nav-link {
+    color: rgb(0, 0, 0) !important;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 20px;
+    transition: 0.3s ease;
+  }
+
+  /* hover elegante */
+  .custom-navbar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.596);
+    transform: translateY(-1px);
+  }
+
+  /* activo */
+  .custom-navbar .nav-link.active {
+    background: white;
+    color: #1f4037 !important;
+    font-weight: 600;
+  }
+
+  /* centrar dropdown mejor */
+  .dropdown-menu-center {
+    text-align: center;
+  }
+
+  /* search input más limpio */
+  .custom-navbar .form-control {
+    border-radius: 20px;
+  }
+
+  .custom-navbar .btn {
+    border-radius: 20px;
+  }
+
+  /*Imagen en el home de la vista principal*/
+
+  #mininav-home-principal {
+    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+
+  /*DOS CUERPOS DE LA PORTADA AUTENTICACION*/
+
+  #container-layout-dual {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+
+  }
+
+  .left-section-dual {
+    width: 70%;
+    background: #ffffff;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+  .right-section-dual {
+    position: relative;
+    background: rgb(255, 255, 255);
+    width: 30%;
+  }
+
+  .right-section-dual::before {
+    content: "";
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, rgb(255, 255, 255), transparent);
+
+
+  }
+
+  .mi_padding {
+    padding: 10%;
+  }
+
+  .portada-tres-cuerpos {
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 10px solid #ebebeb;
+    border-radius: 25px;
+  }
+
+  .lista-cv {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lista-cv li {
+    margin: 2px 0;
+    padding: 0;
+    line-height: 1.7;
+  }
+
+  /*stylos para titulos de informacion personal en portada*/
+
+  .cls-login-name-user {
+    background-color: #f3890767;
+    padding: 2px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    padding-left: 10px;
+  }
+
+  @media (max-width: 1200px) {
+
+    #container-ccsbase {
+      flex-direction: column;
+    }
+
+    .left-Panel-base,
+    .center-Panel-base,
+    .right-Panel-base {
+      width: 100%;
+    }
+
+    #container-layout-dual {
+      flex-direction: column;
+    }
+
+    .left-section-dual {
+      width: 100%;
+      height: 10vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+
+    }
+
+    .right-section-dual {
+      width: 100%;
+    }
+
+    .mi_padding {
+      padding: 1%;
+    }
+
+  }

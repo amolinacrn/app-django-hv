@@ -1,0 +1,356 @@
+  @font-face {
+    font-family: 'Barlow';
+    src: url('/static/fonts/Oswald/static/Oswald-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+  .menu-principal ul {
+    list-style: none;
+    border: 0px solid rgb(73, 16, 215);
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-principal li ul {
+    border: rgb(205, 205, 205) 1px solid;
+    position: absolute;
+    background: rgb(225, 225, 225);
+    display: block;
+    width: 190px;
+    top: 40px;
+  }
+
+  .menu-principal li {
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .menu-principal ul li ul {
+    display: none;
+  }
+
+  .menu-principal ul li li:hover {
+    background-color: rgb(23, 92, 230, 0.1);
+
+  }
+
+  .menu-principal ul li a {
+    color: rgb(5, 5, 5);
+    font-family: 'Barlow';
+    font-size: 17px;
+    /*font-weight: 600;*/
+    text-decoration: none;
+    vertical-align: middle;
+    padding: 3px;
+    border-radius: 8px;
+    /* forma redondeada base */
+
+  }
+
+  .menu-principal ul li a:hover {
+    background-color: #000000;
+  }
+
+  table,
+  th,
+  td {
+    border: 0px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 1px;
+  }
+
+  /*aplica hover color rojo*/
+  .menu-principal ul li a:hover {
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .menu-principal ul li a.active {
+    color: #ffffff;
+    background-color: #000000;
+  }
+
+  .menu-principal ul li:hover ul {
+    display: block;
+  }
+
+  /* 
+button:hover {
+      -webkit-transform: scale(1.5);
+      -moz-transform: scale(1.5);
+      -o-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+      transform: scale(1.05);
+      transition: all .3s ease-in;
+    } */
+  /*
+img:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.05);
+  /*transition: all .0s ease-in;
+}
+
+*/
+
+  .contenedor_registro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cls_login {
+    width: 100%;
+    font-family: 'Barlow';
+    border-radius: 2px;
+    background-color: rgba(196, 196, 196, 0.801);
+    border: rgb(187, 187, 187) 0px solid;
+    padding: 2vw;
+    font-size: 20px;
+  }
+
+  .class_login {
+    border: silver 1px solid;
+    margin: 10px;
+    padding: 30px;
+    margin-left: 470px;
+    margin-right: 470px;
+    background-color: #efecec;
+    font-family: "arial";
+  }
+
+  .class_registro {
+    border: rgb(227, 227, 227) 1px solid;
+    margin: 2vw;
+    padding: 3vw;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    background-color: #f3f3f3;
+    font-family: 'Barlow';
+    font-size: 15px;
+  }
+
+  .asteriskField {
+    display: none;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  /* Esto aqui es para quitar las flechitas que ponen numeros
+    hacia arriba y hacia abajo */
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* For Firefox  */
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* ---------.......-------*/
+
+  /*se agrega esto como codigo nuevo para los tres cuerpos de la portada*/
+
+  #container-ccsbase {
+    display: flex;
+    width: 100%;
+    height:auto;
+    padding-top: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #ebebeb;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .left-Panel-base {
+    width: 25%;
+    background-color: #f2f2f200;
+
+  }
+
+  .center-Panel-base {
+    width: 50%;
+    background-color: #ffffff00;
+
+  }
+
+  .right-Panel-base {
+    width: 25%;
+    background-color: #eaeaea00;
+
+  }
+
+  /*esto es para los botones orizontales del munu principal*/
+
+  /* fondo degradado moderno */
+  .custom-navbar {
+    background: linear-gradient(90deg, #f38807, #f9a947);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    padding: 10px 15px;
+  }
+
+  /* links */
+  .custom-navbar .nav-link {
+    color: rgb(0, 0, 0) !important;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 20px;
+    transition: 0.3s ease;
+  }
+
+  /* hover elegante */
+  .custom-navbar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.596);
+    transform: translateY(-1px);
+  }
+
+  /* activo */
+  .custom-navbar .nav-link.active {
+    background: white;
+    color: #1f4037 !important;
+    font-weight: 600;
+  }
+
+  /* centrar dropdown mejor */
+  .dropdown-menu-center {
+    text-align: center;
+  }
+
+  /* search input más limpio */
+  .custom-navbar .form-control {
+    border-radius: 20px;
+  }
+
+  .custom-navbar .btn {
+    border-radius: 20px;
+  }
+
+  /*Imagen en el home de la vista principal*/
+
+  #mininav-home-principal {
+    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+
+  /*DOS CUERPOS DE LA PORTADA AUTENTICACION*/
+
+  #container-layout-dual {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+
+  }
+
+  .left-section-dual {
+    width: 70%;
+    background: #ffffff;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+  .right-section-dual {
+    position: relative;
+    background: rgb(255, 255, 255);
+    width: 30%;
+  }
+
+  .right-section-dual::before {
+    content: "";
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, rgb(255, 255, 255), transparent);
+
+
+  }
+
+  .mi_padding {
+    padding: 10%;
+  }
+
+  .portada-tres-cuerpos {
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 10px solid #ebebeb;
+    border-radius: 25px;
+  }
+
+  .lista-cv {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lista-cv li {
+    margin: 2px 0;
+    padding: 0;
+    line-height: 1.7;
+  }
+
+  /*stylos para titulos de informacion personal en portada*/
+
+  .cls-login-name-user {
+    background-color: #f3890767;
+    padding: 2px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    padding-left: 10px;
+  }
+
+  @media (max-width: 1200px) {
+
+    #container-ccsbase {
+      flex-direction: column;
+    }
+
+    .left-Panel-base,
+    .center-Panel-base,
+    .right-Panel-base {
+      width: 100%;
+    }
+
+    #container-layout-dual {
+      flex-direction: column;
+    }
+
+    .left-section-dual {
+      width: 100%;
+      height: 10vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+
+    }
+
+    .right-section-dual {
+      width: 100%;
+    }
+
+    .mi_padding {
+      padding: 1%;
+    }
+
+  }

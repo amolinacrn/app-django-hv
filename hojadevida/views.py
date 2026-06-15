@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpRequest
 from django.template import Template, Context, loader
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.templatetags.static import static
 from django.views.generic import View
@@ -21,6 +21,15 @@ import os.path
 import unicodedata
 import re
 
+def es_acceso_hoja_vida(user):
+    return user.is_authenticated and user.groups.filter(
+        name="acceso-hoja-de-vida"
+    ).exists()
+
+
+def acceso_hoja_de_vida(user):
+    return user.groups.filter(name="acceso-hoja-de-vida").exists()
+
 def slugify(texto: str) -> str:
     texto = texto.lower()
     texto = unicodedata.normalize("NFD", texto)
@@ -30,6 +39,7 @@ def slugify(texto: str) -> str:
     return texto
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def delete_file_record(request, model_name, pk):
     Model = apps.get_model('hojadevida', model_name)
     obj = get_object_or_404(Model, pk=pk, nombre_usuario=request.user)
@@ -37,18 +47,21 @@ def delete_file_record(request, model_name, pk):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def phot_delete(request):
     deletfoto = FotosPersonale.objects.get(nombre_usuario_id=request.user.id)
     deletfoto.foto_perfil.delete()
     return redirect("get_datos")
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def file_delete(request):
     deletfile = DatosPersonale.objects.get(nombre_usuario_id=request.user.id)
     deletfile.fotocopia_documento.delete()
     return redirect("get_datos")
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def Menu_HV(request):
 
     if not request.user.is_authenticated:
@@ -102,7 +115,7 @@ def Menu_HV(request):
 
     # --- contexto ---
     contexto = {
-
+        "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "eye_icon": eye_icon,
 
         "datos_personales": datos_personales,
@@ -129,9 +142,8 @@ def Menu_HV(request):
         contexto
     )
 
-
-
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def view_pdf_HV(request):
     
     foto_perfil = FotosPersonale.objects.filter(nombre_usuario_id=request.user.id)
@@ -171,50 +183,58 @@ def view_pdf_HV(request):
         "diplomas_de_estudio": {
             "queryset": diplomas_de_estudio,
             # "modelo": TitulosAcademico,
-            "certificado_pdf":"diploma_titulo",
+            "certificado_pdf":"documento_soporte",
             
         },
         "experiencias_laborales": {
             "queryset": experiencias_laborales,
-            "certificado_pdf":"soportes_experincias_laborales",
+            "certificado_pdf":"documento_soporte",
         },
         "idioma_extrangero": {
             "queryset": idioma_extrangero,
-            "certificado_pdf":"soporte_certificado_idioma",
+            "certificado_pdf":"documento_soporte",
         },
         "participacion_cientifica": {
             "queryset": participacion_cientifica,
-            "certificado_pdf":"soportes_eventos_cientificos"
+            "certificado_pdf":"documento_soporte"
         },
         "competencias_tecnicas_computacionale": {
             "queryset": competencias_tecnicas_computacionales,
-            "certificado_pdf":"soporte_competencia_computacional"
+            "certificado_pdf":"documento_soporte"
         },
     }
 
-    documentacion_completa = list(chain(
-        diplomas_de_estudio,
-        experiencias_laborales,
-        participacion_cientifica
-    ))
-
-    for _, info in  conjuto_modelos.items():
+    for _, info in conjuto_modelos.items():
         if info["queryset"].count() != 0:
             for modelo in info["queryset"]:
                 campo_pdf = info["certificado_pdf"]
                 archivo = getattr(modelo, campo_pdf, None) if campo_pdf else None
-                                    
-                if archivo:
-                    pdf_path = archivo.path
-                    if pdf_path:
-                        pages = convert_from_path(pdf_path, dpi=200)
-                    imagenes_base64 = []
-                    for page in pages:
-                        buffer = BytesIO()
-                        page.save(buffer, format="JPEG", quality=70)  # comprime
-                        img_str = base64.b64encode(buffer.getvalue()).decode()
-                        imagenes_base64.append(img_str)
-                    matriz_imagenes_base64.append((imagenes_base64,modelo.link,archivo.url))
+
+                if not archivo:
+                    continue
+
+                pdf_path = archivo.path
+                if not pdf_path:
+                    continue
+
+                pages = convert_from_path(
+                    pdf_path,
+                    dpi=200,
+                    poppler_path="/usr/bin"
+                )
+
+                imagenes_base64 = []
+                url_absoluta = request.build_absolute_uri(archivo.url)
+
+                for page in pages:
+                    buffer = BytesIO()
+                    page.save(buffer, format="JPEG", quality=70)
+                    img_str = base64.b64encode(buffer.getvalue()).decode()
+                    imagenes_base64.append(img_str)
+
+                matriz_imagenes_base64.append(
+                    (imagenes_base64, modelo.link, url_absoluta)
+                )
 
     contexto={ 
         'eye_icon': eye_icon,
@@ -227,13 +247,16 @@ def view_pdf_HV(request):
         "participacion_cientifica": participacion_cientifica,
         "competencias_tecnicas_computacionale": competencias_tecnicas_computacionales,
         "matriz_imagenes_base64": matriz_imagenes_base64,
-        "documentacion_completa": documentacion_completa
-                }
+        "diplomas_de_estudio": diplomas_de_estudio,
+        "experiencias_laborales":experiencias_laborales,
+        "participacion_cientifica":participacion_cientifica
+        }
 
     response = render_pdf_view("ver_pdf_hv.html", contexto)
     return response
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def codigo_vistas_automaticas_post_hv(request,
                                       formulario_forms,
                                       models_model,
@@ -278,6 +301,7 @@ def codigo_vistas_automaticas_post_hv(request,
     return (plantilla_html, Contexto, es_valido)
 
 @login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
                                      models_model, documento_soporte, plantilla_html):
     expe_laboral = formulario_forms(
@@ -300,15 +324,18 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
                 objeto.documento_url = None
     
     contexto = {
+        "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "form": expe_laboral,
         "querydat": queryset_dat,
     }
 
     return (plantilla_html, contexto)
 
+
 class formDatPersonView:
 
     @login_required(login_url="/autenticacion/logear")
+    @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
     def get_person_dat(request):
 
         var_estado = False
@@ -356,6 +383,7 @@ class formDatPersonView:
             name_doc_pdf = "#"
 
         contexto = {
+            "puede_ver_hv": es_acceso_hoja_vida(request.user),
             "form": datos_personales,
             "fotoform": fperfiluser,
             "doc_name_PDF": name_doc_pdf,
@@ -368,6 +396,7 @@ class formDatPersonView:
 
 
     @login_required(login_url="/autenticacion/logear")
+    @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
     def post_person_dat(request):
 
         if request.method != "POST":
@@ -429,6 +458,7 @@ class formDatPersonView:
         )
  
     @login_required(login_url="/autenticacion/logear")
+    @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
     def post_person_phot(request):
 
         if request.method != "POST":
@@ -453,9 +483,16 @@ class formDatPersonView:
 
 
 class FormacionAcademicaHV(View):
+    
     def get(self, request, id_diploma=None):
+
         if not request.user.is_authenticated:
             return redirect("logear")
+
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
 
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormularioTitulosAcademicos,
@@ -470,6 +507,10 @@ class FormacionAcademicaHV(View):
         if not request.user.is_authenticated:
             return redirect("logear")
 
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
    
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
                                                                 FormularioTitulosAcademicos,
@@ -486,8 +527,14 @@ class FormacionAcademicaHV(View):
 class ExperienciaLaboralHV(View):
 
     def get(self, request, id_explab=None):
+
         if not request.user.is_authenticated:
             return redirect("logear")
+        
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
 
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormExperienciaLaboral,
@@ -500,7 +547,11 @@ class ExperienciaLaboralHV(View):
 
         if not request.user.is_authenticated:
             return redirect("logear")
-
+        
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
    
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
                                                                 FormExperienciaLaboral,
@@ -520,7 +571,10 @@ class ProduccionAcademicaHV(View):
 
         if not request.user.is_authenticated:
             return redirect("logear")
-
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormularioProduccionAcademica,
                                                                     ProduccionAcademica,
@@ -534,6 +588,10 @@ class ProduccionAcademicaHV(View):
         if not request.user.is_authenticated:
             return redirect("logear")
 
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
    
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
                                                                 FormularioProduccionAcademica,
@@ -551,6 +609,12 @@ class ParticipacionCientificaHV(View):
     def get(self, request, id_pcient=None):
         if not request.user.is_authenticated:
             return redirect("logear")
+
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
+
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormularioParticipacionCientifica,
                                                                     ParticipacionCientifica,
@@ -562,6 +626,11 @@ class ParticipacionCientificaHV(View):
     def post(self, request, id_pcient=0):
         if not request.user.is_authenticated:
             return redirect("logear")
+
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
 
    
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
@@ -581,6 +650,12 @@ class CompetenciasTecnicasComputacionalesHV(View):
 
         if not request.user.is_authenticated:
             return redirect("logear")
+        
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
+
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     CompetenciasTecnicasComputacionalesForm,
                                                                     CompetenciasTecnicasComputacionale,
@@ -595,6 +670,10 @@ class CompetenciasTecnicasComputacionalesHV(View):
         if not request.user.is_authenticated:
             return redirect("logear")
 
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
    
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
                                                                 CompetenciasTecnicasComputacionalesForm,
@@ -612,6 +691,10 @@ class IdiomaExtrangeroHV(View):
     def get(self, request, pasar_id = None):
         if not request.user.is_authenticated:
             return redirect("logear")
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormularioIdiomaExtrangero,
                                                                     IdiomaExtrangero,
@@ -625,6 +708,11 @@ class IdiomaExtrangeroHV(View):
         if not request.user.is_authenticated:
             return redirect("logear")
         
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
+
         plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
                                                                 FormularioIdiomaExtrangero,
                                                                 IdiomaExtrangero,"dominio_idiomas.html",

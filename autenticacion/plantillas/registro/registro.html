@@ -4,82 +4,90 @@
 
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block contenido-izquierdo %}
+{% endblock %}
 
-<div class="class_registro">
+{% block contenido-derecho %}
 
-  <form action=" " method="post">
+<div class="mi_padding">
+  <div class="cls_login">
 
-    {% csrf_token %}
+    <form action=" " method="post">
 
-    <div style="width: 100%;">
+      {% csrf_token %}
 
-      <img src="https://raw.githubusercontent.com/amolinacrn/index/refs/heads/main/imagenes/imfg.jpeg"
-        style="width: 100%;transform: scale(1);">
+      <div style="width: 100%;">
+
+<div style="display:flex;justify-content: center; align-items: center; padding: 0px">
+  <img src="{% static 'bs532/img/imghv/icon_login.svg' %}" style="width: 30%;transform: scale(1);">
+</div>
+
+<div style="font-size: 35px; display:flex;justify-content: center; align-items: center; padding: 5px">
+  Crear una cuenta
+</div>
 
 
-
-      <!--b style="font-size:25px;">
+        <!--b style="font-size:25px;">
         Registro<p>
       </b-->
 
 
 
-      <!--b style="font-size:17px;">
+        <!--b style="font-size:17px;">
         Complete todos los campos
       </b-->
 
 
-      <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
+        <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
 
 
-      <div class="contenedor_registro">
-        <div class="col">
-          <!--b class="text-uppercase" style="font-size:15px;">Detalles de la cuenta</b>
+        <div class="contenedor_registro">
+          <div class="col">
+            <!--b class="text-uppercase" style="font-size:15px;">Detalles de la cuenta</b>
           <hr style="border: 0.1vw rgb(34, 33, 33) solid;  width: 100%;"-->
 
 
-          {{ form.username|as_crispy_field }}
-          {{ form.password1|as_crispy_field }}
-          {{ form.password2|as_crispy_field }}
+            {{ form.username|as_crispy_field }}
+            {{ form.password1|as_crispy_field }}
+            {{ form.password2|as_crispy_field }}
 
-        </div>
-        <div class="col">
-          <!--b class="text-uppercase" style="font-size:15px;">Detalles del perfil</b>
+          </div>
+          <div class="col">
+            <!--b class="text-uppercase" style="font-size:15px;">Detalles del perfil</b>
           <hr style="border: 0.1vw rgb(34, 33, 33) solid;  width: 100%;"-->
 
-          {{ form.first_name|as_crispy_field }}
-          {{ form.last_name|as_crispy_field }}
-          {{ form.email|as_crispy_field }}
+            {{ form.first_name|as_crispy_field }}
+            {{ form.last_name|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+          </div>
         </div>
+
+        <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
+
+        <table width="100%">
+          <tr>
+
+            <td width="35%"></td>
+
+            <td width="10%">
+              <a href="{% url 'logear' %}" class="btn  btn-outline-danger">Regrear</a>
+            </td>
+
+            <td width="10%"></td>
+
+
+            <td width="10%">
+              <button class="btn  btn-outline-primary" type="submit">Registrarse</button>
+            </td>
+
+            <td width="35%"></td>
+
+          </tr>
+        </table>
+
       </div>
+    </form>
 
-      <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
-
-      <table width="100%">
-        <tr>
-
-          <td width="35%"></td>
-
-          <td width="10%">
-            <a href="{% url 'hojadevida' %}" class="btn  btn-outline-danger">Regrear</a>
-          </td>
-
-          <td width="10%"></td>
-
-
-          <td width="10%">
-            <button class="btn  btn-outline-primary" type="submit">Registrarse</button>
-          </td>
-
-          <td width="35%"></td>
-
-        </tr>
-      </table>
-
-    </div>
-  </form>
-
+  </div>
 </div>
-
 {% endblock %}

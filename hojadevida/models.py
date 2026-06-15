@@ -64,6 +64,8 @@ class TitulosAcademico(models.Model):
         upload_to="files/docs/diplomas", blank=True, null=True
     )
 
+
+
 class ExperienciasLaborale(models.Model):
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
@@ -86,6 +88,11 @@ class ExperienciasLaborale(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/experiencia", blank=True, null=True
     )
+
+    class Meta:
+        ordering = ['-fecha_inicio']
+
+
 
 class ProduccionAcademica(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -126,19 +133,19 @@ class IdiomaExtrangero(models.Model):
     domimio_conversacional = models.CharField(max_length=3, blank=False, null=False)
     dominio_lectura = models.CharField(max_length=3, blank=False, null=False)
     dominio_escritura = models.CharField(max_length=3, blank=False, null=False)
-    nevel_certificado = models.CharField(max_length=3, blank=False, null=False)
+    nevel_certificado = models.CharField(max_length=3, blank=True, null=True)
     institucion_expedicion_certificado = models.CharField(
-        max_length=80, blank=False, null=False
+        max_length=80, blank=True, null=True
     )
-    fecha_obtecion_certificado = models.DateField(blank=False, null=False)
+    fecha_obtecion_certificado = models.DateField(blank=True, null=True)
     pais_obtencion_certificado = models.CharField(
-        max_length=50, blank=False, null=False
+        max_length=50, blank=True, null=True
     )
     departamento_obtencion_certificado = models.CharField(
-        max_length=50, blank=False, null=False
+        max_length=50, blank=True, null=True
     )
     ciudad_obtencion_certificado = models.CharField(
-        max_length=50, blank=False, null=False
+        max_length=50, blank=True, null=True
     )
     documento_soporte = models.FileField(
         upload_to="files/docs/idiomas", blank=True, null=True

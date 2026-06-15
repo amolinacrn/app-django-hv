@@ -582,7 +582,7 @@ competencias_tecnicas_computacionales = [
     "TDD (Test-Driven Development)",
     "Clean Code",
     "LaTeX",
-    "Wolfram Matemática"
+    "Wolfram Matemática",
     "Excel",
     "Power BI"
 ]
