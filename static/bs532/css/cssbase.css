@@ -1,85 +1,112 @@
-  @font-face {
-    font-family: 'Barlow';
-    src: url('/static/fonts/Oswald/static/Oswald-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
+/* :root {
+  --ancho-body-app: 1200px;
+  --ancho-body-izquierdo: 400px;
+  --ancho-body-derecho: 800px;
+  --ancho-imagen-portada: 230px;
+  --ancho-contenedor-nombre: 970px;
+  --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
+} */
 
+:root {
+  /*MARGENES DE LA WEB*/
+  --ancho-body-app: 100%;
+  --ancho-maximo-div: 1200px;
+  --ancho-body-izquierdo: calc(var(--ancho-maximo-div)*1/3);
+  --ancho-body-derecho: calc(var(--ancho-maximo-div)*2/3);
+  --ancho-imagen-portada: auto;
+  --ancho-contenedor-nombre: 100%;
+  --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
+  /*COLORES DE LA WEB*/
+  --colores-web-app: #f0f0f0;
+}
 
-  .menu-principal ul {
-    list-style: none;
-    border: 0px solid rgb(73, 16, 215);
-    padding: 0;
-    margin: 0;
-  }
+@font-face {
+  font-family: 'Barlow';
+  src: url('/static/fonts/Oswald/static/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-  .menu-principal li ul {
-    border: rgb(205, 205, 205) 1px solid;
-    position: absolute;
-    background: rgb(225, 225, 225);
-    display: block;
-    width: 190px;
-    top: 40px;
-  }
+body {
+  font-family: "arial";
+  /* font-family: 'Inter', sans-serif; */
+  /*mismo tipo de letra para casi toda la app*/
+}
 
-  .menu-principal li {
-    margin: 2px 0;
-    display: flex;
-    align-items: center;
+.menu-principal ul {
+  list-style: none;
+  border: 0px solid rgb(73, 16, 215);
+  padding: 0;
+  margin: 0;
+}
 
-  }
+.menu-principal li ul {
+  border: rgb(205, 205, 205) 1px solid;
+  position: absolute;
+  background: rgb(225, 225, 225);
+  display: block;
+  width: 190px;
+  top: 40px;
+}
 
-  .menu-principal ul li ul {
-    display: none;
-  }
+.menu-principal li {
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
 
-  .menu-principal ul li li:hover {
-    background-color: rgb(23, 92, 230, 0.1);
+}
 
-  }
+.menu-principal ul li ul {
+  display: none;
+}
 
-  .menu-principal ul li a {
-    color: rgb(5, 5, 5);
-    font-family: 'Barlow';
-    font-size: 17px;
-    /*font-weight: 600;*/
-    text-decoration: none;
-    vertical-align: middle;
-    padding: 3px;
-    border-radius: 8px;
-    /* forma redondeada base */
+.menu-principal ul li li:hover {
+  background-color: rgb(23, 92, 230, 0.1);
 
-  }
+}
 
-  .menu-principal ul li a:hover {
-    background-color: #000000;
-  }
+.menu-principal ul li a {
+  color: rgb(5, 5, 5);
+  font-family: 'Barlow';
+  font-size: 17px;
+  /*font-weight: 600;*/
+  text-decoration: none;
+  vertical-align: middle;
+  padding: 3px;
+  border-radius: 8px;
+  /* forma redondeada base */
 
-  table,
-  th,
-  td {
-    border: 0px solid rgb(0, 0, 0);
-    border-collapse: collapse;
-    border-collapse: separate;
-    border-spacing: 1px;
-  }
+}
 
-  /*aplica hover color rojo*/
-  .menu-principal ul li a:hover {
-    color: #ffffff;
-    cursor: pointer;
-  }
+.menu-principal ul li a:hover {
+  background-color: #000000;
+}
 
-  .menu-principal ul li a.active {
-    color: #ffffff;
-    background-color: #000000;
-  }
+table,
+th,
+td {
+  border: 0px solid rgb(0, 0, 0);
+  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 1px;
+}
 
-  .menu-principal ul li:hover ul {
-    display: block;
-  }
+/*aplica hover color rojo*/
+.menu-principal ul li a:hover {
+  color: #ffffff;
+  cursor: pointer;
+}
 
-  /* 
+.menu-principal ul li a.active {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.menu-principal ul li:hover ul {
+  display: block;
+}
+
+/*
 button:hover {
       -webkit-transform: scale(1.5);
       -moz-transform: scale(1.5);
@@ -88,7 +115,7 @@ button:hover {
       transform: scale(1.05);
       transition: all .3s ease-in;
     } */
-  /*
+/*
 img:hover {
   -webkit-transform: scale(1.5);
   -moz-transform: scale(1.5);
@@ -100,257 +127,590 @@ img:hover {
 
 */
 
-  .contenedor_registro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+.contenedor_registro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
 
-  .cls_login {
-    width: 100%;
-    font-family: 'Barlow';
-    border-radius: 2px;
-    background-color: rgba(196, 196, 196, 0.801);
-    border: rgb(187, 187, 187) 0px solid;
-    padding: 2vw;
-    font-size: 20px;
-  }
+.cls_login {
+  width: 100%;
+  font-family: 'Barlow';
+  border-radius: 2px;
+  background-color: rgba(196, 196, 196, 0.801);
+  border: rgb(187, 187, 187) 0px solid;
+  padding: 2vw;
+  font-size: 20px;
+}
 
-  .class_login {
-    border: silver 1px solid;
-    margin: 10px;
-    padding: 30px;
-    margin-left: 470px;
-    margin-right: 470px;
-    background-color: #efecec;
-    font-family: "arial";
-  }
+.class_login {
+  border: silver 1px solid;
+  margin: 10px;
+  padding: 30px;
+  margin-left: 470px;
+  margin-right: 470px;
+  background-color: #efecec;
+  font-family: "arial";
+}
 
-  .class_registro {
-    border: rgb(227, 227, 227) 1px solid;
-    margin: 2vw;
-    padding: 3vw;
-    margin-left: 25vw;
-    margin-right: 25vw;
-    background-color: #f3f3f3;
-    font-family: 'Barlow';
-    font-size: 15px;
-  }
+.class_registro {
+  border: rgb(227, 227, 227) 1px solid;
+  margin: 2vw;
+  padding: 3vw;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  background-color: #f3f3f3;
+  font-family: 'Barlow';
+  font-size: 15px;
+}
 
-  .asteriskField {
-    display: none;
-  }
+.asteriskField {
+  display: none;
+}
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
-  /* Esto aqui es para quitar las flechitas que ponen numeros
+/* Esto aqui es para quitar las flechitas que ponen numeros
     hacia arriba y hacia abajo */
 
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  /* For Firefox  */
+/* For Firefox  */
 
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
-  /* ---------.......-------*/
+/* ---------.......-------*/
 
-  /*se agrega esto como codigo nuevo para los tres cuerpos de la portada*/
+/*esto es para los botones orizontales del munu principal*/
 
-  #container-ccsbase {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    padding-top: 5px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background-color: #ebebeb;
-    font-family: 'Inter', sans-serif;
+/* fondo degradado moderno */
+.custom-navbar {
+  background: linear-gradient(90deg, #f38807, #f9a947);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+}
+
+/* links */
+.custom-navbar .nav-link {
+  color: rgb(0, 0, 0) !important;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: 0.3s ease;
+}
+
+/* hover elegante */
+.custom-navbar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.596);
+  transform: translateY(-1px);
+}
+
+/* activo */
+.custom-navbar .nav-link.active {
+  background: white;
+  color: #1f4037 !important;
+  font-weight: 600;
+}
+
+/* centrar dropdown mejor */
+.dropdown-menu-center {
+  text-align: center;
+}
+
+/* search input más limpio */
+.custom-navbar .form-control {
+  border-radius: 20px;
+}
+
+.custom-navbar .btn {
+  border-radius: 20px;
+}
+
+/*Imagen en el home de la vista principal*/
+
+#mininav-home-principal {
+  background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+
+/*DOS CUERPOS DE LA PORTADA AUTENTICACION*/
+
+#container-layout-dual {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+
+}
+
+.left-section-dual {
+  width: 70%;
+  background: #ffffff;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+  background-position: center;
+  background-size: cover;
+}
+
+.right-section-dual {
+  position: relative;
+  background: rgb(255, 255, 255);
+  width: 30%;
+}
+
+.right-section-dual::before {
+  content: "";
+  position: absolute;
+  left: -100px;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to left, rgb(255, 255, 255), transparent);
+
+  z-index: 1;
+}
+
+.mi_padding {
+  padding: 10%;
+}
+
+/*se agrega esto como codigo nuevo para los tres cuerpos de la portada*/
+
+#container-ccsbase {
+  background-color: var(--colores-web-app);
+  width: 100%;
+  /* align-items: center;
+  justify-content: center; */
+  font-size: 15px;
+}
+
+.cuerpo-ccsbase-body {
+  display: flex;
+  width: var(--ancho-body-app);
+  max-width: calc(var(--ancho-maximo-div) + 30px);
+  background-color: var(--colores-web-app);
+  gap: 15px;
+  margin-top: 15px;
+  margin: 0 auto;
+}
+
+.left-Panel-base {
+  width: var(--ancho-body-izquierdo);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: var(--sombras-divs-app);
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-top: 8px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.right-Panel-base {
+  width: var(--ancho-body-derecho);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: var(--sombras-divs-app);
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-top: 8px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+
+
+#subportada-boddy {
+  background-color: #ffffff;
+  width: var(--ancho-body-app);
+  box-shadow: var(--sombras-divs-app);
+  margin-bottom: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.cuerpo-subportada-body {
+  display: flex;
+  width: var(--ancho-body-app);
+  max-width: var(--ancho-maximo-div);
+  background-color: #ffffff;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.contenedor-imagen {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: rgb(255, 255, 255);
+  width: var(--ancho-imagen-portada);
+}
+
+.contenedor-informacion-personal {
+  align-items: center;
+  width: var(--ancho-contenedor-nombre);
+  padding-top: 50px;
+}
+
+.portada-hadder-nombre-apellido {
+  display: flex;
+  font-weight: bold;
+}
+
+.portada-nombre-apellido {
+  font-size: 30px;
+  margin-right: auto;
+}
+
+.lista-cv {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-cv li {
+  margin: 2px 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+/*stylos para titulos de informacion personal en portada*/
+
+.cls-login-name-user {
+  background-color: #f3890767;
+  padding: 2px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+
+  padding-left: 10px;
+}
+
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 3px 10px;
+
+  border: 0px solid #f38807;
+  border-radius: 8px;
+  background-color: #f38907ed;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+  margin-right: 10px
+}
+
+.btn-cv:hover {
+  background-color: #f9a947;
+  color: white;
+}
+
+.btn-cv .icono {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tamaño-letra-acordeon {
+  position: absolute;
+  padding-left: 15px;
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 12px;
+
+  border: 0px solid #f38807;
+  border-radius: 8px;
+  background-color: #6e6e6e;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+  margin-right: 10px
+}
+
+.btn-github:hover {
+  background-color: #6e6e6ecb;
+  color: white;
+}
+
+.btn-github .icono {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.menu-panel-acordeon {
+  border-radius: 10px;
+  position: relative;
+  margin: 0 auto;
+  width: var(--ancho-body-app);
+  max-width: var(--ancho-maximo-div);
+  background-color: #ffffff;
+  transition: "";
+  overflow: hidden;
+  padding: 0px;
+}
+
+.recoger-acordeon {
+  position: absolute;
+  background-color: #ffffff;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  /* text-decoration: none; */
+  cursor: pointer;
+  /* font-size: 20px; */
+  border-radius: 8px;
+
+  margin-left: 10px;
+}
+
+
+.collapse-botton-acordeon {
+  /* position: absolute; */
+  background-color: #6e6e6e3e;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  /* text-decoration: none; */
+  cursor: pointer;
+  /* font-size: 20px; */
+  border-radius: 50%;
+
+  /* margin-left: 10px; */
+}
+
+
+.collapse-botton-acordeon-derecho {
+  display: flex;
+  /* position: absolute; */
+  background-color: #6e6e6e3e;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  /* text-decoration: none; */
+  cursor: pointer;
+  /* font-size: 20px; */
+  border-radius: 50%;
+
+}
+
+/* .contenedor-carrusel {
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  display: flex;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+} */
+
+/* .ventana-carrusel {
+  width: 100%;
+  overflow: hidden;
+} */
+
+.carrusel {
+  position: absolute;
+  display: flex;
+  transition: transform 0.3s ease;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+
+}
+
+.posicion-bottones-carrusel {
+  display: flex;
+  height: 350px;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(0, 100, 0, 0);
+  width: 100%;
+  padding: 20px;
+}
+
+.item {
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-top: 40px;
+  min-width: 175px;
+  height: 300px;
+  margin-right: 10px;
+  border: 1px solid #e2e2e2c5;
+  box-shadow: 0px 0px 5px 1px rgba(190, 190, 190, 0.295);
+}
+
+.item-ima img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.button-acordeon-carrusel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 3px 10px;
+  border: 0px solid #6e6e6e;
+  border-radius: 8px;
+  background-color: #6e6e6e;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.button-acordeon-carrusel:hover {
+  background-color: #6e6e6ecb;
+  color: white;
+}
+
+.button-acordeon-carrusel .icono {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.accordion-icon {
+  padding: 0px;
+}
+
+.accordion-icon {
+  transition: transform 0.3s;
+}
+
+.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.descripcion-personal-profesion {
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 1000px) {
+
+
+  .cuerpo-ccsbase-body {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
   }
 
   .left-Panel-base {
-    width: 25%;
-    background-color: #f2f2f200;
-
-  }
-
-  .center-Panel-base {
-    width: 50%;
-    background-color: #ffffff00;
+    width: 94%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
 
   }
 
   .right-Panel-base {
-    width: 25%;
-    background-color: #eaeaea00;
-
+    width: 94%;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-left: 15px;
   }
-
-  /*esto es para los botones orizontales del munu principal*/
-
-  /* fondo degradado moderno */
-  .custom-navbar {
-    background: linear-gradient(90deg, #f38807, #f9a947);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    padding: 10px 15px;
-  }
-
-  /* links */
-  .custom-navbar .nav-link {
-    color: rgb(0, 0, 0) !important;
-    font-weight: 500;
-    padding: 8px 14px;
-    border-radius: 20px;
-    transition: 0.3s ease;
-  }
-
-  /* hover elegante */
-  .custom-navbar .nav-link:hover {
-    background: rgba(255, 255, 255, 0.596);
-    transform: translateY(-1px);
-  }
-
-  /* activo */
-  .custom-navbar .nav-link.active {
-    background: white;
-    color: #1f4037 !important;
-    font-weight: 600;
-  }
-
-  /* centrar dropdown mejor */
-  .dropdown-menu-center {
-    text-align: center;
-  }
-
-  /* search input más limpio */
-  .custom-navbar .form-control {
-    border-radius: 20px;
-  }
-
-  .custom-navbar .btn {
-    border-radius: 20px;
-  }
-
-  /*Imagen en el home de la vista principal*/
-
-  #mininav-home-principal {
-    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
-    background-position: center;
-    background-size: cover;
-  }
-
-
-  /*DOS CUERPOS DE LA PORTADA AUTENTICACION*/
 
   #container-layout-dual {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-
+    flex-direction: column;
   }
 
   .left-section-dual {
-    width: 70%;
-    background: #ffffff;
-    position: relative;
+    width: var(--ancho-body-app);
+    height: 10vh;
     background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
-    background-position: center;
-    background-size: cover;
+
   }
 
   .right-section-dual {
-    position: relative;
-    background: rgb(255, 255, 255);
-    width: 30%;
-  }
-
-  .right-section-dual::before {
-    content: "";
-    position: absolute;
-    left: -100px;
-    width: 100px;
-    height: 100%;
-    background: linear-gradient(to left, rgb(255, 255, 255), transparent);
-
-
+    width: var(--ancho-body-app);
   }
 
   .mi_padding {
-    padding: 10%;
+    padding: 1%;
   }
 
-  .portada-tres-cuerpos {
-    background-color: white;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 10px solid #ebebeb;
-    border-radius: 25px;
+  .cuerpo-subportada-body {
+    flex-direction: column;
+    width: var(--ancho-body-app);
+    gap: 0px;
+
   }
 
-  .lista-cv {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .lista-cv li {
-    margin: 2px 0;
-    padding: 0;
-    line-height: 1.7;
-  }
-
-  /*stylos para titulos de informacion personal en portada*/
-
-  .cls-login-name-user {
-    background-color: #f3890767;
-    padding: 2px;
-    border-radius: 5px;
+  .contenedor-imagen {
+    width: var(--ancho-body-app);
     display: flex;
+    justify-content: center;
     align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Inter', sans-serif;
-    padding-left: 10px;
   }
 
-  @media (max-width: 1200px) {
+  .contenedor-informacion-personal {
+    width: var(--ancho-body-app);
+    padding: 10px;
+  }
 
-    #container-ccsbase {
-      flex-direction: column;
-    }
+  .portada-hadder-nombre-apellido {
+    flex-direction: column;
+    width: var(--ancho-body-app);
+    justify-content: center;
+    align-items: center;
+  }
 
-    .left-Panel-base,
-    .center-Panel-base,
-    .right-Panel-base {
-      width: 100%;
-    }
+  .contenedor-btn-gitHub-cv {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
 
-    #container-layout-dual {
-      flex-direction: column;
-    }
+  .portada-nombre-apellido {
+    text-align: center;
+    margin-right: 0px;
+  }
 
-    .left-section-dual {
-      width: 100%;
-      height: 10vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
+  .educacion-del-sujeto {
+    text-align: center;
+  }
 
-    }
+  .descripcion-personal-profesion {
+    text-align: center;
+  }
 
-    .right-section-dual {
-      width: 100%;
-    }
-
-    .mi_padding {
-      padding: 1%;
-    }
+  .menu-panel-acordeon {
+    margin-top: 15px;
+    /* width: 94%; */
 
   }
+}

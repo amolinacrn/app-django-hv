@@ -1,3 +1,7 @@
+body {
+  font-family: "arial";
+}
+
 .my_img {
   width: 3.5cm;
   height: 4.5cm;
@@ -116,7 +120,7 @@ img:hover {
   margin-left: 230px;
   margin-right: 230px;
   background-color: #f3f3f3;
-  font-family: "arial";
+
 }
 
 .class_hv {
@@ -126,7 +130,7 @@ img:hover {
   margin-left: 120px;
   margin-right: 120px;
   background-color: #f3f3f3;
-  font-family: "arial";
+
 }
 
 .class_div {
@@ -136,7 +140,7 @@ img:hover {
   margin-left: 0px;
   margin-right: 0px;
   background-color: #f3f3f3;
-  font-family: "arial";
+
 
   border-top: rgb(21, 21, 21) 5px solid;
   border-radius: 10px;
@@ -149,7 +153,7 @@ img:hover {
   margin-left: 63px;
   margin-right: 0px;
   background-color: #bf0f0f00;
-  font-family: "arial";
+
   margin-top: 97px;
   width: 3.85cm;
 }
@@ -165,7 +169,7 @@ img:hover {
   margin-right: 10vw;
   background-color: #bcbbbb;
   padding: 1vw;
-  font-family: "arial";
+
   border-radius: 15px;
 }
 
@@ -202,7 +206,7 @@ img:hover {
   margin-left: 0vw;
   margin-right: 80vw;
   background-color: #f3f3f3;
-  font-family: "arial";
+
   /* border-top: solid rgb(8, 26, 66) 5px; */
 
 }

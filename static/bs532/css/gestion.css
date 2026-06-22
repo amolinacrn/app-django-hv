@@ -10,7 +10,7 @@
   }
 
   #miniNav {
-    background-color: #ffa538;
+    background-color: #f38807;
     font-family: 'Barlow'
   }
 
@@ -56,13 +56,13 @@
 
   /*esto aqui es para colorear el texto activo*/
   #mainNav .navbar-nav .nav-item .nav-link {
-    color: #ffa538;
+    color: #f38807;
     font-weight: 900;
   }
 
   /*esto aqui es para colorear el texto activo*/
   #mainNav .navbar-nav .nav-item.active .nav-link {
-    color: #ffa538;
+    color: #f38807;
     /* text-decoration: underline; */
   }
 
@@ -73,12 +73,12 @@
     }
 
     #mainNav .navbar-nav .nav-item .nav-link:hover {
-      color: #ffa538;
+      color: #f38807;
       /* text-decoration: underline; */
     }
 
     #mainNav .navbar-nav .nav-item.active .nav-link:hover {
-      color: #ffa538;
+      color: #f38807;
       /* text-decoration: underline; */
     }
   }
@@ -111,12 +111,12 @@
     }
 
     #mainDiv .navbar-nav .nav-item .nav-link:hover {
-      color: #ffa538;
+      color: #f38807;
       /* text-decoration: underline; */
     }
 
     #mainDiv .navbar-nav .nav-item.active .nav-link:hover {
-      color: #ffa538;
+      color: #f38807;
       /* text-decoration: underline; */
     }
   }

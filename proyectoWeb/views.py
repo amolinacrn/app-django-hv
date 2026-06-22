@@ -18,7 +18,11 @@ def es_acceso_hoja_vida(user):
     ).exists()
 
 def home(request):
-    user = User.objects.get(username="amolinacrn")
+    # user = User.objects.get(username="amolinacrn")
+    try:
+        user = User.objects.get(username="amolinacrn")
+    except User.DoesNotExist:
+        user = None
     # --- consultas ---
     foto_obj = FotosPersonale.objects.filter(
         nombre_usuario=user
@@ -51,8 +55,20 @@ def home(request):
 
     agregar_link(experiencias, "experiencias_laborales")
     agregar_link(diplomas, "titulo_obtenido")
+
+
+    imagenes_carrusel = []
+
+    for i in range(1, 20):
+        imagenes_carrusel.append(f"img{i}.jpg")
+
+    
+
     # --- contexto ---
     contexto = {
+
+        "imagenesCarrusel":imagenes_carrusel,
+        
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
 
         "eye_icon": eye_icon,

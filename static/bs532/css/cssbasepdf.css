@@ -9,7 +9,8 @@
 }
 
 body {
-    font-family: "Helvetica";
+    /* font-family: "Helvetica"; */
+    font-family: "arial";
     font-size: var(--font-body);
     background-color: #ffffff;
     transform: scale(0.937);

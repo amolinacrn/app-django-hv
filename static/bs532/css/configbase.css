@@ -49,38 +49,6 @@
 
     }
 
-    .button {
-      background-color: rgba(255, 0, 0, 0);
-      border: none;
-      cursor: pointer;
-      display: flex;
-    }
-
-    .accordion-icon {
-      padding: 0px;
-      margin-left: 13px;
-    }
-
-    .accordion-button:focus {
-      box-shadow: none;
-    }
-
-    .accordion_body {
-      top: -18px;
-      margin-left: 66px;
-      background-color: #dd090900;
-      width: 150px;
-      position: relative;
-    }
-
-    .accordion-icon {
-      margin-right: 0px;
-      transition: transform 0.3s;
-    }
-
-    .active .accordion-icon {
-      transform: rotate(180deg);
-    }
 
     .mainboton {
       margin-top: 7%;
@@ -102,12 +70,40 @@
       padding: 0vw;
       width: 0px;
       height: 500px;
-      background-color: #ee9d11;
+      background-color: #f38807;
       position: fixed;
       transition: "";
       overflow: hidden;
       z-index: 1
     }
+
+
+
+    .leftPanel-munu-principal {
+      margin-left: 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+      padding: 0px;
+      /* width: 0px; */
+      height: 430px;
+      background-color: #f38807;
+      position: fixed;
+      transition: "";
+      overflow: hidden;
+      z-index: 1
+    }
+
+    .contenedor-home-computador {
+      display: none;
+      font-family: 'Barlow';
+    }
+
+    .contenedor-home-culular-tablet {
+      display: none;
+    }
+
+
+
 
     /* Panel derecho ajustable */
     .custom_derecho {

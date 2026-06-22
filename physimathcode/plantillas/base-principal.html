@@ -7,12 +7,6 @@
   <!-- Bootstrap -->
   <link href="{% static 'bs532/css/bootstrap.min.css' %}" rel="stylesheet">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
@@ -55,7 +49,9 @@
 </head>
 
 <body>
-  <div id="mininav-home-principal" style="width: 100%; height: 20vh;"></div>
+
+  <div id="mininav-home-principal" style="width: 100%; height: 20vh;">
+  </div>
 
   <div class="contenedor-home-computador">
     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
@@ -117,7 +113,9 @@
           <!-- SEARCH A LA DERECHA -->
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Buscar">
-            <button class="btn btn-light btn-sm">Go</button>
+            <button class="btn btn-light btn-sm">
+              <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+            </button>
           </form>
 
         </div>
@@ -272,42 +270,342 @@
 
   </div>
 
+  <div id="subportada-boddy">
+
+    <div class="cuerpo-subportada-body">
+
+      <div class="contenedor-imagen">
+        <img src="{{foto_perfil}}"
+          style="width:200px; height:200px ;border-radius: 50%; border: 0px solid rgb(255, 183, 0);">
+      </div>
+
+      <div class="contenedor-informacion-personal">
+
+        <div class="portada-hadder-nombre-apellido">
+
+          <div class="portada-nombre-apellido">
+            {% for e in datos_personales %}
+            {{ e.primer_nombre }} {{ e.segundo_nombre }} {{ e.primer_apellido }}
+            {% endfor %}
+          </div>
+
+
+          <div class="contenedor-btn-gitHub-cv">
+            <a href="#" class="btn-cv">
+              <span class="icono">
+                <img src="{{ eye_icon }}micv.svg" style="height: 22px; width: 22px;">
+              </span>
+              <div style="font-size: 15px;">Ver currículum</div>
+            </a>
+
+            <a href="#" class="btn-github">
+              <span class="icono">
+                <img src="{{ eye_icon }}github.svg" style="height: 20px; width: 20px;">
+              </span>
+              <div style="font-size: 15px;">Cuenta GitHub</div>
+            </a>
+
+            <a onclick="tglPanelMenu()" class="button-acordeon-carrusel">
+              <span class="icono">
+                <img
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='black' stroke-width='1.5' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"
+                  class="accordion-icon">
+              </span>
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="descripcion-personal-profesion">
+          Profesor universitario, investigador en análisis de datos y desarrollador de software.
+        </div>
+        {% for e in estudios|slice:":2" %}
+        <div class="educacion-del-sujeto" style="font-size: 14px;">
+          <span style="margin-right: 10px;">
+            <img src="{{ eye_icon }}titulo-black.svg" style="height: 20px;width: 16px;">
+            {{ e.titulo_obtenido }}
+          </span>
+          <span>
+            <img src="{{ eye_icon }}academica-black.svg" style="height: 20px; width: 15px;">
+            {{e.institucion_universitaria}}
+          </span>
+          <!--img src="{{ eye_icon }}ubicacion-Universidad-black.svg" style="width: 22px; height: 25px;"-->
+          <!-- {{ e.pais_titulo }} -->
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="menu-panel-acordeon" style="background-color: rgba(248, 248, 248, 0);">
+      <div class="carrusel">
+        {% for img in imagenesCarrusel %}
+        <div class="item">
+          <img src="{{ img }}">{{ img }}
+        </div>
+        {% endfor %}
+      </div>
+      <div id="probandoxxx"></div>
+      <div class="tamaño-letra-acordeon">
+        Trabajos desarrollados
+      </div>
+
+      <div class="posicion-bottones-carrusel">
+
+        <div style="margin-right: auto;">
+          <button onclick="moverIzquierda()" class="collapse-botton-acordeon ">
+            <img src="{{ eye_icon }}botton-izquierda.svg" style="height: 30px; width: 30px;">
+          </button>
+        </div>
+
+        <div>
+          <button onclick="moverDerecha()" class="collapse-botton-acordeon-derecho">
+            <img src="{{ eye_icon }}botton-derecha.svg" style="height: 30px; width: 30px;">
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <hr style="border: 1px solid  rgb(0, 0, 0);"> -->
+
 
 
   <!-- Contenedor principal -->
   <div id="container-ccsbase">
+    <div class="cuerpo-ccsbase-body">
+      <!-- Izquierdo (fijo o común) -->
+      <div class="left-Panel-base">
+        {% block left_Panel_base %}
+        <!-- menú o contenido fijo -->
+        {% endblock %}
+      </div>
 
-    <!-- Izquierdo (fijo o común) -->
-    <div class="left-Panel-base">
-      {% block left_Panel_base %}
-      <!-- menú o contenido fijo -->
-      {% endblock %}
+      <!-- Derecho (dinámico u opcional) -->
+      <div class="right-Panel-base">
+        {% block right_Panel_base %}
+
+        {% endblock %}
+      </div>
     </div>
-
-    <!-- Centro (dinámico) -->
-    <div class="center-Panel-base">
-      {% block center_Panel_base %}
-      {% endblock %}
-    </div>
-
-    <!-- Derecho (dinámico u opcional) -->
-    <div class="right-Panel-base">
-      {% block right_Panel_base %}
-      {% endblock %}
-    </div>
-
   </div>
 
+
+
   <!--footer class="footer">
-
-    Footer fijo
-  </footer-->
-
+      Footer fijo
+    </footer-->
 
   <script>
 
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".button-acordeon-carrusel");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", function () {
+          const parentLi = button.parentElement; // Suponiendo que el botón está dentro de un <li>
+          const content = document.querySelector(button.getAttribute("data-bs-target"));
+
+          // Alternar la clase 'active' en el padre para activar el CSS
+          parentLi.classList.toggle("active");
+
+          // Manejo de la expansión y contracción del contenido
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null; // Colapsar
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px"; // Expandir
+          }
+        });
+      });
+    });
+
+    let var_ventana = 0;
+    function actualizarSitioWeb() {
+      let ancho = window.innerWidth;
+
+      if (ancho <= 1440) {
+        document.documentElement.style.setProperty('--ancho-maximo-div', '1000px');
+        var_ventana = 1000;
+      } else {
+        document.documentElement.style.setProperty('--ancho-maximo-div', '1200px');
+        var_ventana = 1200;
+      }
+    }
+
+    // let posicion = 0;
+
+    // const carrusel = document.querySelector('.carrusel');
+    // const items = document.querySelectorAll('.item');
+
+    // let anchoLeftVentana = window.innerWidth;
+
+    // const anchoItem = Math.round(anchoLeftVentana * 1075 / 2560);//1075; // 200px + 10px margen
+
+    // function moverDerecha() {
+
+    //   const maximo = (items.length - 1) * anchoItem;
+
+    //   if (Math.abs(posicion) < maximo) {
+    //     posicion -= anchoItem;
+    //     carrusel.style.transform = `translateX(${posicion}px)`;
+    //   }
+
+    // }
+
+    // function moverIzquierda() {
+
+    //   if (posicion < 0) {
+    //     posicion += anchoItem;
+    //     carrusel.style.transform = `translateX(${posicion}px)`;
+    //   }
+
+    // }
+
+    /*Anocho de foto del carrusel con todo margen*/
+    let correxion = 0;
+    let posicion = 0;
+    let indice = 0;
+    let anchoItem = 1;
+    let posicion_antes = 0;
+    let indice_max = 0;
+    let collapse_botton_acordeon = document.querySelector('.collapse-botton-acordeon')
+    const carrusel = document.querySelector('.carrusel');
+    const items = document.querySelectorAll('.item');
+
+    const div_munu_panel_acordeon = document.querySelector(".menu-panel-acordeon");
+
+    let ancho_div_acordeon_inicial = div_munu_panel_acordeon.getBoundingClientRect().width;
+
+
+    function actualizandoPosicionImagnesCarrusel(indice, anchoItem, indice_max, ancho_imagenes_faltantes, desface) {
+      if (indice === indice_max) {
+        let posicion_final_carrusel = -anchoItem * (indice_max - 1) - ancho_imagenes_faltantes;
+        carrusel.style.transform = `translateX(${posicion_final_carrusel + desface + 15}px)`;
+      }
+    }
+
+
+    function actualizarCarrusel(variable_entrada) {
+
+      const ancho_foto = 185;
+
+      let ancho_div_munu_panel_acordeon = div_munu_panel_acordeon.getBoundingClientRect().width;
+
+      let total_de_imagenes = items.length;
+
+      /* Toda imagen que hay en el contenedor completo y fraccionado*/
+      let imagenes_en_contenedor = ancho_div_munu_panel_acordeon / ancho_foto;
+
+      /*Numero de imagenes que caben en el carrusel*/
+      let numero_de_imagenes = Math.trunc(imagenes_en_contenedor);
+
+      let pre_desface = (imagenes_en_contenedor) % 1;
+
+      let desface = Math.trunc(pre_desface * ancho_foto / 2);
+
+      let indice_maximo_fraccionado = total_de_imagenes / numero_de_imagenes;
+
+      indice_max = Math.trunc(indice_maximo_fraccionado);
+
+      /* Ancho en pixes de la cantidad de fotos que caben en el carrusel */
+      anchoItem = numero_de_imagenes * ancho_foto;
+
+      posicion = -indice * anchoItem;
+
+      let imagenes_faltantes = total_de_imagenes - numero_de_imagenes * indice_max;
+      let ancho_imagenes_faltantes = imagenes_faltantes * ancho_foto;
+
+      actualizandoPosicionImagnesCarrusel(indice, anchoItem, indice_max, ancho_imagenes_faltantes, desface);
+
+      if (variable_entrada === "izquierda" || variable_entrada === "derecha") {
+        posicion_antes = posicion;
+      }
+
+      if (ancho_div_acordeon_inicial !== ancho_div_munu_panel_acordeon) {
+        ancho_div_acordeon_inicial = ancho_div_munu_panel_acordeon;
+        indice = Math.abs(Math.trunc(posicion_antes / anchoItem));
+        posicion = -indice * anchoItem;
+      }
+
+      if (indice === 0) {
+        collapse_botton_acordeon.style.display = 'none';
+      } else {
+        collapse_botton_acordeon.style.display = 'block';
+      }
+
+      if (variable_entrada === "derecha") {
+        if (indice < indice_max) {
+          carrusel.style.transform = `translateX(${posicion + desface - 15}px)`;
+          // probandoxxx.innerHTML = posicion;
+        } else if (indice === indice_max) {
+          posicion = -anchoItem * (indice_max - 1) - ancho_imagenes_faltantes;
+          carrusel.style.transform = `translateX(${posicion + desface + 15}px)`;
+          // probandoxxx.innerHTML = posicion + "--" + anchoItem * (indice_max - 1);
+        }
+      }
+
+      // let posicion_final = -anchoItem * (indice_max - 1) - ancho_imagenes_faltantes;
+      // carrusel.style.transform = `translateX(${posicion_final + desface + 15}px)`;
+
+      if (variable_entrada === "izquierda") {
+        if (indice > 0) {
+          carrusel.style.transform = `translateX(${posicion + desface - 15}px)`;
+        } else if (indice === 0) {
+          carrusel.style.transform = `translateX(${posicion}px)`;
+        }
+
+      }
+    }
+
+
+    function moverIzquierda() {
+
+      if (indice > 0) {
+        indice--;
+        actualizarCarrusel("izquierda");
+      }
+    }
+
+    function moverDerecha() {
+
+      if (indice < indice_max) {
+        indice++;
+        actualizarCarrusel("derecha");
+      }
+
+    }
+
+    function tglPanelMenu() {
+
+      let menu_acordeon_panel = document.querySelector('.menu-panel-acordeon');
+      let subportad_boddy_bd = document.querySelector('#subportada-boddy')
+      // let contenedor_carrusel = document.querySelector('.contenedor-carrusel');
+
+      if (menu_acordeon_panel.style.height === "0px") {
+        menu_acordeon_panel.style.height = "367px";
+        menu_acordeon_panel.style.transition = "height 0.5s ease";
+        menu_acordeon_panel.style.border = "1px solid rgba(221, 221, 221, 0.767)";
+        menu_acordeon_panel.style.boxShadow = "0px 0px 1px 1px rgba(150, 150, 150, 0.226)";
+        subportad_boddy_bd.style.paddingBottom = "20px";
+        // contenedor_carrusel.style.display = "flex";
+      } else {
+        menu_acordeon_panel.style.height = "0px";
+        menu_acordeon_panel.style.transition = "height 0s ease, border 0s ease";
+        // contenedor_carrusel.style.display = "none";
+        // menu_acordeon_panel.style.transition = "border 1ms ease";
+        menu_acordeon_panel.style.border = "0px solid rgba(221, 221, 221, 0.767)";
+        menu_acordeon_panel.style.boxShadow = "0px 0px 0px 0px rgba(150, 150, 150, 0.226)";
+        subportad_boddy_bd.style.paddingBottom = "0px";
+        //subportad_boddy_bd.style.paddingBottom = "4px";
+      }
+
+    }
+
     function toggleLeftPanel() {
-      let anchoVentanapequenya = window.innerWidth;
 
       let widthVentana = document.querySelector('.leftPanel-munu-principal');
       if (widthVentana.style.width === "0px") {
@@ -327,35 +625,45 @@
       const contenedor_computador = document.querySelector('.contenedor-home-computador');
       const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
       let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
-      if (anchoLeftVentana <= 1200) {
+      if (anchoLeftVentana <= 1000) {
         leftPanelVentana.style.width = "0px";
         leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
         contenedor_computador.style.display = "none";
         contenedor_tablet_celular.style.display = "block";
-        container_ccsbase.style.paddingLeft = "2px";
-        container_ccsbase.style.paddingRight = "2px";
       } else {
         leftPanelVentana.style.width = "200px";
         leftPanelVentana.style.transition = "width 0.2s ease";
         contenedor_computador.style.display = "block";
         contenedor_tablet_celular.style.display = "none";
         container_ccsbase.style.display = 'flex'
-        container_ccsbase.style.paddingLeft = "50px";
-        container_ccsbase.style.paddingRight = "50px";
       }
-
     }
 
     //Llama a la función al cargar la página
-    document.addEventListener("DOMContentLoaded", updateLeftPanel);
+    // document.addEventListener("DOMContentLoaded", updateLeftPanel);
 
+    // document.addEventListener("DOMContentLoaded", tglPanelMenu);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLeftPanel();
+      tglPanelMenu();
+      actualizarSitioWeb();
+      actualizarCarrusel();
+    });
+
+    window.addEventListener("resize", () => {
+      actualizarSitioWeb();
+      updateLeftPanel();
+      actualizarCarrusel();
+
+    });
     //Llama a la función al redimensionar la ventana
-    window.addEventListener('resize', updateLeftPanel);
-
+    // window.addEventListener('resize', updateLeftPanel);
 
   </script>
 
-  
+
+
   <script src="{% static 'bs532/js/bootstrap.bundle.min.js'%}"></script>
 
 </body>
