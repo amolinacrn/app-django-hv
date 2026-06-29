@@ -26,15 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-pdion^t*fyk8mzv_8a65^oq6nzdz21cot_dzpw#sjlg#auq99w"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
-# ALLOWED_HOSTS = [
-#     "amolina.top",
-#     "www.amolina.top",
-#    ]
+ALLOWED_HOSTS = [
+    "amolina.top",
+    "www.amolina.top",
+   ]
 
 # Application definition
 
