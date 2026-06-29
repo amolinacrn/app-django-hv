@@ -1,0 +1,179 @@
+<div class="modal fade " id="cargar_portada" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cargar-portada"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center;">
+        <h6 class="modal-title" id="cargar-portada" style="text-align: left;color: rgb(255, 255, 255);">
+          <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
+            <div style="padding: 10px;   background-color: #f65454;">
+              <b>
+                Por favor, cargue una foto menor 1 MB y con extensión .png o .jpg. Otra clase de formato no esta
+                permitido.
+              </b>
+            </div>
+          </div>
+
+        </h6>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+
+
+
+      <div class="modal-body">
+        <!---inicio de la funcion guardar foto -->
+        <form enctype="multipart/form-data" method="post" action="phot_profil" id="guardar_portada">
+
+          {% csrf_token %}
+
+          <div style="text-align: center;">
+            {% if img_portada_url %}
+
+            <img src="{{img_portada_url}}" style="width: 100%;height: 200px;">
+
+            {% else %}
+
+            <img src="{% static '/bs532/img/einstein_883032.png' %}" style="width: 90%; height:200px;">
+
+            {% endif %}
+          </div>
+
+          <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+            <div style="width: 70%;;">
+              <input type="file" name="imagen_de_portada" id="imagen_de_portada" class="upload-img green"
+                data-ruta="{{foto_de_potada.imagen_de_portada}}">
+            </div>
+          </div>
+
+        </form>
+        <!--fin funcion guardar fot -->
+      </div>
+
+      <div class="modal-footer" style="gap: 5px;  justify-content: center; align-items: center;">
+
+        <button class="btn btn-sm btn-outline-success float-end" type="submit" form="guardar_portada">
+          <div style="display: flex;gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                style="display: flex; width:20px;align-items: center;" alt="My image">
+            </div>
+            <div>
+              Guardar
+            </div>
+          </div>
+        </button>
+
+        <a href="{% url 'delete_image' 'imagen_de_portada' %}" class="btn btn-outline-danger btn-sm float-end">
+          <div style="display: flex;gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/eliminar.svg' %}" width="20">
+            </div>
+            <div>
+              Eliminar
+            </div>
+          </div>
+        </a>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary float-end" data-bs-dismiss="modal">
+          <div style="display: flex; gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                style="display: flex; width:20px;align-items: center;" alt="My image">
+            </div>
+            <div>
+              Cancelar
+            </div>
+          </div>
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="cargarfoto" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cargarfotoLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center;">
+        <h6 class="modal-title" id="cargarfotoLabel" style="text-align: left;color: rgb(255, 255, 255);">
+          <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
+            <div style="padding: 10px;   background-color: #f65454;">
+              <b>
+                Por favor, cargue una foto menor 1 MB y con extensión .png o .jpg. Otra clase de formato no esta
+                permitido.
+              </b>
+            </div>
+          </div>
+
+        </h6>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body">
+
+        <!---inicio de la funcion guardar foto -->
+        <form enctype="multipart/form-data" method="post" action="phot_profil" id="guardarmifoto">
+
+          {% csrf_token %}
+
+          <div style="text-align: center;">
+            {% if foto_perfil %}
+            <img src="{{foto_perfil}}" style="position: relative; width: 60%; ">
+            {% else %}
+            <img src="{% static '/bs532/img/einstein_883032.png' %}" style="position: relative;  width: 60%;">
+            {% endif %}
+          </div>
+
+          <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+            <div style="width: 70%;;">
+              <input type="file" name="foto_perfil" id="foto_perfil" class="upload-img green"
+                data-ruta="{{foto_de_potada.foto_perfil}}">
+            </div>
+          </div>
+
+        </form>
+        <!--fin funcion guardar fot -->
+      </div>
+
+      <div class="modal-footer" style="gap: 5px;  justify-content: center; align-items: center;">
+
+        <button class="btn btn-sm btn-outline-success float-end" type="submit" form="guardarmifoto">
+          <div style="display: flex;gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                style="display: flex; width:20px;align-items: center;" alt="My image">
+            </div>
+            <div>
+              Guardar
+            </div>
+          </div>
+        </button>
+
+        <a href="{% url 'delete_image' 'foto_perfil' %}" class="btn btn-outline-danger btn-sm float-end">
+          <div style="display: flex;gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/eliminar.svg' %}" width="20">
+            </div>
+            <div>
+              Eliminar
+            </div>
+          </div>
+        </a>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary float-end" data-bs-dismiss="modal">
+          <div style="display: flex; gap: 5px;">
+            <div>
+              <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                style="display: flex; width:20px;align-items: center;" alt="My image">
+            </div>
+            <div>
+              Cancelar
+            </div>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

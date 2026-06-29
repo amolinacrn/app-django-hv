@@ -65,6 +65,7 @@ body {
 
 }
 
+/* Menu principal de despligue */
 .menu-principal ul li a {
   color: rgb(5, 5, 5);
   font-family: 'Barlow';
@@ -106,26 +107,6 @@ td {
   display: block;
 }
 
-/*
-button:hover {
-      -webkit-transform: scale(1.5);
-      -moz-transform: scale(1.5);
-      -o-transform: scale(1.5);
-      -ms-transform: scale(1.5);
-      transform: scale(1.05);
-      transition: all .3s ease-in;
-    } */
-/*
-img:hover {
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  transform: scale(1.05);
-  /*transition: all .0s ease-in;
-}
-
-*/
 
 .contenedor_registro {
   display: grid;
@@ -135,11 +116,10 @@ img:hover {
 
 .cls_login {
   width: 100%;
-  font-family: 'Barlow';
   border-radius: 2px;
   background-color: rgba(196, 196, 196, 0.801);
   border: rgb(187, 187, 187) 0px solid;
-  padding: 2vw;
+  padding: 30px;
   font-size: 20px;
 }
 
@@ -150,7 +130,6 @@ img:hover {
   margin-left: 470px;
   margin-right: 470px;
   background-color: #efecec;
-  font-family: "arial";
 }
 
 .class_registro {
@@ -160,7 +139,6 @@ img:hover {
   margin-left: 25vw;
   margin-right: 25vw;
   background-color: #f3f3f3;
-  font-family: 'Barlow';
   font-size: 15px;
 }
 
@@ -193,17 +171,21 @@ input[type="number"] {
 
 /* fondo degradado moderno */
 .custom-navbar {
+  display: flex;
+  align-items: center;
   background: linear-gradient(90deg, #f38807, #f9a947);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  padding: 10px 15px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 /* links */
 .custom-navbar .nav-link {
   color: rgb(0, 0, 0) !important;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 8px;
+  border-radius: 8px;
   transition: 0.3s ease;
 }
 
@@ -211,13 +193,14 @@ input[type="number"] {
 .custom-navbar .nav-link:hover {
   background: rgba(255, 255, 255, 0.596);
   transform: translateY(-1px);
+
 }
 
 /* activo */
 .custom-navbar .nav-link.active {
   background: white;
-  color: #1f4037 !important;
-  font-weight: 600;
+  /* color: #1f4037 !important; */
+  font-weight: bold;
 }
 
 /* centrar dropdown mejor */
@@ -237,13 +220,11 @@ input[type="number"] {
 /*Imagen en el home de la vista principal*/
 
 #mininav-home-principal {
-  background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
 }
-
-
-
 
 /*DOS CUERPOS DE LA PORTADA AUTENTICACION*/
 
@@ -251,7 +232,6 @@ input[type="number"] {
   display: flex;
   width: 100%;
   height: 100vh;
-
 }
 
 .left-section-dual {
@@ -291,7 +271,7 @@ input[type="number"] {
   width: 100%;
   /* align-items: center;
   justify-content: center; */
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .cuerpo-ccsbase-body {
@@ -304,18 +284,34 @@ input[type="number"] {
   margin: 0 auto;
 }
 
+.tecnologias-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 15px;
+}
+
 .left-Panel-base {
   width: var(--ancho-body-izquierdo);
+  background-color: #ac151500;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.left-Panel-base-hijo {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: var(--sombras-divs-app);
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
-  padding-top: 8px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 15px;
+  padding-top: 10px;
+}
+
+.configuracion-sticky {
+  position: sticky;
+  top: 0px;
 }
 
 .right-Panel-base {
@@ -326,13 +322,10 @@ input[type="number"] {
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
-  padding-top: 8px;
   margin-top: 15px;
   margin-bottom: 15px;
   margin-right: 15px;
 }
-
-
 
 #subportada-boddy {
   background-color: #ffffff;
@@ -379,12 +372,54 @@ input[type="number"] {
   list-style: none;
   padding: 0;
   margin: 0;
+  gap: 20px;
 }
 
-.lista-cv li {
+/* .lista-cv li {
   margin: 2px 0;
   padding: 0;
   line-height: 1.7;
+} */
+
+.style-info-academica-laboral {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.border_imagenes_portada {
+  border-radius: 50%;
+  border: 1px solid rgba(156, 156, 156, 0.548);
+  width: 30px;
+}
+
+.style-info-personal-personal {
+  display: flex;
+  align-items: center;
+  line-height: 2.5;
+  gap: 25px;
+}
+
+.style-info-personal {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  line-height: 2;
+}
+
+.stilo-imagenes-portada {
+  width: 20px;
+}
+
+.lista-de-grados {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-de-grados li {
+  margin: 2px 0;
+  padding: 0;
+  line-height: 1.3;
 }
 
 /*stylos para titulos de informacion personal en portada*/
@@ -397,8 +432,8 @@ input[type="number"] {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
-
   padding-left: 10px;
+  margin-top: 10px;
 }
 
 .btn-cv {
@@ -521,21 +556,6 @@ input[type="number"] {
 
 }
 
-/* .contenedor-carrusel {
-  align-items: center;
-  gap: 10px;
-  overflow: hidden;
-  display: flex;
-  overflow: hidden;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-} */
-
-/* .ventana-carrusel {
-  width: 100%;
-  overflow: hidden;
-} */
 
 .carrusel {
   position: absolute;
@@ -572,6 +592,15 @@ input[type="number"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.clase_titulo_portadas {
+  background-color: rgb(243, 195, 151);
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .button-acordeon-carrusel {
@@ -618,8 +647,15 @@ input[type="number"] {
   padding-bottom: 10px;
 }
 
+.collapse-btn-diplay-none {
+  display: none;
+}
+
 @media (max-width: 1000px) {
 
+  .collapse-btn-diplay-none {
+    display: block;
+  }
 
   .cuerpo-ccsbase-body {
     flex-direction: column;
@@ -634,7 +670,6 @@ input[type="number"] {
     margin-bottom: 15px;
     margin-left: 15px;
     margin-right: 15px;
-
   }
 
   .right-Panel-base {
@@ -652,8 +687,6 @@ input[type="number"] {
   .left-section-dual {
     width: var(--ancho-body-app);
     height: 10vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('/static/bs532/img/fislab1.png');
-
   }
 
   .right-section-dual {
@@ -672,9 +705,9 @@ input[type="number"] {
   }
 
   .contenedor-imagen {
+    flex-direction: column;
     width: var(--ancho-body-app);
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 
@@ -713,4 +746,28 @@ input[type="number"] {
     /* width: 94%; */
 
   }
+
+  /* .tecnologias-container {
+    grid-template-columns: 1fr;
+  } */
+}
+
+@media (max-width: 600px) {
+
+  .btn-cv,
+  .button-acordeon-carrusel {
+    gap: 8px;
+    padding: 1px 8px;
+    margin-right: 4px;
+    font-size: 10px;
+  }
+
+  .btn-github {
+    gap: 8px;
+    padding: 1px 10px;
+    margin-right: 4px;
+    font-size: 10px;
+  }
+
+
 }

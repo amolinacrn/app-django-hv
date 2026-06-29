@@ -1,14 +1,14 @@
-    @font-face {
+    /* @font-face {
       font-family: 'Barlow';
       src: url('/static/fonts/Oswald/static/Oswald-Regular.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
-    }
+    } */
 
     .miNombreMolina {
       margin-top: 35px;
       position: absolute;
-      font-family: 'Barlow';
+
       font-weight: 500;
       font-size: 25px;
       color: #0D98BA;
@@ -19,7 +19,7 @@
     /*1vw=1%*/
 
     .mitex_underline {
-      font-family: 'Barlow';
+
       font-weight: 50;
       /* top: 150px; */
       border-bottom: 12px solid #0D98BA;
@@ -95,7 +95,7 @@
 
     .contenedor-home-computador {
       display: none;
-      font-family: 'Barlow';
+
     }
 
     .contenedor-home-culular-tablet {
@@ -113,9 +113,9 @@
       transition: "";
     }
 
+
     /* Estilos del botón de colapso */
     .collapse-btn {
-      font-family: 'Barlow';
       background-color: #df171700;
       color: #ffffff;
       border: none;
@@ -143,7 +143,7 @@
     }
 
     .class_span {
-      font-family: 'Barlow';
+
       font-weight: bold;
       font-size: 25px;
       opacity: 1;
@@ -159,9 +159,11 @@
     .titulo-seccion {
       background: #2b2b2b;
       color: white;
-      padding: 6px 12px;
-      font-size: 14px;
+      padding: 10px 12px;
+      font-size: 15px;
       text-transform: uppercase;
+      font-weight: bold;
+      border-radius: 5px;
     }
 
     .bloque {
@@ -176,9 +178,18 @@
       color: white;
     }
 
+    .cabecera-curr-hv {
+      display: flex;
+      gap: 20px;
+      background: #fdb052;
+      padding: 15px;
+      color: rgb(0, 0, 0);
+    }
+
+
     .foto {
       width: 170px;
-      border-radius: 20%;
+      border-radius: 10px;
     }
 
     .grid-datos {
@@ -186,6 +197,12 @@
       grid-template-columns: 1fr 1fr;
       gap: 6px;
       margin-top: 10px;
+    }
+
+    .grid-datos-flex {
+      gap: 15px;
+      margin-top: 10px;
+      display: flex;
     }
 
     .tabla {
@@ -196,6 +213,8 @@
     .tabla th {
       background: #9f9f9f;
       text-align: left;
+
+
     }
 
     .tabla td,

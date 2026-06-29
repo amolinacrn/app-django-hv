@@ -16,6 +16,16 @@ body {
   border: 3px solid rgb(255, 255, 255);
 }
 
+.mi-portada-backw {
+  width: 100%;
+  height: 150px;
+  background-color: rgba(214, 214, 214, 0.822);
+}
+
+.mi-portada-backw:hover {
+  background-color: rgba(173, 173, 173, 0.678);
+}
+
 .formato_div_carga {
   margin: 0px;
   padding: 5px;
@@ -67,32 +77,8 @@ td {
   margin-left: -0.5px;
 }
 
-
-/* button:hover {
-      -webkit-transform: scale(1.5);
-      -moz-transform: scale(1.5);
-      -o-transform: scale(1.5);
-      -ms-transform: scale(1.5);
-      transform: scale(1.05);
-      transition: all .3s ease-in;
-    } */
-/*
-img:hover {
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  transform: scale(1.2);
-  /*transition: all .0s ease-in;
-}
-*/
 .clsimg:hover {
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  transform: scale(1.03);
-  /*transition: all .0s ease-in;*/
+  transform: scale(1.01);
 }
 
 .botonexper:hover {
@@ -137,14 +123,25 @@ img:hover {
   border: rgba(192, 192, 192, 0.225) 1px solid;
   margin: 0px;
   padding: 1vw;
-  margin-left: 0px;
-  margin-right: 0px;
   background-color: #f3f3f3;
-
-
   border-top: rgb(21, 21, 21) 5px solid;
   border-radius: 10px;
 }
+
+.class_div-copia {
+  border: rgba(192, 192, 192, 0.225) 1px solid;
+  margin: 0px;
+  padding: 1vw;
+  margin-top: 10px;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  background-color: #f3f3f3;
+  border-top: rgb(21, 21, 21) 5px solid;
+  border-radius: 10px;
+
+}
+
+
 
 .div_class_foto {
   position: absolute;
@@ -184,12 +181,12 @@ img:hover {
 
 
 /* ---------.......-------*/
-@media (max-width: 50rem) {
+/* @media (max-width: 50rem) {
   .class_div_div {
     margin-left: 4vw;
     margin-right: 4vw;
   }
-}
+} */
 
 /* ---------.......-------*/
 @media (min-width: 50rem) {
@@ -229,3 +226,12 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* For Firefox  */
+
+@media(max-width: 1000px) {
+  .class_div-copia {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+
+}

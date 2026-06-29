@@ -64,6 +64,7 @@
           <div>{{ form.fecha_inicio|as_crispy_field }}</div>
           <div>{{ form.fecha_fin|as_crispy_field }}</div>
           <div>{{ form.dependencia|as_crispy_field }}</div>
+          <div>{{ form.acronimo|as_crispy_field }}</div>
         </div>
 
 
@@ -234,7 +235,8 @@
                   data-correo_electronico_empresa="{{ qrdat.correo_electronico_empresa }}"
                   data-dependencia="{{ qrdat.dependencia }}" data-direccion_empresa="{{ qrdat.direccion_empresa }}"
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}"
-                  data-fecha_fin="{{ qrdat.fecha_fin|date:'Y-m-d' }}" data-documento_url="{{ qrdat.documento_url }}">
+                  data-fecha_fin="{{ qrdat.fecha_fin|date:'Y-m-d' }}" data-documento_url="{{ qrdat.documento_url }}"
+                  data-acronimo="{{ qrdat.acronimo }}">
 
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 

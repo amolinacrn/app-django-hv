@@ -1,9 +1,11 @@
-  @font-face {
+  /* @font-face {
     font-family: 'Barlow';
     src: url('/static/fonts/Oswald/static/Oswald-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
+  } */
+
+
 
   #miniNav .navbar-nav .nav-item .nav-link {
     font-size: 12px;
@@ -11,7 +13,6 @@
 
   #miniNav {
     background-color: #f38807;
-    font-family: 'Barlow'
   }
 
   #miniNav .navbar-brand {
@@ -20,7 +21,7 @@
 
   #miniNav .navbar-nav .nav-item .nav-link {
     color: #212020;
-    font-weight: 900;
+    font-weight: bold;
   }
 
   #miniNav .navbar-nav .nav-item.active .nav-link {
@@ -57,7 +58,7 @@
   /*esto aqui es para colorear el texto activo*/
   #mainNav .navbar-nav .nav-item .nav-link {
     color: #f38807;
-    font-weight: 900;
+    font-weight: bold;
   }
 
   /*esto aqui es para colorear el texto activo*/
@@ -97,7 +98,7 @@
 
   #mainDiv .navbar-nav .nav-item .nav-link {
     color: rgba(3, 3, 3, 0.8);
-    font-weight: 900;
+    font-weight: bold;
   }
 
   #mainDiv .navbar-nav .nav-item.active .nav-link {

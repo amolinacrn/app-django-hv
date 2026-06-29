@@ -6,33 +6,44 @@
 
 
 {% block left_Panel_base %}
+<div class="configuracion-sticky">
 
-<section style="padding-top:15px ;">
-
-    <div class="perfil-header">
+    <div class="left-Panel-base-hijo">
 
         <div class="cls-login-name-user">
             Datos Personales
         </div>
 
-        <div style="padding: 10px;">
+        <div style="padding: 10px; padding-top: 17px; padding-bottom: 17px;">
             {% for e in datos_personales %}
 
-            <ul class="lista-cv">
-                <li> <img src="{{ eye_icon }}avatar_black.svg" style="width: 20px; height: 20px;">
-                    {{ e.primer_nombre }} {{ e.segundo_nombre }} {{ e.primer_apellido }}
-                    {{e.segundo_apellido }}</li>
-                <li> <img src="{{ eye_icon }}house_black.svg">
-                    {{e.ciudad_residencia}} - {{e.departamento_origen}}</li>
+            <div class="style-info-personal-personal">
+                <div>
+                    <img src="{{ eye_icon }}ubicacion.svg" class="stilo-imagenes-portada" style="width: 21px">
+                </div>
+                <div>
+                    {{ e.ciudad_residencia }}, {{ e.departamento_origen }}
+                </div>
+            </div>
 
-                <li><img src="{{ eye_icon }}email_black.svg">
-                    {{ e.correo_electronico }}</li>
+            <div class="style-info-personal-personal">
+                <div>
+                    <img src="{{ eye_icon }}email_black.svg" class="stilo-imagenes-portada">
+                </div>
+                <div>
+                    {{ e.correo_electronico }}
+                </div>
+            </div>
 
-                <li>
-                    <img src="{{ eye_icon }}linkedin_black.svg">
-                    <a href="{{e.cuenta_github}}" target="_blank">Cuenta GitHub</a>
-                </li>
-            </ul>
+            <div class="style-info-personal-personal">
+                <div>
+                    <img src="{{ eye_icon }}linkedin_black.svg" class="stilo-imagenes-portada">
+                </div>
+                <div>
+                    <a href="{{e.cuenta_linkedin}}" target="_blank"
+                        style="text-decoration: none; font-weight: bold;">LinkedIn</a>
+                </div>
+            </div>
             {% endfor %}
         </div>
 
@@ -43,34 +54,145 @@
         <div style="padding: 10px;">
             {% for e in estudios|slice:":2" %}
 
-            <ul class="lista-cv">
-                <li> <img src="{{ eye_icon }}titulo-black.svg" style="height: 27px;width: 23px;">
-                    {{ e.titulo_obtenido }}
-                </li>
-                <li>
-                    <img src="{{ eye_icon }}academica-black.svg" style="height: 25px; width: 20px;">
-                    {{e.institucion_universitaria}}
-                </li>
+            <div class="style-info-personal">
+                <div class="style-info-academica-laboral">
+                    <img src="{{ eye_icon }}{{e.acronimo}}.png" class="border_imagenes_portada">
+                </div>
+                <div class="style-info-academica-laboral">
+                    <ul class="lista-de-grados">
+                        <li style="  font-weight: bold;">
+                            {{e.institucion_universitaria}}
+                        </li>
+                        <li>
+                            {{ e.titulo_obtenido }}
+                        </li>
+                        <li>
+                            {{e.ciudad_titulo}}, {{e.departamento_titulo}}, {{ e.pais_titulo }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-                <li> <img src="{{ eye_icon }}ubicacion-Universidad-black.svg" style="width: 22px; height: 25px;">
-                    {{e.ciudad_titulo}} - {{ e.departamento_titulo }} - {{ e.pais_titulo }}</li>
-                </li>
-            </ul>
 
-            {% if not forloop.last %}
-            <hr style="border: 1px solid  rgb(0, 0, 0);">
-            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="cls-login-name-user">
+            Lugares de trabajo
+        </div>
+
+        <div style="padding: 10px;">
+            {% for e in experiencias_laborales|slice:":2" %}
+
+
+            <div class="style-info-personal">
+                <div class="style-info-academica-laboral">
+                    <img src="{{ eye_icon }}{{e.acronimo}}.png" class="border_imagenes_portada">
+                </div>
+                <div class="style-info-academica-laboral">
+                    <ul class="lista-de-grados ">
+                        <li style=" font-weight: bold;">
+                            {{ e.nombre_empresa }}
+                        </li>
+
+                        <li>
+                            {{e.ciudad_contrato}}, {{e.departamento_contrato}}, {{e.pais_contrato}}
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <!-- <div class="cls-login-name-user">
+            Enlaces
+        </div>
+
+        <div style="padding: 10px; padding-top: 17px; padding-bottom: 17px;">
+            {% for e in datos_personales %}
+            <div class="style-info-personal-personal">
+                <div>
+                    <img src="{{ eye_icon }}linkedin_black.svg" class="stilo-imagenes-portada">
+                </div>
+                <div>
+                    <a href="{{e.cuenta_linkedin}}" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div> -->
+    </div>
+
+    <div class="left-Panel-base-hijo" style="margin-top: 15px;">
+
+
+
+        <div class="cls-login-name-user">
+            Áreas de interés
+        </div>
+        <div style="padding: 10px;">
+            {% for e in areas_de_interes %}
+
+            <div class="style-info-personal">
+                <div class="style-info-academica-laboral">
+                    <img src="{{ eye_icon }}{{e.icono}}.png" class="border_imagenes_portada">
+                </div>
+                <div class="style-info-academica-laboral">
+                    <ul class="lista-de-grados">
+                        <li style="  font-weight: bold;">
+                            {{e.area_concentracion}}
+                        </li>
+                        <li>
+                            {{e.linea_pesquisa}}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
             {% endfor %}
         </div>
 
 
-</section>
+
+    </div>
+
+    <div class="left-Panel-base-hijo" style="margin-top: 15px;">
+
+
+        <div class="cls-login-name-user">
+            Competencia tecnológicas
+        </div>
+        <div class="tecnologias-container">
+            {% for e in tecnologias %}
+
+            <div class="style-info-personal">
+                <div class="style-info-academica-laboral">
+                    <img src="{{ eye_icon }}{{e.icono}}.png" class="border_imagenes_portada">
+                </div>
+                <div class="style-info-academica-laboral">
+                    {{ e.herramienta_tecnica }}
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+</div>
+
 
 {% endblock %}
 
-
 {% block right_Panel_base %}
-Esa configuración específica, conocida comercialmente como 2K, WQHD (Wide Quad HD) o simplemente 1440p, es uno de los
-puntos más equilibrados que existen actualmente para trabajar, programar o jugar.
+<div style="padding-top:15px;">
 
+
+
+
+
+</div>
 {% endblock %}

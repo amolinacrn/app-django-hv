@@ -18,6 +18,24 @@ class FotosPersonalesForm(forms.ModelForm):
         ],
     )
 
+
+    imagen_de_portada = forms.ImageField(
+        label=" ",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=1),
+        ],
+    )
+
+    imagen_panel_izquierdo = forms.ImageField(
+        label=" ",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=1),
+        ],
+    )
+
+
     class Meta:
         model = FotosPersonale
         fields = "__all__"
@@ -25,7 +43,8 @@ class FotosPersonalesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop("current_user", None)
         super().__init__(*args, **kwargs)
-        self.fields["foto_perfil"].widget.attrs["class"] = "upload-img green"
+        # self.fields["foto_perfil"].widget.attrs["class"] = "upload-img green"
+        # self.fields["imagen_de_portada"].widget.attrs["class"] = "upload-img green"
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
@@ -341,6 +360,13 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         max_length=50, label="Ciudad:", required=False
     )
 
+    acronimo = forms.CharField(
+        max_length=50,
+        label=mark_safe("Acrónimo:"),
+        required=False
+    )
+
+
     documento_soporte = forms.FileField(
         #label=mark_safe("Adjuntar diploma en (<b><span style='color:red'>.pdf</span></b>):"),
         required=False,
@@ -452,6 +478,12 @@ class FormExperienciaLaboral(forms.ModelForm):
         required=True,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
+    )
+
+    acronimo = forms.CharField(
+        max_length=50,
+        label=mark_safe("Acrónimo:"),
+        required=False
     )
 
     documento_soporte = forms.FileField(

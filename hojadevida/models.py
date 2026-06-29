@@ -6,6 +6,8 @@ class FotosPersonale(models.Model):
         User, blank=False, null=False, on_delete=models.CASCADE
     )
     foto_perfil = models.ImageField(upload_to="files/img/foto", blank=True, null=True)
+    imagen_de_portada= models.ImageField(upload_to="files/img/foto",blank=True, null=True)
+    imagen_panel_izquierdo= models.ImageField(upload_to="files/img/foto",blank=True, null=True)
 
 class DatosPersonale(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -60,9 +62,13 @@ class TitulosAcademico(models.Model):
     pais_titulo = models.CharField(max_length=20, blank=False, null=False)
     departamento_titulo = models.CharField(max_length=20, blank=False, null=False)
     ciudad_titulo = models.CharField(max_length=50, blank=True, null=True)
+    acronimo = models.CharField(max_length=50, blank=True, null=True)
     documento_soporte = models.FileField(
         upload_to="files/docs/diplomas", blank=True, null=True
     )
+
+    class Meta:
+        ordering = ['fecha_inicio']
 
 
 
@@ -85,6 +91,7 @@ class ExperienciasLaborale(models.Model):
     direccion_empresa = models.CharField(max_length=50, blank=True, null=True)
     fecha_inicio = models.DateField(blank=False, null=False)
     fecha_fin = models.DateField(blank=False, null=False)
+    acronimo = models.CharField(max_length=50, blank=True, null=True)
     documento_soporte = models.FileField(
         upload_to="files/docs/experiencia", blank=True, null=True
     )

@@ -5,10 +5,10 @@ from django.contrib.auth import login, logout, authenticate
 
 from django.contrib import messages
 from .forms import IniciarSesionForm, CustomAuthenticationForm
-
+from django.templatetags.static import static
 # from django.contrib.auth.forms import AuthenticationForm
+from hojadevida.models import *
 from .forms import *
-
 
 # Create your views here.
 
@@ -20,7 +20,37 @@ class VRegistro(View):
 
     def get(self, request):
         form = IniciarSesionForm()
-        return render(request, "registro/registro.html", {"form": form})
+        eye_icon = request.build_absolute_uri(
+        static("bs532/img/")
+        )
+
+        # user = User.objects.get(username="amolinacrn")
+        try:
+            user = User.objects.get(username="amolinacrn")
+        except User.DoesNotExist:
+            user = None
+        # --- consultas ---
+
+        foto_obj = FotosPersonale.objects.filter(
+            nombre_usuario_id=user
+        ).first()
+
+    
+        url_portada = ""
+        
+
+        if foto_obj:
+            portada = getattr(foto_obj, "imagen_panel_izquierdo", None)
+            
+            if portada and portada.name:
+                url_portada = request.build_absolute_uri(portada.url)
+
+        context={
+                "url_portada":url_portada,
+                "form": form,
+                 "eye_icon":eye_icon
+                 }
+        return render(request, "registro/registro.html", context)
 
     def post(self, request):
 
@@ -49,6 +79,24 @@ def cerrar_sesion(request):
 
 def logear(request):
 
+    try:
+        user = User.objects.get(username="amolinacrn")
+    except User.DoesNotExist:
+        user = None
+    # --- consultas ---
+
+    foto_obj = FotosPersonale.objects.filter(
+        nombre_usuario_id=user
+    ).first()
+
+    url_portada = ""  
+
+    if foto_obj:
+        portada = getattr(foto_obj, "imagen_panel_izquierdo", None)
+        
+        if portada and portada.name:
+            url_portada = request.build_absolute_uri(portada.url)
+
     form = CustomAuthenticationForm()
 
     if request.method == "POST":
@@ -62,7 +110,17 @@ def logear(request):
                 login(request, usuario)
                 return redirect("home")
 
-    return render(request, "login/login.html", {"form": form})
+    eye_icon = request.build_absolute_uri(
+        static("bs532/img/")
+    )
+    context={
+            "url_portada":url_portada,
+            "form": form,
+            "eye_icon":eye_icon
+            }
+    
+
+    return render(request, "login/login.html", context)
 
 
 class PermisosDocentesView(View):

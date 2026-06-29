@@ -283,7 +283,8 @@ departamentos_colombia = [
     "Valle del Cauca",
     "Vaupés",
     "Vichada",
-    "Otra"
+    "Otra",
+    "Pernambuco"
 ]
 
 DEPARTAMENTOS_COLOMBIA = []
@@ -584,7 +585,8 @@ competencias_tecnicas_computacionales = [
     "LaTeX",
     "Wolfram Matemática",
     "Excel",
-    "Power BI"
+    "Power BI",
+    "ROOT"
 ]
 
 COMPETENCIAS_TECNICAS_COMPUTACIONALES = []

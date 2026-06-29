@@ -9,127 +9,59 @@
 
 <!-- Inicion Modal -->
 
-<div class="modal fade " id="cargarfoto" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cargarfotoLabel"
-  aria-hidden="true">
+
+<div class="modal fade" id="modalUpload" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" style="text-align: center;">
-        <h6 class="modal-title" id="cargarfotoLabel" style="text-align: left;color: rgb(255, 255, 255);">
-          <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
-            <div style="padding: 10px;   background-color: #f65454;">
-              <b>
-                Por favor, cargue una foto menor 1 MB y con extensión .png o .jpg. Otra clase de formato no esta
-                permitido.
-              </b>
+
+      <div class="modal-header">
+        <div id="modalTitle" style="text-align: left;color: rgb(255, 255, 255);">
+
+        </div>
+      </div>
+
+
+
+      <div class="modal-body">
+
+
+        <form enctype="multipart/form-data" method="post" action="phot_profil" id="uploadForm">
+          {% csrf_token %}
+
+          <div style="text-align:center;">
+            <img id="previewImg" style="width:60%;">
+          </div>
+
+          <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+            <div style="width: 70%;;">
+              <input type="file" name="fileInput" id="fileInput" class="upload-img green" data-ruta="">
             </div>
           </div>
 
-        </h6>
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-      </div>
-      <div class="modal-body">
-
-        <!---inicio de la funcion guardar foto -->
-        <form enctype="multipart/form-data" method="post" action="phot_profil" id="guardarmifoto">
-
-          {% csrf_token %}
-
-          <table style="width: 100%">
-            <tr>
-
-              <td style="text-align: center;" id="fotomodal">
-
-                {% if foto_perfil %}
-                <img src="{{foto_perfil}}" style="position: relative; width: 60%; ">
-                {% else %}
-                <img src="{% static '/bs532/img/einstein_883032.png' %}" style="position: relative;  width: 60%;">
-                {% endif %}
-              </td>
-
-            </tr>
-          </table>
-
-          <br>
-          <table style="width: 100%">
-            <tr>
-
-              <td style="width: 9.5%">
-
-              </td>
-              <td style="width: 40%">
-                {{fotoform.foto_perfil}}
-              </td>
-              <td style="width: 1%;">
-
-              </td>
-              <td style="width: 40%">
-                <a href="delete_phot">
-
-                  <button type="button" class="btn btn-outline-danger btn-sm float-end">
-                    Eliminar foto de perfil
-                  </button>
-
-                </a>
-              </td>
-              <td style="width: 9.5%">
-
-              </td>
-
-            </tr>
-
-          </table>
-
+          <input type="hidden" id="fieldName">
         </form>
 
-        <!--fin funcion guardar fot -->
       </div>
-      <div class="modal-footer">
-        <table style="width: 100%;">
-          <tr>
-            <td style="width: 80%;">
 
-              <div class="d-flex justify-content-end gap-2 mt-3">
-                <button class="btn btn-sm btn-outline-success float-end" type="submit" form="guardarmifoto">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
-                          style="display: flex; width:20px;align-items: center;" alt="My image">
-                      </td>
-                      <td>
-                        Guardar
-                      </td>
-                    </tr>
-                  </table>
+      <div class="modal-footer" style="justify-content: center; align-items: center;"">
 
-                </button>
+        <button class=" btn btn-success btn-sm" type="submit" form="uploadForm">
+        Guardar
+        </button>
 
-                <button type="button" class="btn btn-sm btn-outline-danger float-end" data-bs-dismiss="modal">
 
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
-                          style="display: flex; width:20px;align-items: center;" alt="My image">
-                      </td>
-                      <td>
-                        Cancelar
-                      </td>
-                    </tr>
-                  </table>
-                </button>
+        <button type="button" id="deleteBtn" class="btn btn-danger btn-sm">
+          Eliminar
+        </button>
 
-              </div>
-
-            </td>
-          </tr>
-        </table>
+        <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+          Cancelar
+        </button>
       </div>
+
     </div>
   </div>
 </div>
-
-<!--fin modal -->
 
 <div class="posicion_hv_html">
   <div class="class_div">
@@ -151,6 +83,43 @@
 
     <hr>
 
+    {% if user.is_staff %}
+    <div style="display: flex; gap: 15px;">
+
+      <div class="card mb-3 p-3 bg-light" style="width: 100%;">
+
+        <div class="clase_titulo_portadas">
+          Imagen de la portada principal
+        </div>
+        <a data-bs-toggle="modal" data-bs-target="#cargar_portada" class="foto-box d-block"
+          onclick="openModal('imagen_de_portada','{{qryset_foto_obj.imagen_de_portada}}' ,'{{img_portada_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
+          {% if img_portada_url %}
+          <img class="clsimg my_img_html" src="{{img_portada_url}}" style="position: relative; width: 100%; ">
+          {% else %}
+          <div class="mi-portada-backw">
+          </div>
+          {% endif %}
+        </a>
+      </div>
+
+
+      <div class="card mb-3 p-3 bg-light" style="width: 100%;">
+        <div class="clase_titulo_portadas">
+          Imagen de login y registro
+        </div>
+        <a data-bs-toggle="modal" data-bs-target="#cargar_panel_izquierdo" class="foto-box d-block"
+          onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
+          {% if img_portada_url %}
+          <img class="clsimg my_img_html" src="{{portada_izquierda_url}}" style="position: relative; width: 100%; ">
+          {% else %}
+          <div class="mi-portada-backw">
+          </div>
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
     <form enctype="multipart/form-data" action="person_dat" method="post">
       {% csrf_token %}
 
@@ -166,24 +135,23 @@
 
                   <!-- FOTO -->
                   <div>
+
                     <a data-bs-toggle="modal" data-bs-target="#cargarfoto" class="foto-box d-block"
-                      onclick="CargarArchivoPdf('{{path_foto_perfil}}')">
+                      onclick="openModal('foto_perfil','{{qryset_foto_obj.foto_perfil}}','{{foto_perfil}}', '{% url 'delete_image' 'foto_perfil' %}')">
                       {% if foto_perfil %}
                       <img class="clsimg my_img_html" src="{{foto_perfil}}" style="position: relative; width: 100%; ">
                       {% else %}
-                      <img class=" clsimg my_img_html" src="{% static '/bs532/img/einstein_883032.png' %}"
-                        style="position: relative;  width: 100%;">
+                      <div class="mi-portada-backw">
+                      </div>
                       {% endif %}
                     </a>
-
                   </div>
+
                 </td>
               </tr>
             </table>
-
             <!-- <a data-bs-toggle=" modal" data-bs-target="#cargarfoto" id="idimgfot" class="foto-box d-block"></a>
                     -->
-
           </div>
 
           <!-- CAMPOS FILA 1 -->
@@ -235,12 +203,12 @@
         </div>
       </div>
 
-
       <div class="card form-grid bg-light mb-3 p-3">
 
         <div class="diploma-row">
           <div>
-            <label class="cargar_documento_whith" for="fotocopia_documento">Adjuntar documento en (<b style='color:red'>.pdf</b>)
+            <label class="cargar_documento_whith" for="fotocopia_documento">Adjuntar documento en (<b
+                style='color:red'>.pdf</b>)
               <div style="margin-top:7px">
                 <input type="file" name="fotocopia_documento" id="fotocopia_documento" class="upload-img green"
                   data-ruta="{{doc_name_PDF.fotocopia_documento}}">
@@ -251,7 +219,6 @@
               {{ form.fotocopia_documento.errors.as_text }}
             </div>
           </div>
-
           {% if not form.fotocopia_documento.errors %}
 
           <a onclick="funcionVisualizarModal('{{doc_name_PDF.documento_diploma_url}}','Documento de identidad')"
@@ -307,6 +274,43 @@
   </div>
 </div>
 
+<script>
+  function openModal(field, image_field, imageUrl, deleteUrl) {
 
+    const modal = document.getElementById("modalUpload");
+
+    document.getElementById("modalTitle").innerHTML = `
+            <div style="padding: 10px; background-color: #f65454;  border-radius: 8px;">
+               
+                    Por favor, cargue una imagen menor 1 MB y con extensiones .png o .jpg. Otra clase de formato no esta
+                    permitido.
+               
+            </div>
+            `;
+
+    const span_name = document.querySelector(".file-name");
+
+    console.log(image_field);
+
+    if (image_field) {
+      span_name.innerHTML = image_field.split("/").pop();
+    } else {
+      span_name.innerHTML = "Cargar un archivo";
+    }
+
+    const fileInput = document.getElementById("fileInput");
+    fileInput.name = field;
+    fileInput.dataset.ruta = imageUrl;
+
+    document.getElementById("fieldName").value = field;
+    document.getElementById("previewImg").src = imageUrl || "";
+
+    document.getElementById("deleteBtn").onclick = () => {
+      window.location.href = deleteUrl;
+    };
+
+    new bootstrap.Modal(modal).show();
+  }
+</script>
 
 {% endblock content_derecho %}

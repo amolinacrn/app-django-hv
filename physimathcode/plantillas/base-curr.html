@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'bs532/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Fonts -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'bs532/input-file/fancy-file/styles.css' %}" />
+    <!-- Styles -->
+    <link href="{% static 'bs532/css/gestion.css' %}" rel="stylesheet" />
+    <link href="{% static 'bs532/css/cssbase.css' %}" rel="stylesheet" />
+    <link href="{% static 'bs532/css/misopcionescss.css' %}" rel="stylesheet" />
+    <link href="{% static 'bs532/css/configbase.css' %}" rel="stylesheet" />
+    <link href="{% static 'bs532/css/confighv.css' %}" rel="stylesheet" />
+    <!---   inicio codigo para formulario laboratorio  -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!---   fin codigo para formulario laboratorio  --->
+
+    {% block content_head %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+
+    <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
+
+        <div style="display:flex; gap:20px;">
+            <div class="collapse-btn-diplay-none">
+                <button onclick="toggleLeftPanel()" class="collapse-btn">
+                    <img src="{{ eye_icon }}botton-despliegue.svg">
+                </button>
+            </div>
+            <div class="collapse-btn-diplay-none">
+                <a class="nav-link active " href="{% url 'home' %}">Inicio</a>
+            </div>
+        </div>
+
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Buscar">
+                <button class="btn btn-light btn-sm">
+                    <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+                </button>
+            </form>
+
+            <!-- MENÚ CENTRADO -->
+            <ul class="navbar-nav mx-auto text-center gap-2">
+
+
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'home' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Enseñanza</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Investigación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Portafolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+                {% if user.is_authenticated %}
+                {% if puede_ver_hv %}
+                <li>
+                    <a class="nav-link" href="{% url 'hojadevida' %}">
+                        Hoja de vida
+                    </a>
+                </li>
+                {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+
+
+        {% if user.is_authenticated %}
+
+        <div style="display: flex; gap: 10px;">
+            <div>
+                <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
+                    Cerrar sesión
+                </a>
+            </div>
+
+            <div>
+                <img src="{{foto_perfil}}"
+                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div style="display: flex; gap: 10px;">
+            <div>
+                <a class="btn btn-dark" href="{% url 'logear' %}">
+                    Iniciar sesión / Registrarse
+                </a>
+            </div>
+            <div>
+                <img src="{{ eye_icon }}persona-blanco.svg"
+                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+            </div>
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+    <!-- Contenedor para ambos paneles -->
+    <div id="container_personal">
+        <!-- Panel izquierdo colapsable -->
+        <div class="leftPanel">
+            <div style="padding: 20px;">
+
+                <h5 style="text-align: center;font-family: 'Barlow';">
+                    Bienvenido
+                    <br>
+                    <b class="text-uppercase">
+                        {% if user.is_authenticated %}
+                        {{ user.first_name }} {{ user.last_name }}
+                        {% endif %}
+                    </b>
+                </h5>
+                <!-- Formulario simple que enviará una petición POST   -->
+
+                <hr style="border: 2px solid  rgb(0, 0, 0);">
+
+                <div style="background-color: rgba(60, 209, 90, 0);width:auto;">
+                    <nav class="menu-principal">
+                        <ul>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'get_datos' %}active{% endif %}"
+                                    href="{% url 'home' %}">
+                                    Inicio
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'exp_laboral' %}active{% endif %}"
+                                    href="" style="white-space: nowrap;">
+                                    Enseñanza
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'prod_acad' %}active{% endif %}"
+                                    href="">
+                                    Investigación
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}"
+                                    href="">
+                                    Portafolio
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
+                                    href="">
+                                    Contacto
+                                </a>
+                            </li>
+
+                            {% if user.is_authenticated %}
+                            {% if puede_ver_hv %}
+                            <li>
+                                <a class="nav-link" href="{% url 'hojadevida' %}">
+                                    Hoja de vida
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+                <hr style="border: 2px solid  rgb(0, 0, 0);">
+
+                {% if user.is_authenticated %}
+
+                <a class="btn btn-dark fw-bold" href="{% url 'cerrar_sesion' %}">
+                    Cerrar sesión
+                </a>
+
+
+                {% else %}
+                <a class="btn btn-dark" href="{% url 'logear' %}">
+                    Iniciar sesión
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- Panel derecho ajustable -->
+
+        {% block content_derecho %}
+
+
+
+        {% endblock %}
+
+
+    </div>
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".button");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const parentLi = button.parentElement; // Suponiendo que el botón está dentro de un <li>
+                    const content = document.querySelector(button.getAttribute("data-bs-target"));
+
+                    // Alternar la clase 'active' en el padre para activar el CSS
+                    parentLi.classList.toggle("active");
+
+                    // Manejo de la expansión y contracción del contenido
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null; // Colapsar
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px"; // Expandir
+                    }
+                });
+            });
+        });
+
+        const posicion_hv_html = document.querySelector(".posicion_hv_html-copia");
+
+        function toggleLeftPanel() {
+            let anchoVentanapequenya = window.innerWidth;
+            let customDerecho = document.querySelector('.custom_derecho-copia');
+            let widthVentana = document.querySelector('.leftPanel');
+            if (widthVentana.style.width === "0px") {
+                widthVentana.style.width = "200px";
+                customDerecho.style.marginLeft = "200px";
+                widthVentana.style.transition = "width 0.3s ease";
+                posicion_hv_html.style.transition = "margin-right 0.4s ease";
+
+            } else {
+                widthVentana.style.width = "0px";
+                widthVentana.style.transition = "width 0.3s ease";
+                customDerecho.style.marginLeft = "0px"
+                posicion_hv_html.style.transition = "margin-right 0.4s ease";
+
+                if (anchoVentanapequenya <= 1000) {
+                    posicion_hv_html.style.marginLeft = "5px";
+                } else {
+                    posicion_hv_html.style.marginRight = "5vw"
+                    posicion_hv_html.style.marginLeft = "5vw"
+                }
+            }
+        }
+
+        function updateLeftPanel() {
+            let anchoLeftVentana = window.innerWidth;
+            let leftPanelVentana = document.querySelector('.leftPanel');
+            let customDerecho = document.querySelector('.custom_derecho-copia');
+            let cargar_documento_whith = document.querySelector('.cargar_documento_whith');
+
+            if (anchoLeftVentana <= 1000) {
+                leftPanelVentana.style.display = "block";
+                customDerecho.style.marginLeft = "0px";
+                leftPanelVentana.style.width = "0px";
+                leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
+                customDerecho.style.transition = "margin-left 0.4s ease";
+                posicion_hv_html.style.marginRight = "5px";
+                posicion_hv_html.style.marginLeft = "5px";
+                cargar_documento_whith.style.width = "250px";
+
+
+            } else {
+                leftPanelVentana.style.display = "none";
+                leftPanelVentana.style.width = "200px";
+                leftPanelVentana.style.transition = "width 0.2s ease";
+                customDerecho.style.marginLeft = "200px";
+                customDerecho.style.transition = "margin-left 0.4s ease";
+                posicion_hv_html.style.marginRight = "13vw";
+                posicion_hv_html.style.marginLeft = "2vw"
+                cargar_documento_whith.style.width = "350px";
+
+            }
+
+        }
+
+        //Llama a la función al cargar la página
+        document.addEventListener("DOMContentLoaded", updateLeftPanel);
+
+        //Llama a la función al redimensionar la ventana
+        window.addEventListener('resize', updateLeftPanel);
+
+
+
+        function actualizarColor() {
+
+            let anchoVentana = window.innerWidth;
+            let mitexElement = document.querySelector('.mitex_underline');
+
+
+            if (mitexElement && anchoVentana <= 662) {
+
+                mitexElement.style.top = '90px';
+                mitexElement.style.fontSize = "59px";
+                mitexElement.style.lineHeight = "80px";
+
+            }
+
+            if (mitexElement && anchoVentana <= 972 && anchoVentana > 662) {
+                mitexElement.style.top = '65px';
+                mitexElement.style.lineHeight = "100px"
+                mitexElement.style.fontSize = "80px";
+
+            }
+            if (mitexElement && anchoVentana > 972) {
+                mitexElement.style.top = '120px';
+                mitexElement.style.lineHeight = "108px"
+                mitexElement.style.fontSize = "80px";
+
+            }
+        }
+
+        function updateBotton() {
+
+            let collapseElementBtn = document.querySelector('.classTable');
+            if (collapseElementBtn && anchoVentana <= 1000) {
+                collapseElementBtn.style.display = "block";
+            } else if (collapseElementBtn) {
+                collapseElementBtn.style.display = "none";
+            }
+
+        }
+        document.addEventListener("DOMContentLoaded", updateBotton);
+        window.addEventListener('resize', updateBotton);
+
+    </script>
+    <script src="{% static 'bs532/js/bootstrap.bundle.min.js'%}"></script>
+
+
+
+</body>
+
+</html>

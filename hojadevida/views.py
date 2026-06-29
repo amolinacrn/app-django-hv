@@ -46,11 +46,21 @@ def delete_file_record(request, model_name, pk):
     obj.delete()
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+# @login_required(login_url="/autenticacion/logear")
+# @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
+# def phot_delete(request):
+#     deletfoto = FotosPersonale.objects.get(nombre_usuario_id=request.user.id)
+#     deletfoto.foto_perfil.delete()
+#     return redirect("get_datos")
+
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
-def phot_delete(request):
-    deletfoto = FotosPersonale.objects.get(nombre_usuario_id=request.user.id)
-    deletfoto.foto_perfil.delete()
+def delete_image(request, campo):
+    foto = FotosPersonale.objects.get(nombre_usuario=request.user)
+
+    if campo in ["foto_perfil", "imagen_de_portada"]:
+        getattr(foto, campo).delete()
+
     return redirect("get_datos")
 
 @login_required(login_url="/autenticacion/logear")
@@ -322,8 +332,11 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
                 )
             except:
                 objeto.documento_url = None
-    
+    eye_icon = request.build_absolute_uri(
+        static("bs532/img/")
+    )
     contexto = {
+        "eye_icon": eye_icon,
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "form": expe_laboral,
         "querydat": queryset_dat,
@@ -344,23 +357,32 @@ class formDatPersonView:
         fperfiluser = FotosPersonalesForm()
 
         foto_url_perfil = ""
-        path_foto_perfil = ""
+      
+        url_portada = ""
+      
+        url_portada_izquierda=""
 
         # Obtener objeto una sola vez
         foto_obj = FotosPersonale.objects.filter(
             nombre_usuario_id=request.user.id
         ).first()
+ 
+        if foto_obj:
+            foto_perfil = getattr(foto_obj, "foto_perfil", None)
+            portada = getattr(foto_obj, "imagen_de_portada", None)
+            portada_izquierda = getattr(foto_obj, "imagen_panel_izquierdo", None)
 
-        if foto_obj and getattr(foto_obj, "foto_perfil", None):
+            if foto_perfil and foto_perfil.name:
+                foto_url_perfil = request.build_absolute_uri(foto_perfil.url)
+             
 
-            if foto_obj.foto_perfil.name:
-                foto_url_perfil = request.build_absolute_uri(
-                    foto_obj.foto_perfil.url
-                )
+            if portada and portada.name:
+                url_portada = request.build_absolute_uri(portada.url)
+                
 
-                path_foto_perfil = foto_obj.foto_perfil
-
-
+            if portada_izquierda and portada_izquierda.name:
+                url_portada_izquierda = request.build_absolute_uri(portada_izquierda.url)
+      
         # Obtener datos personales
         name_doc_pdf = DatosPersonale.objects.filter(
             nombre_usuario_id=request.user.id
@@ -382,14 +404,22 @@ class formDatPersonView:
 
             name_doc_pdf = "#"
 
+
+        eye_icon = request.build_absolute_uri(
+            static("bs532/img/")
+        )
+
         contexto = {
+            "portada_izquierda_url":url_portada_izquierda,
+            "eye_icon": eye_icon,
+            "qryset_foto_obj":foto_obj,
+            "img_portada_url":url_portada ,
             "puede_ver_hv": es_acceso_hoja_vida(request.user),
             "form": datos_personales,
             "fotoform": fperfiluser,
             "doc_name_PDF": name_doc_pdf,
             "estvar": var_estado,
             "foto_perfil": foto_url_perfil,
-            "path_foto_perfil": path_foto_perfil
             }
 
         return render(request, "datos_personales.html", contexto)

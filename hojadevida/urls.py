@@ -7,7 +7,8 @@ urlpatterns = [
     path("datos_personales", formDatPersonView.get_person_dat, name="get_datos"),
     path("person_dat", formDatPersonView.post_person_dat, name="person_dat"),
     path("phot_profil", formDatPersonView.post_person_phot, name="phot_profil"),
-    path("delete_phot", phot_delete, name="delete_phot"),
+    # path("delete_phot", phot_delete, name="delete_phot"),
+    path("delete-image/<str:campo>/", delete_image, name="delete_image"),
     path("delete_file", file_delete, name="delete_file"),
 
     path(

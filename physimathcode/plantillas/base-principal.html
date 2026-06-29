@@ -14,33 +14,36 @@
 
 
   <!-- Styles -->
-  <link href="{% static 'bs532/css/gestion.css' %}" rel="stylesheet" />
-  <link href="{% static 'bs532/css/misopcionescss.css' %}" rel="stylesheet" />
   <link href="{% static 'bs532/css/configbase.css' %}" rel="stylesheet" />
-  <link href="{% static 'bs532/css/confighv.css' %}" rel="stylesheet" />
   <link href="{% static 'bs532/css/cssbase.css' %}" rel="stylesheet" />
-  <!---   inicio codigo para formulario laboratorio  -->
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .contenedor {
+      display: flex;
+      gap: 30px;
+    }
 
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-        fontCache: 'global'
-      }
-    };
-  </script>
+    .izquierda {
+      width: 300px;
+    }
 
-  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-  </script>
+    .sticky {
+      position: sticky;
+      top: 20px;
+    }
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    .derecha {
+      flex: 1;
+    }
 
-  <!---   fin codigo para formulario laboratorio  --->
+    .portada {
+      width: 100%;
+      max-height: auto;
+      display: block;
+    }
+  </style>
+
+
 
   {% block content_head %}
 
@@ -50,25 +53,20 @@
 
 <body>
 
-  <div id="mininav-home-principal" style="width: 100%; height: 20vh;">
-  </div>
-
   <div class="contenedor-home-computador">
     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
       <div class="container-fluid">
 
-        {% if user.is_authenticated %}
+        <!-- SEARCH A LA DERECHA -->
 
-        <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
-          Cerrar sesión
-        </a>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Buscar">
+          <button class="btn btn-light btn-sm">
+            <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+          </button>
+        </form>
 
 
-        {% else %}
-        <a class="btn btn-dark" href="{% url 'logear' %}">
-          Iniciar sesión / Registrarse
-        </a>
-        {% endif %}
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
           <span class="navbar-toggler-icon"></span>
@@ -79,25 +77,20 @@
           <!-- MENÚ CENTRADO -->
           <ul class="navbar-nav mx-auto text-center gap-2">
 
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
+            <li>
+              <a class=" nav-link" href="{% url 'home' %}">Inicio</a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">Información</a>
-            </li>
-
-            <li class="nav-item">
+            <li>
               <a class="nav-link" href="#">Enseñanza</a>
             </li>
-            <li class="nav-item">
+            <li>
               <a class="nav-link" href="#">Investigación</a>
             </li>
-            <li class="nav-item">
+            <li>
               <a class="nav-link" href="#">Portafolio</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Galeria</a>
+            <li>
+              <a class="nav-link" href="#">Contacto</a>
             </li>
             {% if user.is_authenticated %}
             {% if puede_ver_hv %}
@@ -110,17 +103,43 @@
             {% endif %}
           </ul>
 
-          <!-- SEARCH A LA DERECHA -->
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar">
-            <button class="btn btn-light btn-sm">
-              <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
-            </button>
-          </form>
+
+          {% if user.is_authenticated %}
+
+          <div style="display: flex; gap: 10px;">
+            <div>
+              <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
+                Cerrar sesión
+              </a>
+            </div>
+
+            <div>
+              <img src="{{foto_perfil}}"
+                style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+            </div>
+
+          </div>
+
+          {% else %}
+
+          <div style="display: flex; gap: 10px;">
+            <div>
+              <a class="btn btn-dark" href="{% url 'logear' %}">
+                Iniciar sesión / Registrarse
+              </a>
+            </div>
+            <div>
+              <img src="{{ eye_icon }}persona-blanco.svg"
+                style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+            </div>
+          </div>
+
+          {% endif %}
 
         </div>
       </div>
     </nav>
+
   </div>
 
   <div class="contenedor-home-culular-tablet">
@@ -130,23 +149,11 @@
           <div style="width:3%;">
 
           </div>
-          <div style="width:7%;">
-            <table>
-              <tr>
-                <td>
-                  <button onclick="toggleLeftPanel()" class="collapse-btn">
-                    <svg width="18" height="18" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" stroke-width='2'>
-                      <rect width="70" height="4" fill="white" />
-                      <rect y="9" width="70" height="4" fill="white" />
-                      <rect y="18" width="70" height="4" fill="white" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
+          <div style="width:7%; display: flex;align-items: center;">
 
-
-            </table>
-
+            <button onclick="toggleLeftPanel()" class="collapse-btn">
+              <img src="{{ eye_icon }}botton-despliegue.svg">
+            </button>
 
           </div>
           <!-- 70% -->
@@ -164,7 +171,9 @@
           <div>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Buscar">
-              <button class="btn btn-light btn-sm">Buscar</button>
+              <button class="btn btn-light btn-sm">
+                <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+              </button>
             </form>
           </div>
 
@@ -204,12 +213,6 @@
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'form_acad' %}active{% endif %}" href="">
-                  Información
-                </a>
-              </li>
-
-              <li>
                 <a class="{% if request.resolver_match.url_name == 'exp_laboral' %}active{% endif %}" href=""
                   style="white-space: nowrap;">
                   Enseñanza
@@ -230,7 +233,7 @@
 
               <li>
                 <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}" href="">
-                  Galeria
+                  Contacto
                 </a>
               </li>
 
@@ -270,13 +273,17 @@
 
   </div>
 
+  <div id="mininav-home-principal" style="width: 100%; height: auto">
+    <img src="{{url_portada}}" class="portada">
+  </div>
+
   <div id="subportada-boddy">
 
     <div class="cuerpo-subportada-body">
 
       <div class="contenedor-imagen">
         <img src="{{foto_perfil}}"
-          style="width:200px; height:200px ;border-radius: 50%; border: 0px solid rgb(255, 183, 0);">
+          style="width:200px; height:200px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
       </div>
 
       <div class="contenedor-informacion-personal">
@@ -291,18 +298,18 @@
 
 
           <div class="contenedor-btn-gitHub-cv">
-            <a href="#" class="btn-cv">
+            <a href="{% url 'curr-hv' %}" class="btn-cv">
               <span class="icono">
                 <img src="{{ eye_icon }}micv.svg" style="height: 22px; width: 22px;">
               </span>
-              <div style="font-size: 15px;">Ver currículum</div>
+              <div style="font-size: 15px;">Currículum</div>
             </a>
 
-            <a href="#" class="btn-github">
+            <a href="https://github.com/amolinacrn" target="_blank" class="btn-github">
               <span class="icono">
                 <img src="{{ eye_icon }}github.svg" style="height: 20px; width: 20px;">
               </span>
-              <div style="font-size: 15px;">Cuenta GitHub</div>
+              <div style="font-size: 15px;">GitHub</div>
             </a>
 
             <a onclick="tglPanelMenu()" class="button-acordeon-carrusel">
@@ -373,7 +380,6 @@
   <!-- <hr style="border: 1px solid  rgb(0, 0, 0);"> -->
 
 
-
   <!-- Contenedor principal -->
   <div id="container-ccsbase">
     <div class="cuerpo-ccsbase-body">
@@ -392,7 +398,6 @@
       </div>
     </div>
   </div>
-
 
 
   <!--footer class="footer">
@@ -660,6 +665,9 @@
     //Llama a la función al redimensionar la ventana
     // window.addEventListener('resize', updateLeftPanel);
 
+    // const mininav_home_principal = document.querySelector("#mininav-home-principal");
+    // mininav_home_principal.style.background = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('{{url_portada}}')";
+    // // console.log('');
   </script>
 
 

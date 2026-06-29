@@ -62,6 +62,8 @@
           {{form.pais_titulo|as_crispy_field}}
           {{form.departamento_titulo|as_crispy_field}}
           {{form.ciudad_titulo|as_crispy_field}}
+
+          {{ form.acronimo|as_crispy_field }}
         </div>
 
         <div class="card form-grid bg-light mb-3 p-3">
@@ -76,7 +78,8 @@
 
           <div class="diploma-row">
             <div>
-              <label class="cargar_documento_whith" for="documento_soporte">Adjuntar diploma en (<b style='color:red'>.pdf</b>)
+              <label class="cargar_documento_whith" for="documento_soporte">Adjuntar diploma en (<b
+                  style='color:red'>.pdf</b>)
                 <div style="margin-top:7px">
                   <input type="file" name="documento_soporte" id="documento_soporte" class="upload-img green">
                 </div>
@@ -245,7 +248,8 @@
                   data-fecha_finalizacion="{{ qrdat.fecha_finalizacion|date:'Y-m-d' }}"
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}" data-pais_titulo="{{ qrdat.pais_titulo }}"
                   data-departamento_titulo="{{ qrdat.departamento_titulo }}"
-                  data-ciudad_titulo="{{ qrdat.ciudad_titulo }}" data-documento_url="{{ qrdat.documento_url }}">
+                  data-ciudad_titulo="{{ qrdat.ciudad_titulo }}" data-documento_url="{{ qrdat.documento_url }}"
+                  data-acronimo="{{ qrdat.acronimo }}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
                 </button>
 
