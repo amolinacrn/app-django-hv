@@ -1,0 +1,56 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<!--ESTILO 1-->
+
+<form enctype="multipart/form-data" method="post" id="editar_datos_formulario"
+    action="{% url 'unidades_cursos_impartidos' id_actual %}">
+    {% csrf_token %}
+
+    <!-- ////////////////// aqui va el contenido que ya estaba /////////////-->
+
+    <div class=" form-grid card bg-light" style="margin-bottom:16px">
+
+        <div>{{form.titulo_material_ayuda|as_crispy_field}}</div>
+
+        <div>{{form.url_material_ayuda|as_crispy_field}}</div>
+
+        <div>{{form.tematicas|as_crispy_field}}</div>
+        {{form.relacion_bilbiografica}}
+    </div>
+
+    <div class="card mb-3 p-3 bg-light">
+        {{form.unidades_de_tematica|as_crispy_field}}
+    </div>
+
+    <div id="ref_img_ver">
+    </div>
+
+
+    <div class="modal-footer py-lg-0">
+        <button class="btn btn-sm btn-outline-success" type="submit">
+            <div style="display: flex;gap: 5px;">
+                <div>
+                    <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                        style="display: flex; width:20px;align-items: center;" alt="My image">
+                </div>
+                <div>
+                    guardar
+                </div>
+            </div>
+        </button>
+
+        <button type="button" class="btn btn-outline-danger btn-sm float-end" data-bs-dismiss="modal">
+            <b>Salir</b>
+        </button>
+    </div>
+
+</form>
+
+<style>
+    .hh {
+        padding-left: 20px;
+        text-decoration: none;
+    }
+</style>

@@ -45,7 +45,26 @@ urlpatterns = [
         name="idioma_extangero",
     ),
 
+    path(
+        "cursos-impartidos/<int:pk>",
+        CursosImpartidosHV.as_view(),
+        name="cursos_impartidos",
+    ),
+
+    path(
+        "unidades-cursos-impartidos/<int:pk>",
+        UnidadesCursosImpartidosHV.as_view(),
+        name="unidades_cursos_impartidos",
+    ),
+
+    path(
+        "bibliografia/<int:pk>",
+        CitasBibliograficasHV.as_view(),
+        name="bibliografia",
+    ),
+
 
     path("delete/<str:model_name>/<int:pk>/", delete_file_record, name="delete_file_record"),
 
 ]
+

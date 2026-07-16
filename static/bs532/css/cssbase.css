@@ -18,7 +18,13 @@
   --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
   /*COLORES DE LA WEB*/
   --colores-web-app: #f0f0f0;
+  --color-amarillo-app: #f38807;
 }
+
+.body-background-color {
+  background-color: var(--colores-web-app);
+}
+
 
 @font-face {
   font-family: 'Barlow';
@@ -31,6 +37,25 @@ body {
   font-family: "arial";
   /* font-family: 'Inter', sans-serif; */
   /*mismo tipo de letra para casi toda la app*/
+}
+
+
+
+
+/* .agregar-mas-formulario {
+  display: none;
+} */
+.alerta-agregar-unidades {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(185, 185, 185);
+  height: 50px;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  justify-content: center;
+
 }
 
 .menu-principal ul {
@@ -53,7 +78,6 @@ body {
   margin: 2px 0;
   display: flex;
   align-items: center;
-
 }
 
 .menu-principal ul li ul {
@@ -63,6 +87,17 @@ body {
 .menu-principal ul li li:hover {
   background-color: rgb(23, 92, 230, 0.1);
 
+}
+
+.titulo_del_modal_unidades {
+  display: flex;
+  background-color: rgb(13, 135, 206);
+  height: 40px;
+  text-transform: uppercase;
+  padding-left: 15px;
+  align-content: center;
+  gap: 5px;
+  border-radius: 10px;
 }
 
 /* Menu principal de despligue */
@@ -651,7 +686,45 @@ input[type="number"] {
   display: none;
 }
 
-@media (max-width: 1000px) {
+.pptable,
+.pptd {
+  border-spacing: 0.5px;
+  border: 1px solid #ffffff;
+  border-collapse: collapse;
+  border-collapse: separate;
+}
+
+.encabezadado {
+  background-color: #000000d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+
+  padding: 5px;
+}
+
+.class-docencia {
+  box-shadow: var(--sombras-divs-app);
+  padding: 15px;
+  margin-top: 15px;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  background-color: #ffffff;
+  border-radius: 10px;
+
+}
+
+.contenido-ensenanza-universidades {
+  background-color: var(--colores-web-app);
+}
+
+
+@media (max-width: 1100px) {
 
   .collapse-btn-diplay-none {
     display: block;
@@ -769,5 +842,10 @@ input[type="number"] {
     font-size: 10px;
   }
 
-
+  .titulo_del_modal_unidades {
+    flex-direction: column;
+    height: 70px;
+    padding-top: 10px;
+    gap: 0;
+  }
 }

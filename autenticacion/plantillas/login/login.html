@@ -17,15 +17,13 @@
                 <!--div style="padding: 0.2vw;">
                 <b style="font-size:15px;">Iniciar sesión</b>
             </div-->
-		<div style="display:flex;justify-content: center; align-items: center; padding: 0px">
-                <img src="{% static 'bs532/img/imghv/login_icon.svg' %}" style="width: 30%;transform: scale(1);">
-		</div>                
-		
-		<div style="font-size: 35px; display:flex;justify-content: center; align-items: center; padding: 5px">
-			Iniciar sesión
-		</div>
-
-		<div>
+                <div style="display:flex;justify-content: center; align-items: center; padding: 0px">
+                    <img src="{% static 'bs532/img/imghv/login_icon.svg' %}" style="width: 30%;transform: scale(1);">
+                </div>
+                <div style="font-size: 35px; display:flex;justify-content: center; align-items: center; padding: 5px">
+                    Iniciar sesión
+                </div>
+                <div>
 
                     <hr style="border: 0.15vw rgb(34, 33, 33) solid;  width: 100%;">
 
@@ -37,7 +35,7 @@
                         {{form.password|as_crispy_field}}
                     </div>
                     {% if form.non_field_errors %}
-                    <div style="font-size: 15px; margin-top: -35px;">
+                    <div style="font-size: 15px;color: red;">
                         {{ form.non_field_errors }}
                     </div>
                     {% endif %}

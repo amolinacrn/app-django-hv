@@ -1,0 +1,324 @@
+{% extends "basehv.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content_head %}
+
+{% endblock %}
+
+{% block content_derecho%}
+
+<!--ESTILO 1-->
+
+<div class="posicion_hv_html">
+    <div class="hidden-field-one">
+        <div class="class_div">
+            {% if es_valido is False %}
+            <div style="padding: 1px;text-align: center;">
+                <h5 style="color: rgb(255, 0, 0);margin-top:5px;">
+                    <b>
+                        No se ha podido enviar los datos, por favor revise el formulario
+                    </b>
+                </h5>
+            </div>
+            <br>
+            {% endif%}
+
+            <table style="width:100%">
+                <tr>
+                    <td width="35px">
+                        <img src="{% static 'bs532/img/imghv/einstein.svg' %}" style="width: 100%;transform: scale(0.8)"
+                            alt="My image">
+                    </td>
+                    <td width="15px">
+
+                    </td>
+                    <td style="font-size:15px;">
+                        <b class="text-uppercase">Registrar cursos impartidos</b>
+                    </td>
+                    <td style="font-size:15px;">
+                        <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+                            <b>salir</b>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+
+            <hr>
+            <br>
+
+
+            <form enctype="multipart/form-data" method="post" id="editar_datos_formulario">
+                {% csrf_token %}
+
+                <div class="form-grid card bg-light" style="margin-bottom:16px">
+                    <div>{{ form.identificador_disciplina|as_crispy_field }}</div>
+                    <div>{{ form.nombre_disciplina|as_crispy_field }}</div>
+                </div>
+
+
+                <div class="card mb-3 p-3 bg-light" style="width: 100%;">
+                    {{ form.conjunto_tematicas|as_crispy_field }}
+                </div>
+
+
+
+                <div id="ref_img_ver">
+                </div>
+
+                <br>
+                <hr>
+
+
+                <div style="display: flex;gap: 10px; justify-content: right;">
+                    <div>
+                        <button class="btn btn-sm btn-outline-success " type="submit">
+                            <div style="display: flex; gap: 5px;">
+                                <div>
+                                    <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                                        style="display: flex; width:20px;align-items: center;" alt="My image">
+                                </div>
+                                <div>
+                                    Guardar
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-sm btn-outline-danger " onclick="TablaDeRegistros()">
+                            <div style="display: flex; gap: 5px;">
+                                <div>
+                                    <img src="{% static 'bs532/img/imghv/Cancelar.svg' %}"
+                                        style="display: flex; width:20px;align-items: center;" alt="My image">
+                                </div>
+                                <div>
+                                    Cancelar
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="hidden-field-two">
+        <div class="class_div">
+
+            <table style="width:100%">
+                <tr>
+                    <td width="35px">
+                        <img src="{% static 'bs532/img/imghv/einstein.svg' %}" style="width: 100%;transform: scale(0.8)"
+                            alt="My image">
+                    </td>
+                    <td width="15px">
+
+                    </td>
+                    <td style="font-size:15px;">
+                        <b class="text-uppercase">Cursos impartidos</b>
+                    </td>
+                    <td style="font-size:15px;">
+                        <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+                            <b>salir</b>
+                        </a>
+                    </td>
+
+                </tr>
+            </table>
+            <br>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <a class="btn btn-sm btn-outline-success float-end" onclick="DiligenciarFormulario(this)">
+                            Agregar evento
+                        </a>
+                    </td>
+                    <td width="1%"></td>
+
+                    <td width="35%">
+                        <div class="input-group mb-0">
+                            <span class="input-group-text" id="basic-addon1">buscar</span>
+                            <input type="text" class="form-control" placeholder="Buscar" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="height:8px;width: 100%; background-color:rgba(255, 0, 0, 0) ;"></div>
+
+            <div class="container-vertical">
+                {% for qrdat in querydat %}
+                <table class="competencias-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="width: 90%;">
+                                <div style="display: flex; gap:2vw;">
+                                    <div>
+                                        Codigo: {{ qrdat.identificador_disciplina }}
+                                    </div>
+                                    <div>
+                                        Nombre disciplina: {{ qrdat.nombre_disciplina }}
+                                    </div>
+                                </div>
+                            </th>
+
+                            <th>
+                                Opciones
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for tema in qrdat.tematicas_lista %}
+                        <tr>
+                            <td colspan="2">
+                                {{ tema.tematicas }}
+
+                            </td>
+
+                            <td>
+                                <!-- Ver soporte -->
+                                <button type="button" class="icon-btn"
+                                    onclick="modalUnidadesDisciplinas(this,'unidades-cursos-impartidos')"
+                                    data-id="{{tema.id}}" data-tematicas="{{ tema.tematicas }}"
+                                    data-titulo_material_ayuda="{{tema.titulo_material_ayuda}}"
+                                    data-url_material_ayuda="{{tema.url_material_ayuda}}"
+                                    data-unidades_de_tematica="{{tema.unidades_de_tematica}}">
+                                    <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+                                </button>
+
+                                <!-- Eliminar -->
+                                <a href="{% url 'delete_file_record' 'UnidadesCursosImpartidos' tema.id %}"
+                                    class="icon-btn">
+                                    <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+                                </a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3" style="background-color: rgb(255, 255, 255);">
+                                <!-- Ver soporte -->
+
+                                <div style="display: flex; gap: 20px; ">
+                                    <div style="font-weight: bold; align-content: center; margin-left: auto;">
+                                        Opciones de tabla
+                                    </div>
+                                    <div>
+
+                                        <!-- Editar -->
+
+                                        <button type="button" class="editar-registro icon-btn"
+                                            onclick="DiligenciarFormulario(this)" style="cursor:pointer"
+                                            data-id="{{ qrdat.id }}"
+                                            data-identificador_disciplina="{{ qrdat.identificador_disciplina }}"
+                                            data-nombre_disciplina="{{ qrdat.nombre_disciplina }}"
+                                            data-link_bibliografia="{{ qrdat.link_bibliografia }}"
+                                            data-autor_documento="{{ qrdat.autor_documento }}"
+                                            data-titulo_documento_guia="{{ qrdat.titulo_documento_guia }}"
+                                            data-conjunto_tematicas="{{ qrdat.conjunto_tematicas }}">
+
+                                            <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
+
+                                        </button>
+
+                                        <!-- Eliminar -->
+                                        <a href="{% url 'delete_file_record' 'CursosImpartidos' qrdat.id %}"
+                                            class="icon-btn">
+                                            <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                {% if not forloop.last %}
+                <br>
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-unidades-disciplinas" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="modal-unidades-disciplinas" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="margin-top: 5px;">
+
+        <div class="modal-content">
+
+            <div class="modal-body px-lg-1 py-lg-1">
+                <h6 class="modal-title" id="cargarfotoLabel" style="text-align: left;color: rgb(255, 255, 255);">
+                    <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
+                        <div
+                            style="background-color: rgb(13, 135, 206);align-content: center; height: 40px; text-transform: uppercase; ">
+                            <b id="identificador_titulo_unidades" style="padding: 10px; ">
+
+                            </b>
+                        </div>
+                    </div>
+                </h6>
+
+                <div id="curso-unidad-contenido" style="margin-top: 15px;">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+    function modalUnidadesDisciplinas(btn, vista_html) {
+
+        const data = btn.dataset;
+
+        const ident_titulo = document.getElementById("identificador_titulo_unidades");
+
+        ident_titulo.innerHTML = `Unidades de ${data.tematicas}`;
+
+        const indent_modal = document.getElementById("curso-unidad-contenido");
+
+        fetch(`/hojadevida/${vista_html}/${data.id}`)
+            .then(response => response.text())
+            .then(html => {
+                indent_modal.innerHTML = html;
+                Object.entries(data).forEach(([campo, valor]) => {
+                    const id_input = document.getElementById(`id_${campo}`);
+
+                    if (id_input) {
+
+                        id_input.value = valor ?? "";
+                    }
+
+                });
+
+            });
+
+        $(document).ready(function () {
+            $('#modal-unidades-disciplinas').modal('toggle')
+        });
+
+    }
+
+
+
+</script>
+
+
+{% endblock content_derecho %}

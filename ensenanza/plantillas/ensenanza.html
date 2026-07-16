@@ -1,0 +1,128 @@
+{% extends "base-curr.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content_head %}
+
+{% endblock %}
+
+{% block content_derecho %}
+
+
+<div id="contenidoDisciplinaUdenar">
+
+</div>
+{{ datos_cursos_impartidos|json_script:"datos-de-cursos-impartidos" }}
+<script>
+
+    function renderizandoTexto(Container, identificador_tematica, competencias_disciplina, contando) {
+        console.log(contando);
+        let contenido_acordeon = `
+
+        <table class="competencias-table-ensenanza">
+                    <thead>
+                <tr>
+                    <th style="width:50%;">Contenido temática</th>
+                    <th>Bibliografia y/o material de ayuda</th>
+                </tr>
+            </thead>
+            <tbody id="${identificador_tematica}">
+                <tr>
+                    <td style="padding:20px ;">                    
+                        ${competencias_disciplina.competencias_unidad}                  
+                    </td>
+                    <td>                    
+                        ${Container.cita_bibliografica
+                .flatMap(cont => (cont.cita_bib || "").split("|"))
+                .filter(item => item !== "")
+                .map(item => `<li>
+                    <a href="" style="text-decoration: none;">
+                    ${item}
+                    </a>
+                    </li>`)
+                .join("")}   
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      `;
+        return contenido_acordeon;
+    };
+
+    // Crear tabla y cuerpo
+    const container = document.createElement("div");
+    container.style.width = "100vw";
+    container.classList.add("tablaJavascrpt");
+
+    const tablaDeContenido = JSON.parse(
+        document.getElementById("datos-de-cursos-impartidos").textContent
+    );
+
+    tablaDeContenido.forEach((id_Container, km) => {
+
+        const row = document.createElement("div");
+        row.classList.add("fila-contenido");
+
+        const tematicasHTML = `
+        <div class="accordion accordion-flush accordion-curso" id="${id_Container.idd}">
+            ${id_Container.tematicas_curso.map((contando_tematica, contador) => {
+
+            const collapseId = `flush-collapse${id_Container.idd}_${contador}`;
+            const headingId = `flush-heading${id_Container.idd}_${contador}`;
+
+            return `
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header" id="${headingId}">
+                            <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#${collapseId}"
+                                aria-expanded="false"
+                                aria-controls="${collapseId}">
+
+                                <div style="font-size:14px; color:#000000">
+                                    <b>${contando_tematica.unidades_curso}</b>
+                                    
+                                 
+                                </div>
+
+                            </button>
+                        </h2>
+
+                        <div id="${collapseId}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="${headingId}"
+                            data-bs-parent="#${id_Container.idd}">
+
+                            <div class="accordion-body">
+                                ${renderizandoTexto(id_Container, id_Container.idd, contando_tematica, contador)}  
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+
+        }).join("")}
+     
+        </div>
+    `;
+        row.innerHTML = `
+        <div class="class-docencia">
+            <div class="encabezadado">
+               ${id_Container.disciplina} 
+            </div>
+            ${tematicasHTML}
+        </div>
+    `;
+
+        container.appendChild(row);
+    });
+
+    document.getElementById("contenidoDisciplinaUdenar").appendChild(container);
+
+</script>
+
+{% endblock content_derecho %}

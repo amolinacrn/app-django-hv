@@ -48,7 +48,7 @@
 
 </head>
 
-<body>
+<body class="body-background-color">
 
 
     <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
@@ -62,8 +62,6 @@
                 <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
             </div>
         </div>
-
-
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
 
@@ -105,19 +103,20 @@
                 </a>
             </div>
             <div>
+                {% if foto_perfil %}
                 <img src="{{foto_perfil}}"
                     style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+
+                {% else %}
+                <img src="{{ eye_icon }}persona-blanco.svg"
+                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+                {% endif %}
             </div>
         </div>
 
+        {% endif %}
     </div>
 
-    {% endif %}
-
-
-
-
-    </div>
 
     <!-- Contenedor para ambos paneles -->
     <div id="container_personal">
@@ -179,7 +178,7 @@
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
+                                <a class="{% if request.resolver_match.url_name == 'competencia_tecnica' %}active{% endif %}"
                                     href="{% url 'competencia_tecnica' 0 %}">
                                     Competencias técnicas
                                 </a>
@@ -187,11 +186,30 @@
 
                             <!-- 🔧 AQUÍ SÍ CAMBIÓ -->
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
+                                <a class="{% if request.resolver_match.url_name == 'idioma_extangero' %}active{% endif %}"
                                     href="{% url 'idioma_extangero' 0 %}">
                                     Idioma extranjero
                                 </a>
                             </li>
+
+                            {% if user.is_staff %}
+                            <!-- 🔧 AQUÍ SÍ CAMBIÓ -->
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'cursos_impartidos' %}active{% endif %}"
+                                    href="{% url 'cursos_impartidos' 0 %}">
+                                    Disciplinas impartidas
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'bibliografia' %}active{% endif %}"
+                                    href="{% url 'bibliografia' 0 %}">
+                                    Citas bibliograficas
+                                </a>
+                            </li>
+
+
+                            {% endif %}
 
                             <!-- 🔧 AQUÍ SÍ CAMBIÓ -->
                             <li>
@@ -200,6 +218,7 @@
                                     Descargar hoja de vida
                                 </a>
                             </li>
+
 
                         </ul>
                     </nav>
@@ -218,7 +237,6 @@
 
         <!-- Panel derecho ajustable -->
         <div class="custom_derecho">
-
 
             <!--ESTE ES UN MODAL PARA TODAS LAS VISTAS, Y PERMITE VER TODOS LOS DOCUMENTOS. -->
 
@@ -240,7 +258,10 @@
                                     </div>
                                 </div>
                             </h6>
-                            <div id="indentificacion_del_modal"></div>
+                            <div id="indentificacion_del_modal">
+
+                            </div>
+
                             <div class="modal-footer py-lg-0">
                                 <button type="button" class="btn btn-outline-danger btn-sm float-end"
                                     data-bs-dismiss="modal">
@@ -254,17 +275,16 @@
 
             <script>
 
-                var dirdiplomas = document.getElementById("indentificacion_del_modal")
-                identificador_titulo = document.getElementById("identificador_titulo")
+                const dirdiplomas = document.getElementById("indentificacion_del_modal");
+                const identificador_titulo = document.getElementById("identificador_titulo");
 
                 function funcionVisualizarModal(exp_lab, titulo_encabezado) {
                     identificador_titulo.innerHTML = titulo_encabezado;
                     dirdiplomas.innerHTML = `<embed src="${exp_lab}" type="application/pdf" width="100%" height="100%"
-          style="height: 80vh;"/>`
+                            style="height: 80vh;"/>`
                     $(document).ready(function () {
                         $('#verexplab').modal('toggle')
                     });
-
                 }
 
             </script>
@@ -342,7 +362,7 @@
             let customDerecho = document.querySelector('.custom_derecho');
             let cargar_documento_whith = document.querySelector('.cargar_documento_whith');
 
-            if (anchoLeftVentana <= 1300) {
+            if (anchoLeftVentana <= 1000) {
                 customDerecho.style.marginLeft = "0px";
                 leftPanelVentana.style.width = "0px";
                 leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
@@ -499,10 +519,21 @@
             {% endif %}
         }
 
+
+
         function DiligenciarFormulario(btn) {
+
+            const input = document.getElementById("id_tematica_curso");
+
+            // if (input) {
+            //     input.value = el_tema ?? "";
+            // }
 
             const data = btn.dataset;
 
+            console.log(data);
+
+            //const agregar_mas_formulario = document.querySelector(".agregar-mas-formulario");
             document.querySelector('.hidden-field-one').style.display = "block";
             document.querySelector('.hidden-field-two').style.display = "none";
 
@@ -512,8 +543,10 @@
 
             if (Object.keys(data).length !== 0) {
                 form.action = data.id;
+                //agregar_mas_formulario.style.display = "block";
             } else {
                 form.reset();
+                //agregar_mas_formulario.style.display = "none";
             }
 
             CargarArchivoPdf(data.documento_soporte);
@@ -535,6 +568,7 @@
                 if (input) {
                     input.value = valor ?? "";
                 }
+
             });
 
         };

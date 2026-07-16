@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "physimathcode",
     "autenticacion",
     "hojadevida",
+    "ensenanza",
 ]
 # Configuración de los mensajes (esto es opcional, pero es recomendable)
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
@@ -81,6 +82,7 @@ TEMPLATES = [
             BASE_DIR / "autenticacion/plantillas",
             BASE_DIR / "hojadevida/plantillas",
             BASE_DIR / "proyectoWeb/plantillas", #### cambio aqui: para vista principal
+            BASE_DIR / "ensenanza/plantillas", #### cambio aqui: para vista principal
 
         ],
         "APP_DIRS": True,

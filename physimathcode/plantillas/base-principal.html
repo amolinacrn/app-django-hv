@@ -17,6 +17,10 @@
   <link href="{% static 'bs532/css/configbase.css' %}" rel="stylesheet" />
   <link href="{% static 'bs532/css/cssbase.css' %}" rel="stylesheet" />
 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
   <style>
     .contenedor {
       display: flex;
@@ -81,7 +85,7 @@
               <a class=" nav-link" href="{% url 'home' %}">Inicio</a>
             </li>
             <li>
-              <a class="nav-link" href="#">Enseñanza</a>
+              <a class="nav-link" href="{% url 'docencia' %}">Enseñanza</a>
             </li>
             <li>
               <a class="nav-link" href="#">Investigación</a>
@@ -114,30 +118,34 @@
             </div>
 
             <div>
-              <img src="{{foto_perfil}}"
+              {% if foto_usuario_login %}
+              <img src="{{foto_usuario_login}}"
                 style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
-            </div>
-
-          </div>
-
-          {% else %}
-
-          <div style="display: flex; gap: 10px;">
-            <div>
-              <a class="btn btn-dark" href="{% url 'logear' %}">
-                Iniciar sesión / Registrarse
-              </a>
-            </div>
-            <div>
+              {% else %}
               <img src="{{ eye_icon }}persona-blanco.svg"
                 style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+              {% endif %}
+
             </div>
+
+            {% else %}
+
+            <div style="display: flex; gap: 10px;">
+              <div>
+                <a class="btn btn-dark" href="{% url 'logear' %}">
+                  Iniciar sesión / Registrarse
+                </a>
+              </div>
+              <div>
+                <img src="{{ eye_icon }}persona-blanco.svg"
+                  style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+              </div>
+            </div>
+
+            {% endif %}
+
           </div>
-
-          {% endif %}
-
         </div>
-      </div>
     </nav>
 
   </div>
@@ -630,7 +638,7 @@
       const contenedor_computador = document.querySelector('.contenedor-home-computador');
       const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
       let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
-      if (anchoLeftVentana <= 1000) {
+      if (anchoLeftVentana <= 1100) {
         leftPanelVentana.style.width = "0px";
         leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
         contenedor_computador.style.display = "none";

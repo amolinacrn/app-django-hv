@@ -170,4 +170,46 @@ class CompetenciasTecnicasComputacionale(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/certificados", blank=True, null=True
     )
+
+
+class CursosImpartidos(models.Model):
+    class Meta:
+        ordering = ['id']
+    nombre_usuario = models.ForeignKey(
+        User, blank=False, null=False, on_delete=models.CASCADE
+    )
     
+    identificador_disciplina = models.CharField(max_length=10, blank=False, null=False)
+    nombre_disciplina = models.CharField(max_length=30, blank=False, null=False)
+    conjunto_tematicas = models.CharField(max_length=1000, blank=True, null=True)
+ 
+
+class CitasBibliograficas(models.Model):
+    nombre_usuario = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )
+    
+    codigo_curso = models.CharField(max_length=100)
+    titulo_documento_guia = models.CharField(max_length=500, blank=True, null=True)
+    link_bibliografia =  models.URLField(max_length=200, blank=True, null=True)
+    nombre_curso=models.CharField(max_length=100)
+
+
+class UnidadesCursosImpartidos(models.Model):
+
+    class Meta:
+        ordering = ['id']
+
+    nombre_usuario = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )
+
+    disciplina_o_curso = models.ForeignKey(
+        CursosImpartidos, on_delete=models.CASCADE
+    ) 
+
+    tematicas =  models.CharField(max_length=1000, blank=True, null=True)
+    titulo_material_ayuda = models.CharField(max_length=100, blank=True, null=True)
+    url_material_ayuda =  models.URLField(max_length=200, blank=True, null=True)
+    unidades_de_tematica =  models.CharField(max_length=1000, blank=True, null=True)
+ 

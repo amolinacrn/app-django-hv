@@ -30,6 +30,7 @@ urlpatterns = [
     path("hojadevida/", include("hojadevida.urls")),
     # path("physimathcode/", include("physimathcode.urls")),
     path("autenticacion/", include("autenticacion.urls")),
+     path("ensenanza/", include("ensenanza.urls")),
     # path("signed-url/", get_signed_url, name="signed-url"),
     path("", home, name='home'),  #### cambio aqui: para vista principal    
     path("curr-hv/", curr_hv, name="curr-hv"),

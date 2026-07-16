@@ -1,0 +1,32 @@
+:root {
+    --color-botones-acordeon: #ff8c0048;
+    --color-botones-acordeon-click: #c2c2c2d5;
+    --color-botones-acordeon-tabla: #ffffff;
+    --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-curso .accordion-button {
+    background-color: var(--color-botones-acordeon);
+    color: #003366;
+    border: 0;
+}
+
+.accordion-curso .accordion-button:not(.collapsed) {
+    background-color: var(--color-botones-acordeon-click);
+    color: #001a33;
+}
+
+.accordion-curso .accordion-item {
+    border: none;
+    box-shadow: none;
+    margin-bottom: 10px;
+}
+
+.accordion-curso .accordion-body {
+    background-color: var(--color-botones-acordeon-tabla);
+    border: 1px solid #dbdbdbb4;
+}

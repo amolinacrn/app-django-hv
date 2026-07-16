@@ -19,6 +19,15 @@ def es_acceso_hoja_vida(user):
 
 def curr_hv(request):
 
+    try:
+        usuario_login = User.objects.get(username=request.user)
+    except:
+        usuario_login=None
+
+    obj_usuario_login = FotosPersonale.objects.filter(
+        nombre_usuario_id=usuario_login
+    ).first()
+
     # user = User.objects.get(username="amolinacrn")
     try:
         user = User.objects.get(username="amolinacrn")
@@ -53,11 +62,18 @@ def curr_hv(request):
 
     # --- foto perfil segura ---
     foto_url_perfil = ""
+    url_usuario_login=""
 
-    if foto_obj and foto_obj.foto_perfil:
-        foto_url_perfil = request.build_absolute_uri(
-            foto_obj.foto_perfil.url
-        )
+    if foto_obj:
+        foto_perfil = getattr(foto_obj, "foto_perfil", None)
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
+
+        if foto_perfil and foto_perfil.name:
+            foto_url_perfil = request.build_absolute_uri(foto_perfil.url)
+
+        if obj_usuario_login and obj_usuario_login.name:
+            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+         
 
     # --- función helper para links ---
     def agregar_link(queryset, nombre):
@@ -72,6 +88,7 @@ def curr_hv(request):
     # --- contexto ---
     contexto = {
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
+        
         "eye_icon": eye_icon,
 
         "datos_personales": datos_personales,
@@ -90,6 +107,8 @@ def curr_hv(request):
 
         "competencias_tecnicas_computacionale": competencias,
 
+        "foto_usuario_login":url_usuario_login,
+
     }
 
     return render(
@@ -101,7 +120,12 @@ def curr_hv(request):
 
 
 def home(request):
-    # user = User.objects.get(username="amolinacrn")
+    try:
+        usuario_login = User.objects.get(username=request.user)
+    except:
+        usuario_login=None
+
+
     try:
         user = User.objects.get(username="amolinacrn")
     except User.DoesNotExist:
@@ -112,19 +136,28 @@ def home(request):
         nombre_usuario_id=user
     ).first()
 
+    obj_usuario_login = FotosPersonale.objects.filter(
+        nombre_usuario_id=usuario_login
+    ).first()
+
     foto_url_perfil = ""
     url_portada = ""
+    url_usuario_login=""
     
 
     if foto_obj:
         foto_perfil = getattr(foto_obj, "foto_perfil", None)
         portada = getattr(foto_obj, "imagen_de_portada", None)
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
 
         if foto_perfil and foto_perfil.name:
             foto_url_perfil = request.build_absolute_uri(foto_perfil.url)
          
         if portada and portada.name:
             url_portada = request.build_absolute_uri(portada.url)
+
+        if obj_usuario_login and obj_usuario_login.name:
+            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
          
 
     datos_personales = DatosPersonale.objects.filter(nombre_usuario=user)
@@ -182,6 +215,8 @@ def home(request):
         "experiencias_laborales": experiencias,
 
         "foto_perfil": foto_url_perfil,
+
+        "foto_usuario_login":url_usuario_login,
         
         "url_portada": url_portada,
     }

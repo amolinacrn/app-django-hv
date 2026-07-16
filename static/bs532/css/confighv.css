@@ -1,3 +1,9 @@
+:root {
+    --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
+    --sombras-divs-app-table: 1px 1px 5px 2px rgba(179, 179, 179, 0.596);
+}
+
+
 .foto-box {
     width: auto;
     border: 2px solid #0d7ffa;
@@ -11,12 +17,12 @@
 
 .posicion_hv_html {
     margin-left: 3vw;
-    background-color: rgba(236, 236, 236, 0);
-    border-radius: 0px;
+    background-color: rgba(209, 14, 14, 0);
+    border-radius: 10px;
     padding: 0px;
     margin-top: 1vw;
     font-size: 14px;
-
+    box-shadow: var(--sombras-divs-app);
 }
 
 .posicion_hv_html-copia {
@@ -60,23 +66,47 @@
 .competencias-table {
     width: 100%;
     border-collapse: collapse;
-
+    box-shadow: var(--sombras-divs-app-table);
 }
 
 .competencias-table th,
 .competencias-table td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    text-align: center;
+    text-align: left;
+
 }
 
 .competencias-table thead {
-    background: #282831e8;
-    color: white;
+    background: #353535;
+    color: rgb(255, 255, 255);
+
+}
+
+.competencias-table-ensenanza {
+    width: 100%;
+    font-size: 13px;
+    /* border-collapse: collapse; */
+}
+
+.competencias-table-ensenanza th,
+.competencias-table-ensenanza td {
+    padding: 10px;
+    /* text-align: center; */
+}
+
+.competencias-table-ensenanza thead {
+    background: #e6e6e680;
+    color: rgb(0, 0, 0);
+}
+
+.class-shadow {
+    box-shadow: var(--sombras-divs-app-table);
 }
 
 .acciones-col {
-    width: 120px;
+    width: auto;
+
 }
 
 .icon-btn {
@@ -84,11 +114,11 @@
     border: none;
     cursor: pointer;
     padding: 2px;
+    text-decoration: none;
 }
 
 .icon-btn img {
     width: 20px;
-    height: 20px;
 }
 
 /*tablas verticales para moviles*/

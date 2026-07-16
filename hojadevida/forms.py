@@ -775,3 +775,153 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
         widget=forms.FileInput(),
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
+
+
+class FormCursosImpartidos(forms.ModelForm):
+    class Meta:
+        model = CursosImpartidos
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop("current_user", None)
+        super().__init__(*args, **kwargs)
+        self.fields["nombre_usuario"].disabled = True
+        self.fields["nombre_usuario"].initial = self.current_user
+
+    identificador_disciplina = forms.CharField(
+        max_length=10,
+        label=mark_safe("<span style='color:red'>*</span> id disciplina:"),
+        required=True,
+        widget=forms.NumberInput(),
+    )
+    nombre_disciplina = forms.CharField(
+        max_length=30,
+        label=mark_safe("<span style='color:red'>*</span> Nombre de la disciplina:"),
+        required=True,
+    )
+
+    link_bibliografia =  forms.URLField(
+        max_length=200,
+        label="URL texto bibliográfico:",
+        required=False,
+    )
+    
+    titulo_documento_guia = forms.CharField(
+        max_length=500,
+        label="Bibliografía:",
+        required=False,
+    )
+    conjunto_tematicas = forms.CharField(
+        max_length=1000,
+        label="Agregue las temáticas del curso separadas por guion (-):",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 3,
+                "cols": 1,
+            })
+        )
+
+
+class FormUnidadesCursosImpartidos(forms.ModelForm):
+    class Meta:
+        model = UnidadesCursosImpartidos
+        exclude = ["disciplina_o_curso"]
+
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop("current_user", None)
+        super().__init__(*args, **kwargs)
+        self.fields["nombre_usuario"].disabled = True
+        self.fields["nombre_usuario"].initial = self.current_user
+
+    titulo_material_ayuda = forms.CharField(
+        max_length=100,
+        label="Titulo material de ayuda:",
+        required=False,
+    )
+    
+    url_material_ayuda =  forms.URLField(
+        max_length=200,
+        label="URL material ayuda:",
+        required=False,
+    )
+
+    unidades_de_tematica =  forms.CharField(
+        max_length=1000,
+        label="Agregue las unidades de ésta temática:",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 6,
+                "cols": 1,
+            })
+    )
+
+    tematiticas =  forms.CharField(
+        max_length=1000,
+        label="tematica:",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 3,
+                "cols": 1,
+            })
+    )
+
+class FormCitasBibliograficas(forms.ModelForm):
+
+    codigo_curso = forms.ChoiceField(
+        label=mark_safe("<span style='color:red'>*</span> Bibliografía del curso:"),
+        required=True,
+        choices=[]
+    )
+
+    class Meta:
+        model = CitasBibliograficas
+        exclude=["nombre_curso"]
+    
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop("current_user", None)
+        super().__init__(*args, **kwargs)
+        self.fields["nombre_usuario"].disabled = True
+        self.fields["nombre_usuario"].initial = self.current_user
+
+        self.cursos_queryset= CursosImpartidos.objects.all()   
+             
+        self.DATOS_DISCIPLINA_CODIGO=[]
+
+        for campos in self.cursos_queryset:
+            self.DATOS_DISCIPLINA_CODIGO.append((
+                campos.identificador_disciplina,
+                campos.nombre_disciplina, 
+  
+            ))
+
+        self.DATOS_DISCIPLINA_CODIGO = [(None, "Seleccione...")] + self.DATOS_DISCIPLINA_CODIGO
+        self.fields["codigo_curso"].choices = self.DATOS_DISCIPLINA_CODIGO 
+
+
+    titulo_documento_guia = forms.CharField(
+        max_length=500,
+        label="Cita bibliográfica:",
+        required=False,
+    )
+    
+    link_bibliografia =  forms.URLField(
+        max_length=200,
+        label="url Bibliografía:",
+        required=False,
+    )
+
+    # nombre_curso= forms.ChoiceField(
+    #     label=mark_safe("<span style='color:red'>*</span> Nombre del curso:"),
+    #     required=True,
+    #     )
+    # key_curso =forms.CharField(
+    #     max_length=500,
+    #     label="",
+    #     required=False,
+    # )
+    
+
+
