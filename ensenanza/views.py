@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from hojadevida.models import User,UnidadesCursosImpartidos,CitasBibliograficas
+from hojadevida.models import *
 from django.templatetags.static import static
 from collections import defaultdict
 import numpy as np
@@ -23,6 +23,26 @@ def vista_ensenanza(request):
             nombre_usuario_id=usuario.id
             )
     
+    try:
+        usuario_login = User.objects.get(username=request.user)
+    except:
+        usuario_login=None
+
+    obj_usuario_login = FotosPersonale.objects.filter(
+        nombre_usuario_id=usuario_login
+    ).first()
+
+    url_usuario_login=""
+
+    if obj_usuario_login:
+
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
+
+        if obj_usuario_login and obj_usuario_login.name:
+            
+            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+
+
     queryset_bibliografia = CitasBibliograficas.objects.all()
     
     codigos=[]
@@ -96,6 +116,7 @@ def vista_ensenanza(request):
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "eye_icon": eye_icon, 
         "datos_cursos_impartidos": table_content,
+        "foto_usuario_login":url_usuario_login,
     }
 
     return render(

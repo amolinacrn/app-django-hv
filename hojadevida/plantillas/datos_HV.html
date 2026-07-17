@@ -7,13 +7,16 @@
 {% block content_derecho %}
 
 <div class="posicion_hv_html">
-  <div class="class_div container-vertical font-size-presentacion">
+  <div class="class_div container-vertical font-size-presentacion ">
     <!-- ================= DATOS PERSONALES ================= -->
     <section class="bloque">
       <h2 class="titulo-seccion">Datos personales</h2>
 
       <div class="cabecera-curr-hv">
-        <img src="{{ foto_perfil }}" class="foto">
+
+        <div>
+          <img src="{{ foto_perfil }}" class="foto">
+        </div>
 
         <div>
           {% for e in datos_personales %}
@@ -22,42 +25,39 @@
             <h3>{{ e.titulo_mas_reciente }}</h3>
             <p>{{ e.universidad_titulo_mas_reciete }}</p>
 
-            <div class="grid-datos">
+            <div class="campos-flex">
 
-
-              <span>
-                <div class="grid-datos-flex ">
-                  <div>
-                    <img src="{{ eye_icon }}email_black.svg" width="21px">
-                  </div>
-                  <div>
-                    {{ e.correo_electronico }}
-                  </div>
+              <div class="grid-datos-flex ">
+                <div>
+                  <img src="{{ eye_icon }}email_black.svg" width="21px">
                 </div>
-              </span>
-
-              <span>
-                <div class="grid-datos-flex ">
-                  <div>
-                    <img src="{{ eye_icon }}telephone-black.svg" width="21px">
-                  </div>
-                  <div>
-                    {{ e.telefono_celular }}
-                  </div>
+                <div>
+                  {{ e.correo_electronico }}
                 </div>
-              </span>
-              <span>
+              </div>
 
-                <div class="grid-datos-flex ">
-                  <div>
-                    <img src="{{ eye_icon }}ubicacion.svg" width="21px">
-                  </div>
-                  <div>
-                    {{ e.ciudad_residencia }}, {{ e.departamento_origen }}
-                  </div>
+
+
+              <div class="grid-datos-flex ">
+                <div>
+                  <img src="{{ eye_icon }}telephone-black.svg" width="21px">
                 </div>
+                <div>
+                  {{ e.telefono_celular }}
+                </div>
+              </div>
 
-              </span>
+
+              <div class="grid-datos-flex ">
+                <div>
+                  <img src="{{ eye_icon }}ubicacion.svg" width="21px">
+                </div>
+                <div>
+                  {{ e.ciudad_residencia }}, {{ e.departamento_origen }}
+                </div>
+              </div>
+
+
 
 
               <div class="grid-datos-flex ">
@@ -69,13 +69,13 @@
                     GitHub</a>
                 </div>
               </div>
-              <span>
-              </span>
+
 
 
             </div>
             {% endfor %}
         </div>
+
       </div>
     </section>
 
@@ -83,7 +83,9 @@
     <section class="bloque">
       <h2 class="titulo-seccion">Perfil profesional</h2>
       {% for e in datos_personales %}
-      <p class="texto-justificado">{{ e.perfil_profesional }}</p>
+      <div class="texto-justificado color-perfil-profesional">
+        {{ e.perfil_profesional }}
+      </div>
       {% endfor %}
     </section>
 
@@ -92,7 +94,7 @@
     <section class="bloque">
       <h2 class="titulo-seccion">Formación académica</h2>
 
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>Título</th>
           <th>Institución</th>
@@ -117,7 +119,7 @@
     <section class="bloque">
       <h2 class="titulo-seccion">Experiencia laboral</h2>
 
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>Cargo</th>
           <th>Empresa</th>
@@ -140,7 +142,7 @@
     <section class="bloque">
       <h2 class="titulo-seccion">Idiomas</h2>
 
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>
             <b>Idioma</b>
@@ -174,8 +176,8 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.domimio_conversacional }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar"
+                  style="width: {{ idioma.domimio_conversacional }}%;"
                   aria-valuenow="{{ idioma.domimio_conversacional }}" aria-valuemin="0" aria-valuemax="100">""
                 </div>
                 <div
@@ -188,8 +190,7 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.dominio_lectura }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar" style="width: {{ idioma.dominio_lectura }}%;"
                   aria-valuenow="{{ idioma.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">
                   ""
                 </div>
@@ -203,8 +204,7 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.dominio_escritura }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar" style="width: {{ idioma.dominio_escritura }}%;"
                   aria-valuenow="{{ idioma.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">""
                 </div>
                 <div
@@ -223,7 +223,7 @@
 
     <section class="bloque">
       <h2 class="titulo-seccion">Producción académica</h2>
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>Producción investigativa</th>
           <th>Revista científica</th>
@@ -249,7 +249,7 @@
 
     <section class="bloque">
       <h2 class="titulo-seccion">Participación científica</h2>
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>Nombre del evento</th>
           <th>Lugar o ubicación</th>
@@ -276,7 +276,7 @@
 
     <section class="bloque">
       <h2 class="titulo-seccion">Competencias Técnicas</h2>
-      <table class="tabla">
+      <table class="tabla css-tabla">
         <tr>
           <th>Herramienta</th>
           <th>Básico</th>
@@ -285,7 +285,7 @@
 
         </tr>
         {% for idioma in competencias_tecnicas_computacionale %}
-        <tr class="color-cuerpo-tablas">
+        <tr>
 
           <!-- Nombre del idioma -->
           <td>
@@ -295,8 +295,7 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.dominio_basico }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar" style="width: {{ idioma.dominio_basico }}%;"
                   aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">""
                 </div>
                 <div
@@ -309,8 +308,7 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.dominio_medio }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar" style="width: {{ idioma.dominio_medio }}%;"
                   aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">""
                 </div>
                 <div
@@ -323,8 +321,7 @@
           <td style="width: 22%;">
             <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
               <div style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
-                <div class="progress-bar" role="progressbar"
-                  style="width: {{ idioma.dominio_avanzado }}%; background-color:#f97306; color: transparent;;"
+                <div class="progress-bar color-nivel" role="progressbar" style="width: {{ idioma.dominio_avanzado }}%;"
                   aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">
                   ""
                 </div>

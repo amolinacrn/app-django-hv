@@ -11,8 +11,7 @@
 
 {% block content_derecho %}
 
-
-<div id="contenidoDisciplinaUdenar">
+<div id="contenidoDisciplinaUdenar" style="width: 100%;">
 
 </div>
 {{ datos_cursos_impartidos|json_script:"datos-de-cursos-impartidos" }}
@@ -54,7 +53,7 @@
 
     // Crear tabla y cuerpo
     const container = document.createElement("div");
-    container.style.width = "100vw";
+    container.style.width = "100%"
     container.classList.add("tablaJavascrpt");
 
     const tablaDeContenido = JSON.parse(
@@ -110,7 +109,7 @@
         </div>
     `;
         row.innerHTML = `
-        <div class="class-docencia">
+        <div class="class_div-copia">
             <div class="encabezadado">
                ${id_Container.disciplina} 
             </div>

@@ -723,6 +723,10 @@ input[type="number"] {
   background-color: var(--colores-web-app);
 }
 
+/*esto es para colorear el cuermpo pde las tabla*/
+.color-cuerpo-tablas {
+  background-color: rgba(0, 191, 255, 0.142);
+}
 
 @media (max-width: 1100px) {
 

@@ -41,6 +41,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!---   fin codigo para formulario laboratorio  --->
+    <style>
+        :root {
+            --color-tabla-tr: rgb(243, 241, 241);
+            --color-nivel: #ff8c0081;
+
+        }
+
+        .css-tabla tr {
+            background-color: var(--color-tabla-tr);
+        }
+
+        .color-perfil-profesional {
+            background-color: var(--color-tabla-tr);
+        }
+
+        .color-nivel {
+            background-color: var(--color-nivel);
+            color: transparent;
+            ;
+        }
+
+        .cabecera-curr-hv {
+            display: flex;
+            gap: 20px;
+            background-color: var(--color-nivel);
+            padding: 15px;
+            color: rgb(0, 0, 0);
+        }
+
+        .titulo-seccion {
+            background: #2b2b2b;
+            color: white;
+            padding: 10px 12px;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .campos-flex {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 800px) {
+            .cabecera-curr-hv {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .campos-flex {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                justify-content: center;
+                text-align: center;
+            }
+
+        }
+    </style>
 
     {% block content_head %}
 
