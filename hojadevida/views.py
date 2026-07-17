@@ -123,9 +123,31 @@ def Menu_HV(request):
     agregar_link(idiomas, "idioma_extrangero")
     agregar_link(diplomas, "titulo_obtenido")
 
+
+    try:
+        usuario_login = User.objects.get(username=request.user)
+    except:
+        usuario_login=None
+
+    obj_usuario_login = FotosPersonale.objects.filter(
+        nombre_usuario_id=usuario_login
+    ).first()
+
+    url_usuario_login=""
+
+    if obj_usuario_login:
+
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
+
+        if obj_usuario_login and obj_usuario_login.name:
+            
+            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+
+
     # --- contexto ---
     contexto = {
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
+
         "eye_icon": eye_icon,
 
         "datos_personales": datos_personales,
@@ -143,6 +165,8 @@ def Menu_HV(request):
         "participacion_cientifica": participacion,
 
         "competencias_tecnicas_computacionale": competencias,
+
+        "foto_usuario_login":url_usuario_login
 
     }
 
@@ -343,11 +367,35 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
     eye_icon = request.build_absolute_uri(
         static("bs532/img/")
     )
+
+
+    try:
+        usuario_login = User.objects.get(username=request.user)
+    except:
+        usuario_login=None
+
+    obj_usuario_login = FotosPersonale.objects.filter(
+        nombre_usuario_id=usuario_login
+    ).first()
+
+    url_usuario_login=""
+
+    if obj_usuario_login:
+
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
+
+        if obj_usuario_login and obj_usuario_login.name:
+            
+            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+
+
+
     contexto = {
         "eye_icon": eye_icon,
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "form": expe_laboral,
         "querydat": queryset_dat,
+        "foto_usuario_login":url_usuario_login,
     }
 
     return (plantilla_html, contexto)
@@ -427,6 +475,7 @@ class formDatPersonView:
             "fotoform": fperfiluser,
             "doc_name_PDF": name_doc_pdf,
             "estvar": var_estado,
+            "foto_usuario_login": foto_url_perfil,
             "foto_perfil": foto_url_perfil,
             }
 

@@ -12,5 +12,7 @@ admin.site.register(ParticipacionCientifica)
 admin.site.register(IdiomaExtrangero)
 admin.site.register(CompetenciasTecnicasComputacionale)
 admin.site.register(CursosImpartidos)
+admin.site.register(UnidadesCursosImpartidos)
+admin.site.register(CitasBibliograficas)
 
 

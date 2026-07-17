@@ -51,8 +51,234 @@
 
 <body class="body-background-color">
 
+    <div class="contenedor-home-computador">
+        <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+            <div class="container-fluid">
 
-    <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
+                <!-- SEARCH A LA DERECHA -->
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar">
+                    <button class="btn btn-light btn-sm">
+                        <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+                    </button>
+                </form>
+
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+
+                    <!-- MENÚ CENTRADO -->
+                    <ul class="navbar-nav mx-auto text-center gap-2">
+
+                        <li>
+                            <a class=" nav-link" href="{% url 'home' %}">Inicio</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{% url 'docencia' %}">Enseñanza</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#">Investigación</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#">Portafolio</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        {% if puede_ver_hv %}
+                        <li>
+                            <a class="nav-link" href="{% url 'hojadevida' %}">
+                                Hoja de vida
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                    </ul>
+
+
+                    {% if user.is_authenticated %}
+
+                    <div style="display: flex; gap: 10px;">
+                        <div>
+                            <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
+                                Cerrar sesión / {{ user.username }}
+                            </a>
+                        </div>
+
+                        <div>
+                            {% if foto_usuario_login %}
+                            <img src="{{foto_usuario_login}}"
+                                style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+                            {% else %}
+                            <img src="{{ eye_icon }}persona-blanco.svg"
+                                style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+                            {% endif %}
+
+                        </div>
+
+                        {% else %}
+
+                        <div style="display: flex; gap: 10px;">
+                            <div>
+                                <a class="btn btn-dark" href="{% url 'logear' %}">
+                                    Iniciar sesión / Registrarse
+                                </a>
+                            </div>
+                            <div>
+                                <img src="{{ eye_icon }}persona-blanco.svg"
+                                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+                            </div>
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+        </nav>
+
+    </div>
+
+    <div class="contenedor-home-culular-tablet">
+        <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
+            <div style="width:100%;">
+                <div style="display:flex; width:100%;">
+                    <div style="width:3%;">
+
+                    </div>
+                    <div style="width:7%; display: flex;align-items: center;">
+
+                        <button onclick="toggleLeftPanel()" class="collapse-btn">
+                            <img src="{{ eye_icon }}botton-despliegue.svg">
+                        </button>
+
+                    </div>
+                    <!-- 70% -->
+                    <div style="width:70%;">
+
+                    </div>
+                    <!-- 10% Hola -->
+                    <div>
+
+                    </div>
+                    <div style="width:20px;">
+
+                    </div>
+                    <!-- 10% Cerrar sesión -->
+                    <div>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Buscar">
+                            <button class="btn btn-light btn-sm">
+                                <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="leftPanel-munu-principal">
+
+            <div style="padding: 20px;">
+
+                <h5 style="text-align: center;font-family: 'Barlow';">
+
+                    Bienvenido
+
+                    {% if user.is_authenticated %}
+
+                    <br>
+
+                    {{ user.first_name }} {{ user.last_name }}
+                    {% endif %}
+
+                </h5>
+                <!-- Formulario simple que enviará una petición POST   -->
+
+                <hr style="border: 2px solid  rgb(0, 0, 0);">
+
+                <div style="background-color: rgba(60, 209, 90, 0);width:auto;">
+                    <nav class="menu-principal">
+                        <ul>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'get_datos' %}active{% endif %}"
+                                    href="{% url 'home' %}">
+                                    Inicio
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'exp_laboral' %}active{% endif %}"
+                                    href="" style="white-space: nowrap;">
+                                    Enseñanza
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'prod_acad' %}active{% endif %}"
+                                    href="">
+                                    Investigación
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}"
+                                    href="">
+                                    Portafolio
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
+                                    href="">
+                                    Contacto
+                                </a>
+                            </li>
+
+                            {% if user.is_authenticated %}
+                            {% if puede_ver_hv %}
+                            <li>
+                                <a class="nav-link" href="{% url 'hojadevida' %}">
+                                    Hoja de vida
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+                </div>
+
+
+                <hr style="border: 2px solid  rgb(0, 0, 0);">
+
+                {% if user.is_authenticated %}
+
+                <a class="btn btn-dark fw-bold" href="{% url 'cerrar_sesion' %}">
+                    Cerrar sesión
+                </a>
+
+
+                {% else %}
+                <a class="btn btn-dark" href="{% url 'logear' %}">
+                    Iniciar sesión
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
 
         <div style="display:flex; gap:20px;">
             <div class="collapse-btn-diplay-none">
@@ -75,7 +301,7 @@
                 </button>
             </form>
 
-            <!-- MENÚ CENTRADO -->
+           
             <ul class="navbar-nav mx-auto text-center gap-2">
 
 
@@ -112,7 +338,7 @@
         <div style="display: flex; gap: 10px;">
             <div>
                 <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
-                    Cerrar sesión
+                    Cerrar sesión / {{ user.username }}
                 </a>
             </div>
 
@@ -146,11 +372,11 @@
         {% endif %}
 
 
-    </div>
+    </div> -->
 
-    <!-- Contenedor para ambos paneles -->
+
     <div id="container_personal">
-        <!-- Panel izquierdo colapsable -->
+
         <div class="leftPanel">
             <div style="padding: 20px;">
 
@@ -163,7 +389,7 @@
                         {% endif %}
                     </b>
                 </h5>
-                <!-- Formulario simple que enviará una petición POST   -->
+
 
                 <hr style="border: 2px solid  rgb(0, 0, 0);">
 
@@ -237,7 +463,7 @@
 
         </div>
 
-        <!-- Panel derecho ajustable -->
+
 
         {% block content_derecho %}
 
@@ -272,61 +498,98 @@
             });
         });
 
-        const posicion_hv_html = document.querySelector(".posicion_hv_html-copia");
+        // const posicion_hv_html = document.querySelector(".posicion_hv_html-copia");
+
+        // function toggleLeftPanel() {
+        //     let anchoVentanapequenya = window.innerWidth;
+        //     let widthVentana = document.querySelector('.leftPanel');
+        //     if (widthVentana.style.width === "0px") {
+        //         widthVentana.style.width = "200px";
+        //         widthVentana.style.transition = "width 0.3s ease";
+        //         posicion_hv_html.style.transition = "margin-right 0.4s ease";
+
+        //     } else {
+        //         widthVentana.style.width = "0px";
+        //         widthVentana.style.transition = "width 0.3s ease";
+        //         posicion_hv_html.style.transition = "margin-right 0.4s ease";
+
+        //         if (anchoVentanapequenya <= 1000) {
+        //             posicion_hv_html.style.marginLeft = "5px";
+        //         } else {
+        //             posicion_hv_html.style.marginRight = "5vw"
+        //             posicion_hv_html.style.marginLeft = "5vw"
+        //         }
+        //     }
+        // }
 
         function toggleLeftPanel() {
-            let anchoVentanapequenya = window.innerWidth;
-            let widthVentana = document.querySelector('.leftPanel');
+
+            let widthVentana = document.querySelector('.leftPanel-munu-principal');
             if (widthVentana.style.width === "0px") {
                 widthVentana.style.width = "200px";
+
                 widthVentana.style.transition = "width 0.3s ease";
-                posicion_hv_html.style.transition = "margin-right 0.4s ease";
 
             } else {
                 widthVentana.style.width = "0px";
                 widthVentana.style.transition = "width 0.3s ease";
-                posicion_hv_html.style.transition = "margin-right 0.4s ease";
-
-                if (anchoVentanapequenya <= 1000) {
-                    posicion_hv_html.style.marginLeft = "5px";
-                } else {
-                    posicion_hv_html.style.marginRight = "5vw"
-                    posicion_hv_html.style.marginLeft = "5vw"
-                }
             }
         }
+
+
 
         function updateLeftPanel() {
             let anchoLeftVentana = window.innerWidth;
-            let leftPanelVentana = document.querySelector('.leftPanel');
-            let cargar_documento_whith = document.querySelector('.cargar_documento_whith');
-
-            if (anchoLeftVentana <= 1000) {
-                leftPanelVentana.style.display = "block";
+            const container_ccsbase = document.querySelector('#container-ccsbase');
+            const contenedor_computador = document.querySelector('.contenedor-home-computador');
+            const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
+            let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
+            if (anchoLeftVentana <= 1100) {
                 leftPanelVentana.style.width = "0px";
                 leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
-                posicion_hv_html.style.marginRight = "5px";
-                posicion_hv_html.style.marginLeft = "5px";
-                cargar_documento_whith.style.width = "250px";
-
-
+                contenedor_computador.style.display = "none";
+                contenedor_tablet_celular.style.display = "block";
             } else {
-                leftPanelVentana.style.display = "none";
                 leftPanelVentana.style.width = "200px";
                 leftPanelVentana.style.transition = "width 0.2s ease";
-                posicion_hv_html.style.marginRight = "13vw";
-                posicion_hv_html.style.marginLeft = "2vw"
-                cargar_documento_whith.style.width = "350px";
-
+                contenedor_computador.style.display = "block";
+                contenedor_tablet_celular.style.display = "none";
+                container_ccsbase.style.display = 'flex'
             }
-
         }
 
+
+        // function updateLeftPanel() {
+        //     let anchoLeftVentana = window.innerWidth;
+        //     let leftPanelVentana = document.querySelector('.leftPanel');
+        //     let cargar_documento_whith = document.querySelector('.cargar_documento_whith');
+
+        //     if (anchoLeftVentana <= 1000) {
+        //         leftPanelVentana.style.display = "block";
+        //         leftPanelVentana.style.width = "0px";
+        //         leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
+        //         posicion_hv_html.style.marginRight = "5px";
+        //         posicion_hv_html.style.marginLeft = "5px";
+        //         cargar_documento_whith.style.width = "250px";
+
+
+        //     } else {
+        //         leftPanelVentana.style.display = "none";
+        //         leftPanelVentana.style.width = "200px";
+        //         leftPanelVentana.style.transition = "width 0.2s ease";
+        //         posicion_hv_html.style.marginRight = "13vw";
+        //         posicion_hv_html.style.marginLeft = "2vw"
+        //         cargar_documento_whith.style.width = "350px";
+
+        //     }
+
+        // }
+
         //Llama a la función al cargar la página
-        document.addEventListener("DOMContentLoaded", updateLeftPanel);
+        //document.addEventListener("DOMContentLoaded", updateLeftPanel);
 
         //Llama a la función al redimensionar la ventana
-        window.addEventListener('resize', updateLeftPanel);
+        //window.addEventListener('resize', updateLeftPanel);
 
 
 
@@ -371,6 +634,17 @@
         document.addEventListener("DOMContentLoaded", updateBotton);
         window.addEventListener('resize', updateBotton);
 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateLeftPanel();
+
+
+        });
+
+        window.addEventListener("resize", () => {
+            updateLeftPanel();
+
+        });
     </script>
     <script src="{% static 'bs532/js/bootstrap.bundle.min.js'%}"></script>
 

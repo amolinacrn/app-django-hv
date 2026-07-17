@@ -4,6 +4,12 @@ from django.templatetags.static import static
 from collections import defaultdict
 import numpy as np
 
+def es_acceso_hoja_vida(user):
+    return user.is_authenticated and user.groups.filter(
+        name="acceso-hoja-de-vida"
+    ).exists()
+
+
 def vista_ensenanza(request):
 
     try:
@@ -87,6 +93,7 @@ def vista_ensenanza(request):
     )
 
     Contexto =  {
+        "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "eye_icon": eye_icon, 
         "datos_cursos_impartidos": table_content,
     }

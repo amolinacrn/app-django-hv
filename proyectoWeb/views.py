@@ -65,13 +65,20 @@ def curr_hv(request):
     url_usuario_login=""
 
     if foto_obj:
+
         foto_perfil = getattr(foto_obj, "foto_perfil", None)
-        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
 
         if foto_perfil and foto_perfil.name:
+
             foto_url_perfil = request.build_absolute_uri(foto_perfil.url)
+    
+
+    if obj_usuario_login:
+
+        obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
 
         if obj_usuario_login and obj_usuario_login.name:
+            
             url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
          
 
