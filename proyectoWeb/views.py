@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.templatetags.static import static
-import base64
+from physimathcode.app_functions import * 
+from proyectoWeb.models import MisPublicaciones
+from proyectoWeb.forms import FormMisPublicaciones
+from linkpreview import link_preview
+from django.apps import apps
 from hojadevida.models import *
 from hojadevida.forms import *
 from hojadevida.views import *
@@ -9,13 +13,16 @@ import os
 import os.path
 import unicodedata
 import re
+import base64
 
-from django.shortcuts import render 
+@login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
+def delete_record_from_database(request, app_name, model_name, pk):
+    el_modelo = apps.get_model(app_name, model_name)
+    obj = get_object_or_404(el_modelo, pk=pk, nombre_usuario=request.user)
+    obj.delete()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
-def es_acceso_hoja_vida(user):
-    return user.is_authenticated and user.groups.filter(
-        name="acceso-hoja-de-vida"
-    ).exists()
 
 def curr_hv(request):
 
@@ -125,13 +132,11 @@ def curr_hv(request):
     )
 
 
-
-def home(request):
+def funcion_home(rqst):
     try:
-        usuario_login = User.objects.get(username=request.user)
+        usuario_login = User.objects.get(username=rqst.user)
     except:
         usuario_login=None
-
 
     try:
         user = User.objects.get(username="amolinacrn")
@@ -158,13 +163,13 @@ def home(request):
         obj_usuario_login=getattr(obj_usuario_login, "foto_perfil", None)
 
         if foto_perfil and foto_perfil.name:
-            foto_url_perfil = request.build_absolute_uri(foto_perfil.url)
+            foto_url_perfil = rqst.build_absolute_uri(foto_perfil.url)
          
         if portada and portada.name:
-            url_portada = request.build_absolute_uri(portada.url)
+            url_portada = rqst.build_absolute_uri(portada.url)
 
         if obj_usuario_login and obj_usuario_login.name:
-            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+            url_usuario_login = rqst.build_absolute_uri(obj_usuario_login.url)
          
 
     datos_personales = DatosPersonale.objects.filter(nombre_usuario=user)
@@ -177,8 +182,10 @@ def home(request):
 
     areas_de_interes = ProduccionAcademica.objects.filter(nombre_usuario=user)
 
+    mis_publicaciones = MisPublicaciones.objects.all()
+
     # --- icono ---
-    eye_icon = request.build_absolute_uri(
+    eye_icon = rqst.build_absolute_uri(
         static("bs532/img/")
     )
 
@@ -211,7 +218,7 @@ def home(request):
 
         "imagenesCarrusel":imagenes_carrusel,
         
-        "puede_ver_hv": es_acceso_hoja_vida(request.user),
+        "puede_ver_hv": es_acceso_hoja_vida(rqst.user),
 
         "eye_icon": eye_icon,
 
@@ -226,9 +233,122 @@ def home(request):
         "foto_usuario_login":url_usuario_login,
         
         "url_portada": url_portada,
+
+        "form_publicaciones": FormMisPublicaciones(),
+
+        "las_publicaciones" : mis_publicaciones
     }
+
+    return contexto
+  
+def home(request):
+    contexto=funcion_home(request)
+    
     return render(request, "plt-home.html", contexto)  #### cambio aqui: para vista principal
 
+@login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
+def home_post(request):
+    contexto = funcion_home(request)
+    form = FormMisPublicaciones()
+    if request.method == "POST":
+
+        form = FormMisPublicaciones(request.POST)
+      
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.nombre_usuario_id = request.user.id
+            try:
+
+                # 1. Revisamos si es YouTube
+
+                if es_youtube(obj.publicaciones_url):
+                    
+                    campo_id_video = obtener_id_youtube(obj.publicaciones_url)
+
+                    preview = obtener_preview_youtube(obj.publicaciones_url)
+                    
+                    obj.titulo_publicacion = preview["titulo"]
+                    obj.descripcion_publicacion = preview["descripcion"]
+                    obj.imagen_publicacion = preview["imagen"]
+                    obj.id_video = campo_id_video
+                    obj.save()
+
+                # 2. Si no es YouTube usamos link_preview
+
+                else:
+                    preview = link_preview(obj.publicaciones_url)
+                    obj.titulo_publicacion = preview.title or ""
+                    obj.descripcion_publicacion = preview.description or ""
+                    obj.imagen_publicacion = preview.image or ""
+                    obj.save()
+            except:
+                logger.exception("Error obteniendo datos de YouTube")
+                contexto["form_preview"] = True
+                contexto["advertencia_preview"]= "* No se pudo procesar el enlace."
+              
+    contexto["form"] = form
 
 
+    return render(request, "plt-home.html", contexto)
     
+
+
+    if request.method == "POST":
+
+        url = request.POST.get("url")
+
+
+        # Valores por defecto
+        titulo = ""
+        descripcion = ""
+        imagen = ""
+
+
+        try:
+
+            # 1. Revisamos si es YouTube
+            if es_youtube(url):
+
+                preview = obtener_preview_youtube(url)
+
+                titulo = preview["titulo"]
+                descripcion = preview["descripcion"]
+                imagen = preview["imagen"]
+
+
+            # 2. Si no es YouTube usamos link_preview
+            else:
+
+                preview = link_preview(url)
+
+                titulo = preview.title or ""
+                descripcion = preview.description or ""
+                imagen = preview.image or ""
+
+
+        # Errores posibles de link_preview
+        except (
+            HTTPError,
+            MaximumContentSizeError,
+            RequestException
+        ):
+
+            titulo = "Vista previa no disponible"
+            descripcion = ""
+            imagen = ""
+
+
+        # Guardamos siempre el registro
+        bibliografia = FormMisPublicaciones(
+            nombre_usuario_id=request.user.id,
+            url=url,
+            titulo=titulo,
+            descripcion=descripcion,
+            imagen=imagen,
+        )
+
+        bibliografia.save()
+
+
+        return redirect("home")

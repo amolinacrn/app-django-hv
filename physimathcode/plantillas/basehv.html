@@ -85,7 +85,7 @@
             gap: 15px;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 1100px) {
             .cabecera-curr-hv {
                 flex-direction: column;
                 text-align: center;
@@ -128,22 +128,25 @@
             <ul class="navbar-nav mx-auto text-center gap-2">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'docencia' %}">
+                    <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %} nav-link"
+                        href="{% url 'docencia' %}">
                         Enseñanza</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Investigación</a>
+                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                        href="#">Investigación</a>
                 </li>
-                <li class="nav-item">
+                <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
                     <a class="nav-link" href="#">Portafolio</a>
                 </li>
-                <li class="nav-item">
+                <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
                 {% if user.is_authenticated %}
                 {% if puede_ver_hv %}
                 <li>
-                    <a class="nav-link" href="{% url 'hojadevida' %}">
+                    <a class="{% if request.resolver_match.url_name == 'hojadevida' %}active{% endif %} nav-link"
+                        href="{% url 'hojadevida' %}">
                         Hoja de vida
                     </a>
                 </li>
@@ -310,9 +313,9 @@
                                 style="text-align: left;color: rgb(255, 255, 255);">
                                 <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
                                     <div
-                                        style="background-color: rgb(13, 135, 206);align-content: center; height: 40px; text-transform: uppercase; ">
-                                        <b id="identificador_titulo" style="padding: 10px; ">
-                                            <!-- Documento de indentificación -->sdfsdfgdfg
+                                        style="background-color: rgb(13, 135, 206);height: auto; text-transform: uppercase; padding: 10px;">
+                                        <b id="identificador_titulo">
+
                                         </b>
                                     </div>
                                 </div>
@@ -387,7 +390,7 @@
             let customDerecho = document.querySelector('.custom_derecho');
             let widthVentana = document.querySelector('.leftPanel');
             if (widthVentana.style.width === "0px") {
-                widthVentana.style.width = "200px";
+                widthVentana.style.width = "227px";
                 customDerecho.style.marginLeft = "228px";
                 widthVentana.style.transition = "width 0.3s ease";
                 posicion_hv_html.style.transition = "margin-right 0.4s ease";
@@ -432,7 +435,7 @@
 
 
             } else {
-                leftPanelVentana.style.width = "200px";
+                leftPanelVentana.style.width = "227px";
                 leftPanelVentana.style.transition = "width 0.2s ease";
                 customDerecho.style.marginLeft = "228px";
                 customDerecho.style.transition = "margin-left 0.4s ease";
@@ -483,7 +486,7 @@
         function updateBotton() {
 
             let collapseElementBtn = document.querySelector('.classTable');
-            if (collapseElementBtn && anchoVentana <= 1300) {
+            if (collapseElementBtn && anchoVentana <= 1000) {
                 collapseElementBtn.style.display = "block";
             } else if (collapseElementBtn) {
                 collapseElementBtn.style.display = "none";

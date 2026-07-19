@@ -7,7 +7,6 @@
 
 <body>
 
-
     <div class="class-div" id="secciones_hoja_de_vida">
 
         {% if datos_personales %}
@@ -582,7 +581,7 @@
             <tr class="color-cuerpo-tablas">
                 {% if forloop.first %}
                 <td rowspan="{{ diplomas_de_estudio|length }}">
-                  <b>Formación académica</b>
+                    <b>Formación académica</b>
                 </td>
                 {% endif %}
                 <td>{{d.titulo_obtenido}}, {{d.institucion_universitaria}}, {{d.pais_titulo}}</td>
@@ -618,7 +617,7 @@
 
 
 
-       
+
         {% if matriz_imagenes_base64 %}
 
         {% for conjuto_doc, link_ref, url_file in matriz_imagenes_base64 %}

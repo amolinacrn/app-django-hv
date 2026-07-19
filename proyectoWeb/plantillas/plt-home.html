@@ -2,9 +2,6 @@
 
 {% load static %}
 
-{% load crispy_forms_tags %}
-
-
 {% block left_Panel_base %}
 <div class="configuracion-sticky">
 
@@ -105,22 +102,6 @@
             {% endfor %}
         </div>
 
-        <!-- <div class="cls-login-name-user">
-            Enlaces
-        </div>
-
-        <div style="padding: 10px; padding-top: 17px; padding-bottom: 17px;">
-            {% for e in datos_personales %}
-            <div class="style-info-personal-personal">
-                <div>
-                    <img src="{{ eye_icon }}linkedin_black.svg" class="stilo-imagenes-portada">
-                </div>
-                <div>
-                    <a href="{{e.cuenta_linkedin}}" target="_blank">LinkedIn</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div> -->
     </div>
 
     <div class="left-Panel-base-hijo" style="margin-top: 15px;">
@@ -181,18 +162,107 @@
 
     </div>
 
-
 </div>
-
 
 {% endblock %}
 
 {% block right_Panel_base %}
-<div style="padding-top:15px;">
 
-
-
-
+{% if user.is_staff %}
+<div class="contenido-en-right-Panel-base">
+    <div style="display:flex; gap: 10px;">
+        <div>
+            <img src="{{foto_usuario_login}}"
+                style="width:40px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+        </div>
+        <div style="width: 100%;">
+            <button type="button" class="mi_btn_public" onclick="elModalDeMisPublicaciones()">
+                ¿Que vas a publicar hoy, {{ user.first_name|title }}?
+            </button>
+        </div>
+    </div>
 
 </div>
+
+{% endif%}
+
+
+{% for publicacion in las_publicaciones %}
+<div class="contenido-en-right-Panel-base">
+    <div style="height: 40px;margin-bottom: 10px;">
+        <div style="display:flex; gap: 10px;">
+
+            <div style="display: flex; gap: 10px; width: 100%;">
+
+                <div style="display: flex;">
+                    <img src="{{foto_perfil}}"
+                        style="width:40px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
+                </div>
+
+                <div>
+                    <div style="font-size: 14px; font-weight: bold;">
+                        {% for e in datos_personales %}
+                        {{ e.segundo_nombre }} {{ e.primer_apellido }}
+                        {% endfor %}
+                    </div>
+                    <div style="color: #000000ab;">
+                        {{publicacion.fecha_publicacion|date:"j F \d\e Y"}}
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="person_a" style="width: 30%; display: flex; align-items: center;justify-content: right;">
+                {% if user.is_staff %}
+                <a href="{% url 'delete_record_database' 'proyectoWeb' 'MisPublicaciones' publicacion.id %}"
+                    class="icon-btn" style="font-size: 14px; color: rgb(69, 70, 69);">
+                    Eliminar publicación
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card" style="padding: 5px;">
+
+        {% if "youtube.com" in publicacion.publicaciones_url %}
+
+        <div class="video_frame">
+            <iframe src="https://www.youtube.com/embed/{{ publicacion.id_video }}?feature=oembed" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                title="YouTube Developers Live: Embedded Web Player Customization">
+            </iframe>
+        </div>
+        <div class="person_a">
+            <a href="{{publicacion.publicaciones_url}}" target="_blank">
+                {{publicacion.titulo_publicacion}}
+            </a>
+        </div>
+
+        <div>
+            {{publicacion.descripcion_publicacion}}
+        </div>
+        {% else %}
+
+        <img src="{{publicacion.imagen_publicacion}}" style="width: 100%;">
+
+        <div class="person_a">
+            <a href="{{publicacion.publicaciones_url}}" target="_blank">
+                {{publicacion.titulo_publicacion}}
+            </a>
+        </div>
+
+        <div>
+            {{publicacion.descripcion_publicacion}}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+{% endfor %}
+
+
 {% endblock %}

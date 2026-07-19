@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "autenticacion",
     "hojadevida",
     "ensenanza",
+    "proyectoWeb"
 ]
 # Configuración de los mensajes (esto es opcional, pero es recomendable)
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"

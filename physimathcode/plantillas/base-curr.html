@@ -102,12 +102,6 @@
         }
     </style>
 
-
-
-    {% block content_head %}
-
-    {% endblock %}
-
 </head>
 
 <body class="body-background-color">
@@ -137,24 +131,30 @@
                     <ul class="navbar-nav mx-auto text-center gap-2">
 
                         <li>
-                            <a class=" nav-link" href="{% url 'home' %}">Inicio</a>
+                            <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} nav-link"
+                                href="{% url 'home' %}">Inicio</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="{% url 'docencia' %}">Enseñanza</a>
+                            <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %} nav-link"
+                                href="{% url 'docencia' %}">Enseñanza</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="#">Investigación</a>
+                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                href="#">Investigación</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="#">Portafolio</a>
+                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                href="#">Portafolio</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="#">Contacto</a>
+                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                href="#">Contacto</a>
                         </li>
                         {% if user.is_authenticated %}
                         {% if puede_ver_hv %}
                         <li>
-                            <a class="nav-link" href="{% url 'hojadevida' %}">
+                            <a class="{% if request.resolver_match.url_name == 'hojadevida' %}active{% endif %} nav-link"
+                                href="{% url 'hojadevida' %}">
                                 Hoja de vida
                             </a>
                         </li>
@@ -269,36 +269,34 @@
                         <ul>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'get_datos' %}active{% endif %}"
+                                <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
                                     href="{% url 'home' %}">
                                     Inicio
                                 </a>
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'exp_laboral' %}active{% endif %}"
-                                    href="" style="white-space: nowrap;">
+                                <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %}"
+                                    href="{% url 'docencia' %}" style="white-space: nowrap;">
+
                                     Enseñanza
                                 </a>
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'prod_acad' %}active{% endif %}"
-                                    href="">
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                                     Investigación
                                 </a>
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}"
-                                    href="">
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                                     Portafolio
                                 </a>
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
-                                    href="">
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                                     Contacto
                                 </a>
                             </li>
@@ -336,104 +334,6 @@
         </div>
 
     </div>
-
-
-
-    <!-- <div class="navbar navbar-expand-lg navbar-dark custom-navbar">
-
-        <div style="display:flex; gap:20px;">
-            <div class="collapse-btn-diplay-none">
-                <button onclick="toggleLeftPanel()" class="collapse-btn">
-                    <img src="{{ eye_icon }}botton-despliegue.svg">
-                </button>
-            </div>
-            <div class="collapse-btn-diplay-none">
-                <a class="nav-link active " href="{% url 'home' %}">Inicio</a>
-            </div>
-        </div>
-
-
-        <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
-
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar">
-                <button class="btn btn-light btn-sm">
-                    <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
-                </button>
-            </form>
-
-           
-            <ul class="navbar-nav mx-auto text-center gap-2">
-
-
-                <li class="nav-item">
-                    <a class="nav-link " href="{% url 'home' %}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Enseñanza</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Investigación</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Portafolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
-                {% if user.is_authenticated %}
-                {% if puede_ver_hv %}
-                <li>
-                    <a class="nav-link" href="{% url 'hojadevida' %}">
-                        Hoja de vida
-                    </a>
-                </li>
-                {% endif %}
-                {% endif %}
-            </ul>
-        </div>
-
-
-        {% if user.is_authenticated %}
-
-        <div style="display: flex; gap: 10px;">
-            <div>
-                <a class="btn btn-dark" href="{% url 'cerrar_sesion' %}">
-                    Cerrar sesión / {{ user.username }}
-                </a>
-            </div>
-
-            <div>
-                {% if foto_usuario_login %}
-                <img src="{{foto_usuario_login}}"
-                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
-                {% else %}
-                <img src="{{ eye_icon }}persona-blanco.svg"
-                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
-                {% endif %}
-
-            </div>
-
-        </div>
-
-        {% else %}
-
-        <div style="display: flex; gap: 10px;">
-            <div>
-                <a class="btn btn-dark" href="{% url 'logear' %}">
-                    Iniciar sesión / Registrarse
-                </a>
-            </div>
-            <div>
-                <img src="{{ eye_icon }}persona-blanco.svg"
-                    style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
-            </div>
-        </div>
-
-        {% endif %}
-
-
-    </div> -->
 
 
     <div id="container_personal">
@@ -605,7 +505,7 @@
             const contenedor_computador = document.querySelector('.contenedor-home-computador');
             const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
             let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
-            if (anchoLeftVentana <= 1100) {
+            if (anchoLeftVentana <= 1200) {
                 leftPanelVentana.style.width = "0px";
                 leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
                 contenedor_computador.style.display = "none";

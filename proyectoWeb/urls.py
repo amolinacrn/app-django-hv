@@ -20,20 +20,21 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
-from .views import home, curr_hv
-# from hojadevida.views import get_signed_url
+from .views import home, curr_hv, home_post
+from proyectoWeb.views import delete_record_from_database 
 
-#### cambio aqui:  se agrega esta libreria nueva para vista principal
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hojadevida/", include("hojadevida.urls")),
-    # path("physimathcode/", include("physimathcode.urls")),
     path("autenticacion/", include("autenticacion.urls")),
-     path("ensenanza/", include("ensenanza.urls")),
-    # path("signed-url/", get_signed_url, name="signed-url"),
-    path("", home, name='home'),  #### cambio aqui: para vista principal    
-    path("curriculum/", curr_hv, name="curr-hv"),
+    path("ensenanza/", include("ensenanza.urls")),
+    path("", home, name='home'),  
+    path("home_post",home_post, name="home_post"),
+    path("curriculum/", curr_hv, name="curr-hv"),    
+    path("delete/<str:app_name>/<str:model_name>/<int:pk>", 
+         delete_record_from_database, 
+         name="delete_record_database"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -1,6 +1,6 @@
-from django.urls import path
-from physimathcode import views
+# from django.urls import path
+# from physimathcode import views
 
-urlpatterns = [
-    path('',views.home,name='Home'),
-]
+# urlpatterns = [
+#     path('',views.home,name='Home'),
+# ]

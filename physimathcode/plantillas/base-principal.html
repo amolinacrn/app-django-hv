@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-
+  {% load crispy_forms_tags %}
   {% load static %}
   <!-- Bootstrap -->
   <link href="{% static 'bs532/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -17,7 +17,7 @@
   <link href="{% static 'bs532/css/configbase.css' %}" rel="stylesheet" />
   <link href="{% static 'bs532/css/cssbase.css' %}" rel="stylesheet" />
 
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" name="author" content="Alejandro Molina">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -44,6 +44,59 @@
       width: 100%;
       max-height: auto;
       display: block;
+    }
+
+    .mi-footer {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      height: 50px;
+      background-color: rgba(3, 3, 3, 0.815);
+      align-items: center;
+      color: white;
+      font-size: 14px;
+    }
+
+    .mi_btn_public {
+      background-color: #00000031;
+      height: 40px;
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      color: #000000bd;
+      font-size: 1.7vh;
+
+    }
+
+    .person_a a {
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .person_a a:hover {
+      text-decoration: underline;
+
+    }
+
+    .video_frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video_frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 800px) {
+      .mi-footer {
+        flex-direction: column;
+        height: 80px;
+      }
+
     }
   </style>
 
@@ -82,19 +135,24 @@
           <ul class="navbar-nav mx-auto text-center gap-2">
 
             <li>
-              <a class=" nav-link" href="{% url 'home' %}">Inicio</a>
+              <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} nav-link"
+                href="{% url 'home' %}">Inicio</a>
+
             </li>
             <li>
-              <a class="nav-link" href="{% url 'docencia' %}">Enseñanza</a>
+              <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %} nav-link"
+                href="{% url 'docencia' %}">Enseñanza</a>
             </li>
             <li>
-              <a class="nav-link" href="#">Investigación</a>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                href="#">Investigación</a>
             </li>
             <li>
-              <a class="nav-link" href="#">Portafolio</a>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                href="#">Portafolio</a>
             </li>
             <li>
-              <a class="nav-link" href="#">Contacto</a>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Contacto</a>
             </li>
             {% if user.is_authenticated %}
             {% if puede_ver_hv %}
@@ -193,7 +251,7 @@
 
       <div style="padding: 20px;">
 
-        <h5 style="text-align: center;font-family: 'Barlow';">
+        <h5 style="text-align: center;">
 
           Bienvenido
 
@@ -202,6 +260,7 @@
           <br>
 
           {{ user.first_name }} {{ user.last_name }}
+
           {% endif %}
 
         </h5>
@@ -214,27 +273,26 @@
             <ul>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'get_datos' %}active{% endif %}"
-                  href="{% url 'home' %}">
+                <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
                   Inicio
                 </a>
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'exp_laboral' %}active{% endif %}" href=""
-                  style="white-space: nowrap;">
+                <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %}"
+                  href="{% url 'docencia' %}" style="white-space: nowrap;">
                   Enseñanza
                 </a>
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'prod_acad' %}active{% endif %}" href="">
+                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                   Investigación
                 </a>
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}" href="">
+                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                   Portafolio
                 </a>
               </li>
@@ -393,9 +451,10 @@
       <div class="left-Panel-base">
         {% block left_Panel_base %}
         <!-- menú o contenido fijo -->
-        {% endblock %}
-      </div>
 
+        {% endblock %}
+
+      </div>
       <!-- Derecho (dinámico u opcional) -->
       <div class="right-Panel-base">
         {% block right_Panel_base %}
@@ -406,12 +465,93 @@
   </div>
 
 
-  <!--footer class="footer">
-      Footer fijo
-    </footer-->
+  <footer>
+    <div class="mi-footer">
+      <div>
+        © 2026 Mi Sitio Web:
+        <a href="https://www.amolina.top" style="text-decoration: none;">
+          www.amolina.top
+        </a>,
+
+      </div>
+      <div>
+        Diseño y desarrollo: Miguel Alejandro Molina.
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal fade" id="modal-publicaciones" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="modal-publicaciones" aria-hidden="true">
+    <div class="modal-dialog " style="margin-top: 25vh;">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <div class="titulo_publicacion">
+
+            Crear publicación
+
+          </div>
+
+        </div>
+
+        <div class="modal-body">
+          <div id="seccion_publicacion">
+            <form enctype="multipart/form-data" method="post" action="home_post" id="miFormularioPublicasiones">
+              {% csrf_token %}
+              {{ form_publicaciones.publicaciones_url|as_crispy_field }}
+              <div class="error-upload">
+                {{ form.nombre_usuario.errors.as_text }}
+                {{ advertencia_preview }}
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer ">
+          <button class="btn btn-sm btn-outline-success" type="submit" form="miFormularioPublicasiones">
+            <div style="display: flex;gap: 5px;">
+              <div>
+                <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
+                  style="display: flex; width:20px;align-items: center;" alt="My image">
+              </div>
+              <div>
+                guardar
+              </div>
+            </div>
+          </button>
+
+          <button type="button" class="btn btn-outline-danger btn-sm float-end" data-bs-dismiss="modal">
+            <b>Salir</b>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  {% if form.errors or form_preview %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = new bootstrap.Modal(document.getElementById('modal-publicaciones'));
+      modal.show();
+    });
+  </script>
+  {% endif %}
+
 
   <script>
 
+
+
+    //Si estoy usando boostrap 5, es mejor asi
+
+    function elModalDeMisPublicaciones() {
+      const modal_publicaciones = document.getElementById("modal-publicaciones");
+      const modal = new bootstrap.Modal(modal_publicaciones);
+
+      modal.show();
+    }
 
     document.addEventListener("DOMContentLoaded", function () {
       const buttons = document.querySelectorAll(".button-acordeon-carrusel");
@@ -446,35 +586,6 @@
         var_ventana = 1200;
       }
     }
-
-    // let posicion = 0;
-
-    // const carrusel = document.querySelector('.carrusel');
-    // const items = document.querySelectorAll('.item');
-
-    // let anchoLeftVentana = window.innerWidth;
-
-    // const anchoItem = Math.round(anchoLeftVentana * 1075 / 2560);//1075; // 200px + 10px margen
-
-    // function moverDerecha() {
-
-    //   const maximo = (items.length - 1) * anchoItem;
-
-    //   if (Math.abs(posicion) < maximo) {
-    //     posicion -= anchoItem;
-    //     carrusel.style.transform = `translateX(${posicion}px)`;
-    //   }
-
-    // }
-
-    // function moverIzquierda() {
-
-    //   if (posicion < 0) {
-    //     posicion += anchoItem;
-    //     carrusel.style.transform = `translateX(${posicion}px)`;
-    //   }
-
-    // }
 
     /*Anocho de foto del carrusel con todo margen*/
     let correxion = 0;
@@ -636,7 +747,7 @@
       const contenedor_computador = document.querySelector('.contenedor-home-computador');
       const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
       let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
-      if (anchoLeftVentana <= 1100) {
+      if (anchoLeftVentana <= 1200) {
         leftPanelVentana.style.width = "0px";
         leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
         contenedor_computador.style.display = "none";

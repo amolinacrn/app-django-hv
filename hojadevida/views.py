@@ -322,7 +322,7 @@ def codigo_vistas_automaticas_post_hv(request,
 
     if name_curso and es_valido:
         codigo = form.cleaned_data["codigo_curso"]
-        obj = form.save()
+        obj = form.save(commit=False)
         obj.nombre_curso = dict(form.fields["codigo_curso"].choices)[codigo]
         obj.save()
         return (sitweb,idq,es_valido)
@@ -826,7 +826,7 @@ class CursosImpartidosHV(View):
                                                                     "vista-docencia.html")
         
         contenido_unidades = UnidadesCursosImpartidos.objects.values_list("disciplina_o_curso_id", flat=True)
-        numero_de_registros=np.unique(contenido_unidades)
+        numero_de_registros=set(contenido_unidades)
 
         if len(numero_de_registros) != 0:
 
@@ -924,7 +924,6 @@ class UnidadesCursosImpartidosHV(View):
             return redirect("cursos_impartidos",0)
         return render(request, plantilla,contexto)
 
-
 class CitasBibliograficasHV(View):
     def get(self, request, pk=0):
         if not request.user.is_authenticated:
@@ -933,6 +932,7 @@ class CitasBibliograficasHV(View):
             name="acceso-hoja-de-vida"
         ).exists():
             return redirect("/autenticacion/acceso-denegado/")
+        
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormCitasBibliograficas,
                                                                     CitasBibliograficas,

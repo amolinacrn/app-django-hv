@@ -74,6 +74,11 @@ td {
     border-right: 1mm solid #ffffff00;
 }
 
+/*esto es para colorear el cuermpo pde las tabla*/
+.color-cuerpo-tablas {
+    background-color: rgba(0, 191, 255, 0.142);
+}
+
 .table_t {
     border-collapse: separate;
     border-spacing: 6px;

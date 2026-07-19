@@ -2,13 +2,11 @@ from django.shortcuts import render
 from hojadevida.models import *
 from django.templatetags.static import static
 from collections import defaultdict
-import numpy as np
 
 def es_acceso_hoja_vida(user):
     return user.is_authenticated and user.groups.filter(
         name="acceso-hoja-de-vida"
     ).exists()
-
 
 def vista_ensenanza(request):
 
