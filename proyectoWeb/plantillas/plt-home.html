@@ -170,7 +170,7 @@
 
 {% if user.is_staff %}
 <div class="contenido-en-right-Panel-base">
-    <div style="display:flex; gap: 10px;">
+    <div style="display:flex; gap: 10px;padding: 12px;">
         <div>
             <img src="{{foto_usuario_login}}"
                 style="width:40px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
@@ -189,7 +189,8 @@
 
 {% for publicacion in las_publicaciones %}
 <div class="contenido-en-right-Panel-base">
-    <div style="height: 40px;margin-bottom: 10px;">
+    <div style="height: auto;padding:12px; ">
+
         <div style="display:flex; gap: 10px;">
 
             <div style="display: flex; gap: 10px; width: 100%;">
@@ -223,7 +224,8 @@
             </div>
         </div>
     </div>
-    <div class="card" style="padding: 5px;">
+
+    <div>
 
         {% if "youtube.com" in publicacion.publicaciones_url %}
 
@@ -240,9 +242,12 @@
             </a>
         </div>
 
-        <div>
+
+        <div class="margen">
             {{publicacion.descripcion_publicacion}}
         </div>
+
+
         {% else %}
 
         <img src="{{publicacion.imagen_publicacion}}" style="width: 100%;">
@@ -253,7 +258,8 @@
             </a>
         </div>
 
-        <div>
+
+        <div class="margen">
             {{publicacion.descripcion_publicacion}}
         </div>
 

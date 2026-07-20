@@ -371,7 +371,7 @@ input[type="number"] {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: var(--sombras-divs-app);
-  padding: 15px;
+  /* padding: 15px; */
   margin-bottom: 15px;
 }
 
