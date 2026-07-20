@@ -375,6 +375,10 @@ input[type="number"] {
   margin-bottom: 15px;
 }
 
+.contenido-en-right-Panel-base:last-child {
+  margin-bottom: 0;
+}
+
 .right-Panel-base {
   width: var(--ancho-body-derecho);
   margin-top: 15px;
