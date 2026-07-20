@@ -58,7 +58,7 @@ def delete_file_record(request, model_name, pk):
 def delete_image(request, campo):
     foto = FotosPersonale.objects.get(nombre_usuario=request.user)
 
-    if campo in ["foto_perfil", "imagen_de_portada"]:
+    if campo in ["foto_perfil", "imagen_de_portada","imagen_panel_izquierdo"]:
         getattr(foto, campo).delete()
 
     return redirect("get_datos")

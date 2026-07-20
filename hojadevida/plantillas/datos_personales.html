@@ -104,8 +104,8 @@
           Imagen de login y registro
         </div>
         <a data-bs-toggle="modal" data-bs-target="#cargar_panel_izquierdo" class="foto-box d-block"
-          onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
-          {% if img_portada_url %}
+          onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_panel_izquierdo' %}')">
+          {% if portada_izquierda_url %}
           <img class="clsimg my_img_html" src="{{portada_izquierda_url}}" style="position: relative; width: 100%; ">
           {% else %}
           <div class="mi-portada-backw">
@@ -271,6 +271,7 @@
 </div>
 
 <script>
+
   function openModal(field, image_field, imageUrl, deleteUrl) {
 
     const modal = document.getElementById("modalUpload");
@@ -286,7 +287,7 @@
 
     const span_name = document.querySelector(".file-name");
 
-    console.log(image_field);
+
 
     if (image_field) {
       span_name.innerHTML = image_field.split("/").pop();
@@ -303,10 +304,13 @@
 
     document.getElementById("deleteBtn").onclick = () => {
       window.location.href = deleteUrl;
+
     };
 
     new bootstrap.Modal(modal).show();
+
   }
+
 </script>
 
 {% endblock content_derecho %}
