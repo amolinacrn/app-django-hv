@@ -13,3 +13,6 @@ pdf2image
 psycopg2-binary
 gunicorn
 numpy
+python-dotenv
+yt-dlp
+linkpreview

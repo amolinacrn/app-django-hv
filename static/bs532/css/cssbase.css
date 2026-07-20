@@ -116,6 +116,11 @@ body {
 
 .menu-principal ul li a:hover {
   background-color: #ffffffab;
+
+}
+
+.menu-principal ul li a {
+  transition: background-color 0.2s ease;
 }
 
 table,
@@ -136,6 +141,7 @@ td {
 .menu-principal ul li a.active {
   color: #000000;
   background-color: #ffffff;
+
 }
 
 .menu-principal ul li:hover ul {
