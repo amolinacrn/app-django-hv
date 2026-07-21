@@ -31,12 +31,21 @@
                     </td>
                     <td>                    
                         ${Container.cita_bibliografica
-                .flatMap(cont => (cont.cita_bib || "").split("|"))
+                .flatMap(cont => (cont.cita_bib || "").split("|")
+                    .map(item => ({
+                        /*revisar aquí si quiero agregar más cosas*/
+                        cita: item,
+                        link: cont.link_ref,
+                        tipo: cont.tipo_bib
+                    }))
+                )
                 .filter(item => item !== "")
                 .map(item => `<li>
-                    <a href="" style="text-decoration: none;">
-                    ${item}
+                    <div class="link_ref">
+                    <a href="${item.link}" target="_blank">
+                    ${item.tipo} 👉 ${item.cita}
                     </a>
+                    </div>
                     </li>`)
                 .join("")}   
                     </td>

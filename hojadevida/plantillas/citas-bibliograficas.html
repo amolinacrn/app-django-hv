@@ -55,9 +55,18 @@
                         <div style="width: 80%;">
                             {{form.titulo_documento_guia|as_crispy_field}}
                         </div>
+
+                    </div>
+                    <div style="display: flex;gap: 15px;">
+                        <div style="width: 20%;">
+                            {{form.tipo_texto_guia|as_crispy_field}}
+                        </div>
+                        <div style="width: 80%;">
+                            {{form.link_bibliografia|as_crispy_field}}
+                        </div>
+
                     </div>
 
-                    {{form.link_bibliografia|as_crispy_field}}
 
                 </div>
 
@@ -161,9 +170,9 @@
                 <table class="competencias-table">
                     <thead>
                         <tr>
-                            <th> Nombre del curso</th>
+                            <th> Nombre curso</th>
+                            <th>Tipo de recurso</th>
                             <th>Cita bibliografica</th>
-                            <th>Link cita bibliografica</th>
                             <th class="acciones-col">Alternativas</th>
                         </tr>
                     </thead>
@@ -174,13 +183,17 @@
                             <td>
                                 {{qrdat.nombre_curso}}
                             </td>
-
                             <td>
-                                {{qrdat.titulo_documento_guia}}
+                                {{qrdat.tipo_texto_guia}}
                             </td>
 
                             <td>
-                                {{qrdat.link_bibliografia}}
+                                <div class="link_ref">
+                                    <a href="{{qrdat.link_bibliografia}}" target="_blank">
+                                        {{qrdat.titulo_documento_guia}}
+                                    </a>
+                                </div>
+
                             </td>
 
                             <td class="acciones">
@@ -195,7 +208,8 @@
                                     onclick="DiligenciarFormulario(this)" style="cursor:pointer"
                                     data-id="{{ qrdat.id }}" data-codigo_curso="{{qrdat.codigo_curso}}"
                                     data-titulo_documento_guia="{{qrdat.titulo_documento_guia}}"
-                                    data-link_bibliografia="{{qrdat.link_bibliografia}}">
+                                    data-link_bibliografia="{{qrdat.link_bibliografia}}"
+                                    data-tipo_texto_guia="{{qrdat.tipo_texto_guia}}">
 
                                     <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 

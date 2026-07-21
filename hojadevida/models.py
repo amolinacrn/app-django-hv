@@ -185,6 +185,9 @@ class CursosImpartidos(models.Model):
  
 
 class CitasBibliograficas(models.Model):
+    class Meta:
+        ordering = ['id']
+        
     nombre_usuario = models.ForeignKey(
         User, on_delete=models.CASCADE
     )
@@ -193,6 +196,7 @@ class CitasBibliograficas(models.Model):
     titulo_documento_guia = models.CharField(max_length=500, blank=True, null=True)
     link_bibliografia =  models.URLField(max_length=200, blank=True, null=True)
     nombre_curso=models.CharField(max_length=100)
+    tipo_texto_guia = models.CharField(max_length=100 , blank=True, null=True)
 
 
 class UnidadesCursosImpartidos(models.Model):

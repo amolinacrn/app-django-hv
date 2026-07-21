@@ -912,15 +912,10 @@ class FormCitasBibliograficas(forms.ModelForm):
         required=False,
     )
 
-    # nombre_curso= forms.ChoiceField(
-    #     label=mark_safe("<span style='color:red'>*</span> Nombre del curso:"),
-    #     required=True,
-    #     )
-    # key_curso =forms.CharField(
-    #     max_length=500,
-    #     label="",
-    #     required=False,
-    # )
-    
-
+    tipo_texto_guia = forms.CharField(
+        max_length=100,
+        label="Tipo de recurso:",
+        required=False,
+        widget=forms.Select(choices=TIPO_TEXTO_GUIA),
+    )
 

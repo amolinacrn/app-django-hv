@@ -53,15 +53,17 @@ def vista_ensenanza(request):
         datos_citas.append((
             citas.codigo_curso,
             citas.titulo_documento_guia,
-            citas.link_bibliografia
+            citas.link_bibliografia,
+            citas.tipo_texto_guia
         ))
 
 
-    for codigo, cita, link in datos_citas: 
+    for codigo, cita, link, tipo in datos_citas: 
         bibliografia_cursos[codigo]["codigo"] = codigo
         bibliografia_cursos[codigo]["citas"].append({
             "cita_bib":cita,
-            "link_ref":link                
+            "link_ref":link,  
+            "tipo_bib":tipo,              
             })
 
 

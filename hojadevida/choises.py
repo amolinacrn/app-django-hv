@@ -19,6 +19,26 @@ for i in tipo_documento:
         document = [i, i]
     TIPO_DOCUMENTO.append(document)
 
+
+modelo_texto_guia = [
+    None,
+    "Presentaciones",
+    "Libro",
+    "Artículo",
+    "Sitio Web",
+    "Revista",
+    ]
+
+TIPO_TEXTO_GUIA=[]
+
+for i in modelo_texto_guia:
+    if i == None:
+        tipo_texto = [None, "Seleccione..."]
+    else:
+        tipo_texto = [i, i]
+    TIPO_TEXTO_GUIA.append(tipo_texto)
+
+
 tipo_sexo = [None, "Masculino", "Femenino"]
 
 TIPO_SEXO = []

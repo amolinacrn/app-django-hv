@@ -114,6 +114,20 @@ body {
 
 }
 
+
+.link_ref a {
+  text-decoration: none;
+  color: rgb(0, 111, 185);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.link_ref a:hover {
+  text-decoration: underline;
+
+}
+
+
 .menu-principal ul li a:hover {
   background-color: #ffffffab;
 
