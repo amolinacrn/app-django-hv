@@ -14,7 +14,7 @@ def acceso_hoja_de_vida(user):
 
 
 def obtener_id_youtube(url):
-    print(url)
+
     """
     Obtiene el ID del video de YouTube
     """
@@ -24,11 +24,10 @@ def obtener_id_youtube(url):
     if "youtube.com" in dominio:
         params = parse_qs(parsed.query)
 
-        video_id = params.get("v", [None])[0]
+        video_id = params.get("v", [None])[0]    
 
         if video_id:
             return video_id
-
 
     elif "youtu.be" in dominio:
         video_id = parsed.path.strip("/")
@@ -50,6 +49,11 @@ def es_youtube(url):
         "youtu.be" in dominio
     )
 
+def limpiar_url(url):
+    obtner_id=obtener_id_youtube(url)
+    if obtner_id:
+        return f"https://www.youtube.com/watch?v={obtner_id}"
+    return url
 
 def obtener_preview_youtube(url):
 
@@ -61,8 +65,9 @@ def obtener_preview_youtube(url):
 
     try:
         with YoutubeDL(opciones) as ydl:
+            url = limpiar_url(url)
             info = ydl.extract_info(url, download=False)
-
+            
         return {
             "titulo": info.get("title") or "",
             "descripcion": info.get("description") or "",

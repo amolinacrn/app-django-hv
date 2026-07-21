@@ -265,8 +265,9 @@ def home_post(request):
                 if es_youtube(obj.publicaciones_url):
                     
                     campo_id_video = obtener_id_youtube(obj.publicaciones_url)
-
+                    
                     preview = obtener_preview_youtube(obj.publicaciones_url)
+                    
                     
                     obj.titulo_publicacion = preview["titulo"]
                     obj.descripcion_publicacion = preview["descripcion"]
