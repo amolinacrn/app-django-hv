@@ -12,41 +12,70 @@
 </div>
 {{ datos_cursos_impartidos|json_script:"datos-de-cursos-impartidos" }}
 <script>
-
     function renderizandoTexto(Container, identificador_tematica, competencias_disciplina, contando) {
         console.log(contando);
         let contenido_acordeon = `
-
         <table class="competencias-table-ensenanza">
-                    <thead>
+
+            <thead>
                 <tr>
-                    <th style="width:50%;">Contenido temática</th>
-                    <th>Bibliografia y/o material de ayuda</th>
-                </tr>
+                ${competencias_disciplina.unidades_curso !== "Bibliografía"
+                ? `<th style="width:50%;">Contenido temática</th>
+                    <th>Bibliografia y/o material de ayuda</th>`
+                : `<th colspan="2" style="width:50%;">Referencias</th>`}
+                </tr> 
             </thead>
+
             <tbody id="${identificador_tematica}">
-                <tr>
-                    <td style="padding:20px ;">                    
-                        ${competencias_disciplina.competencias_unidad}                  
-                    </td>
-                    <td>                    
+                <tr>${competencias_disciplina.unidades_curso !== "Bibliografía"
+                ? `
+            
+                <td style="padding:20px ;">                    
+                ${competencias_disciplina.competencias_unidad}           
+                </td>    
+
+                ` : ``}
+
+                    <td  ${competencias_disciplina.unidades_curso === "Bibliografía" ? 'colspan="2"' : ''} style="padding:20px ;">                    
                         ${Container.cita_bibliografica
                 .flatMap(cont => (cont.cita_bib || "").split("|")
                     .map(item => ({
                         /*revisar aquí si quiero agregar más cosas*/
                         cita: item,
                         link: cont.link_ref,
-                        tipo: cont.tipo_bib
+                        tipo: cont.tipo_bib,
+                        unid: cont.numero_unidd
                     }))
                 )
                 .filter(item => item !== "")
-                .map(item => `<li>
-                    <div class="link_ref">
-                    <a href="${item.link}" target="_blank">
-                    ${item.tipo} 👉 ${item.cita}
-                    </a>
-                    </div>
-                    </li>`)
+                .map(item => {
+                    /*condicion para que muestre el tipo de refrencia*/
+                    if (competencias_disciplina.unidades_curso === "Bibliografía") {
+
+                        if (item.tipo === "Libro") {
+                            return `<li style="list-style: none;">
+                        <div class="link_ref">
+                        <a href="${item.link}" target="_blank">
+                       ✅ ${item.tipo} 👉 ${item.cita}
+                        </a>
+                        </div>
+                        </li>`
+
+                        }
+                    } else if (competencias_disciplina.unidades_curso !== "Bibliografía") {
+
+                        if (item.tipo !== "Libro" && competencias_disciplina.numero_unidad === item.unid) {
+                            return `<li style="list-style: none;">
+                        <div class="link_ref">
+                        <a href="${item.link}" target="_blank">
+                        ✅ ${item.tipo} 👉 ${item.cita}
+                        </a>
+                        </div>
+                        </li>`
+
+                        }
+                    }
+                })
                 .join("")}   
                     </td>
                 </tr>

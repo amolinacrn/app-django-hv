@@ -40,7 +40,6 @@ def vista_ensenanza(request):
             
             url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
 
-
     queryset_bibliografia = CitasBibliograficas.objects.all()
     
     codigos=[]
@@ -54,32 +53,31 @@ def vista_ensenanza(request):
             citas.codigo_curso,
             citas.titulo_documento_guia,
             citas.link_bibliografia,
-            citas.tipo_texto_guia
+            citas.tipo_texto_guia,
+            citas.capitulos_texto
         ))
 
 
-    for codigo, cita, link, tipo in datos_citas: 
+    for codigo, cita, link, tipo,unidd in datos_citas: 
         bibliografia_cursos[codigo]["codigo"] = codigo
         bibliografia_cursos[codigo]["citas"].append({
             "cita_bib":cita,
             "link_ref":link,  
-            "tipo_bib":tipo,              
+            "tipo_bib":tipo, 
+            "numero_unidd":unidd             
             })
-
 
     dict_bibliografia=dict(bibliografia_cursos)   
 
-
-
     datos=[]
-
 
     for campos in datos_queryset:
         datos.append((
             campos.disciplina_o_curso.identificador_disciplina,
             campos.disciplina_o_curso.nombre_disciplina,
             campos.tematicas,
-            campos.unidades_de_tematica
+            campos.unidades_de_tematica,
+            campos.numero_unidad
         ))
         codigos.append(campos.disciplina_o_curso.identificador_disciplina)
 
@@ -87,13 +85,14 @@ def vista_ensenanza(request):
 
     resultado = defaultdict(lambda: {"nombre": "", "contenidos": []})
 
-    for codigo, nombre, unidades, competencias in datos:
+    for codigo, nombre, unidades, competencias,unidad in datos:
 
         resultado[codigo]["nombre"] = nombre
 
         resultado[codigo]["contenidos"].append({
             "unidades_curso": unidades,
-            "competencias_unidad": competencias,          
+            "competencias_unidad": competencias,  
+            "numero_unidad":unidad        
         })
 
     dict_campos=dict(resultado)

@@ -298,7 +298,8 @@ def codigo_vistas_automaticas_post_hv(request,
                                       plantilla_html,
                                       sitweb,
                                       idq,
-                                      name_curso=False):
+                                      name_curso=False
+                                      ):
 
     if idq and idq != 0:
         obj = get_object_or_404(
@@ -328,7 +329,7 @@ def codigo_vistas_automaticas_post_hv(request,
         return (sitweb,idq,es_valido)
 
     if es_valido:
-        obj = form.save()
+        form.save()        
         return (sitweb,idq,es_valido)
 
     queryset_dat = models_model.objects.filter(
@@ -854,31 +855,40 @@ class CursosImpartidosHV(View):
                                                                 "vista-docencia.html",
                                                                 "cursos_impartidos",
                                                                 pk)
+        
 
-        id_unidades = set(
-            UnidadesCursosImpartidos.objects.values_list(
-                "disciplina_o_curso_id", flat=True
+        queryset_unidades = UnidadesCursosImpartidos.objects.filter(disciplina_o_curso_id=pk) 
+        
+        las_tematicas=queryset_unidades.values_list(
+            "tematicas", flat=True
             )
-        )
+     
+        unidades = list(las_tematicas)
 
-        for curso in CursosImpartidos.objects.all():
-                     
-            if curso.id in id_unidades:
+        unidades = [x.strip() for x in unidades if x.strip()]
+
+        queryset_cursos_imparitdos = CursosImpartidos.objects.filter(id=pk) 
+
+        cursos_impartidos = list(queryset_cursos_imparitdos.values_list(
+            "conjunto_tematicas", flat=True
+            ))
+
+        objetos = []
+
+        cursos_impartidos = [x.strip() for x in cursos_impartidos[0].split("\n") if x.strip()]
+
+        for curso in cursos_impartidos:
+            if curso in unidades:
                 continue
 
-            lista_unidades = curso.conjunto_tematicas.split("-")
+            objetos.append(UnidadesCursosImpartidos(
+                disciplina_o_curso=queryset_cursos_imparitdos.first(),
+                tematicas=curso,
+                nombre_usuario=request.user
+                ))   
+   
 
-            objetos = [
-                UnidadesCursosImpartidos(
-                    relacion_bilbiografica=curso,
-                    disciplina_o_curso=curso,
-                    tematicas=titulo,
-                    nombre_usuario=curso.nombre_usuario
-                )
-                for titulo in lista_unidades
-            ]
-
-            UnidadesCursosImpartidos.objects.bulk_create(objetos)
+        UnidadesCursosImpartidos.objects.bulk_create(objetos)
 
         if validacion_form:
             return redirect(plantilla, contexto)

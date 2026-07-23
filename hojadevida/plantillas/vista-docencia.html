@@ -156,7 +156,10 @@
                 <table class="competencias-table">
                     <thead>
                         <tr>
-                            <th colspan="2" style="width: 90%;">
+                            <th style="width: 5%;">
+                                Unidad
+                            </th>
+                            <th style="width: 85%;">
                                 <div style="display: flex; gap:2vw;">
                                     <div>
                                         Codigo: {{ qrdat.identificador_disciplina }}
@@ -166,6 +169,7 @@
                                     </div>
                                 </div>
                             </th>
+
 
                             <th>
                                 Opciones
@@ -177,18 +181,21 @@
                     <tbody>
                         {% for tema in qrdat.tematicas_lista %}
                         <tr>
-                            <td colspan="2">
+                            <td>
+                                {{ tema.numero_unidad }}
+                            </td>
+                            <td>
                                 {{ tema.tematicas }}
-
                             </td>
 
                             <td>
                                 <!-- Ver soporte -->
-                                <button type="button" class="icon-btn"
+                                <button type=" button" class="icon-btn "
                                     onclick="modalUnidadesDisciplinas(this,'unidades-cursos-impartidos')"
                                     data-id="{{tema.id}}" data-tematicas="{{ tema.tematicas }}"
                                     data-titulo_material_ayuda="{{tema.titulo_material_ayuda}}"
                                     data-url_material_ayuda="{{tema.url_material_ayuda}}"
+                                    data-numero_unidad="{{tema.numero_unidad}}"
                                     data-unidades_de_tematica="{{tema.unidades_de_tematica}}">
                                     <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
                                 </button>
@@ -214,7 +221,7 @@
 
                                         <!-- Editar -->
 
-                                        <button type="button" class="editar-registro icon-btn"
+                                        <button type="button" class="editar-registro icon-btn "
                                             onclick="DiligenciarFormulario(this)" style="cursor:pointer"
                                             data-id="{{ qrdat.id }}"
                                             data-identificador_disciplina="{{ qrdat.identificador_disciplina }}"

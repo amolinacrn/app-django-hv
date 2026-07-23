@@ -1,6 +1,7 @@
 :root {
     --sombras-divs-app: 1px 1px 2px 0px rgba(136, 136, 136, 0.486);
     --sombras-divs-app-table: 1px 1px 2px 1px rgba(179, 179, 179, 0.596);
+    --ensenanza-sombras-table: 1px 1px 5px 1px rgba(179, 179, 179, 0.774);
 }
 
 
@@ -87,17 +88,24 @@
     width: 100%;
     font-size: 13px;
     /* border-collapse: collapse; */
+    background-color: rgba(201, 201, 201, 0.068);
+    /* border: 1px solid rgba(172, 171, 171, 0.671); */
+    box-shadow: var(--ensenanza-sombras-table);
+
 }
 
 .competencias-table-ensenanza th,
 .competencias-table-ensenanza td {
     padding: 10px;
-    /* text-align: center; */
+    text-align: justify;
+    /* border: 1px solid rgba(172, 171, 171, 0.671); */
+
 }
 
 .competencias-table-ensenanza thead {
-    background: #e6e6e680;
+    background: #e7e7e7cc;
     color: rgb(0, 0, 0);
+
 }
 
 .class-shadow {

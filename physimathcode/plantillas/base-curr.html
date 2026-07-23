@@ -142,10 +142,10 @@
                             <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                                 href="#">Investigación</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                                 href="#">Portafolio</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                                 href="#">Contacto</a>
@@ -155,7 +155,7 @@
                         <li>
                             <a class="{% if request.resolver_match.url_name == 'hojadevida' %}active{% endif %} nav-link"
                                 href="{% url 'hojadevida' %}">
-                                Hoja de vida
+                                Gestión
                             </a>
                         </li>
                         {% endif %}
@@ -289,11 +289,11 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <!-- <li>
                                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                                     Portafolio
                                 </a>
-                            </li>
+                            </li> -->
 
                             <li>
                                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
@@ -305,7 +305,7 @@
                             {% if puede_ver_hv %}
                             <li>
                                 <a class="nav-link" href="{% url 'hojadevida' %}">
-                                    Hoja de vida
+                                    Gestión
                                 </a>
                             </li>
                             {% endif %}
@@ -379,12 +379,12 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <!-- <li>
                                 <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}"
                                     href="">
                                     Portafolio
                                 </a>
-                            </li>
+                            </li> -->
 
                             <li>
                                 <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
@@ -397,7 +397,7 @@
                             {% if puede_ver_hv %}
                             <li>
                                 <a class="nav-link" href="{% url 'hojadevida' %}">
-                                    Hoja de vida
+                                    Gestión
                                 </a>
                             </li>
                             {% endif %}

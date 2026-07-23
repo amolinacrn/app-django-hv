@@ -52,7 +52,11 @@
                         <div style="width: 20%;">
                             {{form.codigo_curso|as_crispy_field}}
                         </div>
-                        <div style="width: 80%;">
+                        <div style="width: 10%;">
+                            {{form.capitulos_texto|as_crispy_field}}
+
+                        </div>
+                        <div style="width: 70%;">
                             {{form.titulo_documento_guia|as_crispy_field}}
                         </div>
 
@@ -208,6 +212,7 @@
                                     onclick="DiligenciarFormulario(this)" style="cursor:pointer"
                                     data-id="{{ qrdat.id }}" data-codigo_curso="{{qrdat.codigo_curso}}"
                                     data-titulo_documento_guia="{{qrdat.titulo_documento_guia}}"
+                                    data-capitulos_texto="{{qrdat.capitulos_texto}}"
                                     data-link_bibliografia="{{qrdat.link_bibliografia}}"
                                     data-tipo_texto_guia="{{qrdat.tipo_texto_guia}}">
 

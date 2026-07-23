@@ -79,7 +79,6 @@
 
     .person_a a:hover {
       text-decoration: underline;
-
     }
 
     .video_frame {
@@ -131,8 +130,6 @@
           </button>
         </form>
 
-
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -155,10 +152,10 @@
               <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                 href="#">Investigación</a>
             </li>
-            <li>
+            <!-- <li>
               <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                 href="#">Portafolio</a>
-            </li>
+            </li> -->
             <li>
               <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Contacto</a>
             </li>
@@ -166,7 +163,7 @@
             {% if puede_ver_hv %}
             <li>
               <a class="nav-link" href="{% url 'hojadevida' %}">
-                Hoja de vida
+                Gestión
               </a>
             </li>
             {% endif %}
@@ -259,18 +256,14 @@
 
       <div style="padding: 20px;">
 
-        <h5 style="text-align: center;">
-
+        <h5 style="text-align: center;font-family: 'Barlow';">
           Bienvenido
-
-          {% if user.is_authenticated %}
-
           <br>
-
-          {{ user.first_name }} {{ user.last_name }}
-
-          {% endif %}
-
+          <b class="text-uppercase">
+            {% if user.is_authenticated %}
+            {{ user.first_name }} {{ user.last_name }}
+            {% endif %}
+          </b>
         </h5>
         <!-- Formulario simple que enviará una petición POST   -->
 
@@ -299,11 +292,11 @@
                 </a>
               </li>
 
-              <li>
+              <!-- <li>
                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
                   Portafolio
                 </a>
-              </li>
+              </li> -->
 
               <li>
                 <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}" href="">
@@ -315,7 +308,7 @@
               {% if puede_ver_hv %}
               <li>
                 <a class="nav-link" href="{% url 'hojadevida' %}">
-                  Hoja de vida
+                  Gestión
                 </a>
               </li>
               {% endif %}

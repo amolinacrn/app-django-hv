@@ -197,6 +197,8 @@ class CitasBibliograficas(models.Model):
     link_bibliografia =  models.URLField(max_length=200, blank=True, null=True)
     nombre_curso=models.CharField(max_length=100)
     tipo_texto_guia = models.CharField(max_length=100 , blank=True, null=True)
+    capitulos_texto = models.CharField(max_length=3 , blank=True)
+
 
 
 class UnidadesCursosImpartidos(models.Model):
@@ -212,8 +214,9 @@ class UnidadesCursosImpartidos(models.Model):
         CursosImpartidos, on_delete=models.CASCADE
     ) 
 
-    tematicas =  models.CharField(max_length=1000, blank=True, null=True)
+    tematicas =  models.CharField(max_length=100, blank=True, null=True)
     titulo_material_ayuda = models.CharField(max_length=100, blank=True, null=True)
     url_material_ayuda =  models.URLField(max_length=200, blank=True, null=True)
     unidades_de_tematica =  models.CharField(max_length=1000, blank=True, null=True)
+    numero_unidad = models.CharField(max_length=3, blank=True)
  

@@ -86,9 +86,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Investigación</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#">Portafolio</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#">Contacto</a>
             </li>
@@ -96,7 +96,7 @@
             {% if puede_ver_hv %}
             <li>
               <a class="nav-link" href="{% url 'hojadevida' %}">
-                Hoja de vida
+                Gestión
               </a>
             </li>
             {% endif %}
@@ -234,11 +234,11 @@
                 </a>
               </li>
 
-              <li>
+              <!-- <li>
                 <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}" href="">
                   Portafolio
                 </a>
-              </li>
+              </li> -->
 
               <li>
                 <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}" href="">
@@ -250,7 +250,7 @@
               {% if puede_ver_hv %}
               <li>
                 <a class="nav-link" href="{% url 'hojadevida' %}">
-                  Hoja de vida
+                  Gestión
                 </a>
               </li>
               {% endif %}

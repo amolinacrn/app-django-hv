@@ -833,18 +833,6 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
-    titulo_material_ayuda = forms.CharField(
-        max_length=100,
-        label="Titulo material de ayuda:",
-        required=False,
-    )
-    
-    url_material_ayuda =  forms.URLField(
-        max_length=200,
-        label="URL material ayuda:",
-        required=False,
-    )
-
     unidades_de_tematica =  forms.CharField(
         max_length=1000,
         label="Agregue las unidades de ésta temática:",
@@ -856,16 +844,19 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
             })
     )
 
-    tematiticas =  forms.CharField(
-        max_length=1000,
-        label="tematica:",
+    tematicas =  forms.CharField(
+        max_length=100,
+        label="Temática:",
         required=False,
-        widget=forms.Textarea(
-            attrs={
-                "rows": 3,
-                "cols": 1,
-            })
     )
+
+    numero_unidad = forms.CharField(
+        max_length=3,
+        label="Unidad:",
+        required=False,
+        widget=forms.Select(choices=CAPITULOS_LIBRO),
+    )
+
 
 class FormCitasBibliograficas(forms.ModelForm):
 
@@ -899,7 +890,6 @@ class FormCitasBibliograficas(forms.ModelForm):
         self.DATOS_DISCIPLINA_CODIGO = [(None, "Seleccione...")] + self.DATOS_DISCIPLINA_CODIGO
         self.fields["codigo_curso"].choices = self.DATOS_DISCIPLINA_CODIGO 
 
-
     titulo_documento_guia = forms.CharField(
         max_length=500,
         label="Cita bibliográfica:",
@@ -917,5 +907,12 @@ class FormCitasBibliograficas(forms.ModelForm):
         label="Tipo de recurso:",
         required=False,
         widget=forms.Select(choices=TIPO_TEXTO_GUIA),
+    )
+
+    capitulos_texto=forms.CharField(
+        max_length=3,
+        label="Unidad:",
+        required=False,
+        widget=forms.Select(choices=CAPITULOS_LIBRO),
     )
 

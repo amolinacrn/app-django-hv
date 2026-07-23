@@ -137,9 +137,9 @@
                     <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
                         href="#">Investigación</a>
                 </li>
-                <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
+                <!-- <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
                     <a class="nav-link" href="#">Portafolio</a>
-                </li>
+                </li> -->
                 <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
@@ -148,7 +148,7 @@
                 <li>
                     <a class="{% if request.resolver_match.url_name == 'hojadevida' %}active{% endif %} nav-link"
                         href="{% url 'hojadevida' %}">
-                        Hoja de vida
+                        Gestión
                     </a>
                 </li>
                 {% endif %}
@@ -278,7 +278,7 @@
                             <li>
                                 <a class="{% if request.resolver_match.url_name == 'descargar_hv' %}active{% endif %}"
                                     href="{% url 'view_pdf_HV' %}" target="_blank">
-                                    Descargar hoja de vida
+                                    Descargar Gestión
                                 </a>
                             </li>
 
