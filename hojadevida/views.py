@@ -357,7 +357,8 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
 
     for objeto in queryset_dat:
         archivo_soporte = getattr(objeto, documento_soporte, None) if documento_soporte else None
-
+        mostrar_icono = getattr(objeto, "cargar_icono", None) if "cargar_icono" else None
+        
         if archivo_soporte:
             try:
                 objeto.documento_url = request.build_absolute_uri(
@@ -365,8 +366,20 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
                 )
             except:
                 objeto.documento_url = None
+
+        if mostrar_icono:
+            try:
+                objeto.icono_url=request.build_absolute_uri(mostrar_icono.url)
+            except:
+                objeto.icono_url = None
+
+
     eye_icon = request.build_absolute_uri(
         static("bs532/img/")
+    )
+
+    icono_media = request.build_absolute_uri(
+        settings.MEDIA_URL + "files/img/imgHome/"
     )
 
 
@@ -392,6 +405,7 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
 
 
     contexto = {
+        "icono_media":icono_media,
         "eye_icon": eye_icon,
         "puede_ver_hv": es_acceso_hoja_vida(request.user),
         "form": expe_laboral,
@@ -441,26 +455,29 @@ class formDatPersonView:
                 url_portada_izquierda = request.build_absolute_uri(portada_izquierda.url)
 
         # Obtener datos personales
-        name_doc_pdf = DatosPersonale.objects.filter(
+        queryset_datos_personales = DatosPersonale.objects.filter(
             nombre_usuario_id=request.user.id
-        ).first()
+        )
 
-        if name_doc_pdf:
+        
 
-            archivo = getattr(name_doc_pdf, "fotocopia_documento", None) if "fotocopia_documento" else None
+        for file in queryset_datos_personales:
+            archivo = getattr(file, "fotocopia_documento", None) if "fotocopia_documento" else None
+            iconos_home = getattr(file, "cargar_icono", None) if "cargar_icono" else None
 
             if archivo and archivo.name:
 
                 url_diploma = request.build_absolute_uri(archivo.url)
 
-                name_doc_pdf.documento_diploma_url = url_diploma
+                queryset_datos_personales.documento_diploma_url = url_diploma
 
                 var_estado = True
 
-        else:
+            if iconos_home and iconos_home.name:
 
-            name_doc_pdf = "#"
+                iconos_home_url = request.build_absolute_uri(iconos_home.url)
 
+                queryset_datos_personales.url_iconos_home = iconos_home_url
 
         eye_icon = request.build_absolute_uri(
             static("bs532/img/")
@@ -474,7 +491,7 @@ class formDatPersonView:
             "puede_ver_hv": es_acceso_hoja_vida(request.user),
             "form": datos_personales,
             "fotoform": fperfiluser,
-            "doc_name_PDF": name_doc_pdf,
+            "doc_name_PDF": queryset_datos_personales,
             "estvar": var_estado,
             "foto_usuario_login": foto_url_perfil,
             "foto_perfil": foto_url_perfil,

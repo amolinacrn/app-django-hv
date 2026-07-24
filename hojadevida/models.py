@@ -44,6 +44,8 @@ class DatosPersonale(models.Model):
     perfil_profesional = models.TextField(max_length=1500, blank=True, null=True)
     titulo_mas_reciente = models.CharField(max_length=50, blank=False, null=False)
     universidad_titulo_mas_reciete = models.CharField(max_length=50, blank=False, null=False)
+    afiliacion = models.CharField(max_length=300, blank=True, null=True)
+    descripcion = models.CharField(max_length=200, blank=True, null=True)
 
 class TitulosAcademico(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -66,11 +68,10 @@ class TitulosAcademico(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/diplomas", blank=True, null=True
     )
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
 
     class Meta:
         ordering = ['fecha_inicio']
-
-
 
 class ExperienciasLaborale(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -95,13 +96,16 @@ class ExperienciasLaborale(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/experiencia", blank=True, null=True
     )
-
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
     class Meta:
         ordering = ['-fecha_inicio']
 
 
 
 class ProduccionAcademica(models.Model):
+    class Meta:
+        ordering = ['-fecha_publicacion']
+
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
     )
@@ -113,6 +117,8 @@ class ProduccionAcademica(models.Model):
     area_concentracion = models.CharField(max_length=150, blank=True, null=False)
     linea_pesquisa = models.CharField(max_length=150, blank=True, null=True)
     doi_link_publicacion = models.URLField(max_length=100, blank=False, null=False)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    acronimo = models.CharField(max_length=50, blank=True, null=True)
 
 class ParticipacionCientifica(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -130,7 +136,8 @@ class ParticipacionCientifica(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/eventos", blank=True, null=True
     )
-
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    acronimo = models.CharField(max_length=50, blank=True, null=True)
 
 class IdiomaExtrangero(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -160,6 +167,9 @@ class IdiomaExtrangero(models.Model):
 
 
 class CompetenciasTecnicasComputacionale(models.Model):
+    class Meta:
+        ordering = ['id']
+
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
     )
@@ -170,6 +180,8 @@ class CompetenciasTecnicasComputacionale(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/certificados", blank=True, null=True
     )
+
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
 
 
 class CursosImpartidos(models.Model):

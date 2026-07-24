@@ -80,38 +80,53 @@
     <hr>
 
     {% if user.is_staff %}
-    <div style="display: flex; gap: 15px;">
 
-      <div class="card mb-3 p-3 bg-light" style="width: 100%;">
 
-        <div class="clase_titulo_portadas">
-          Imagen de la portada principal
-        </div>
-        <a data-bs-toggle="modal" data-bs-target="#cargar_portada" class="foto-box d-block"
-          onclick="openModal('imagen_de_portada','{{qryset_foto_obj.imagen_de_portada}}' ,'{{img_portada_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
-          {% if img_portada_url %}
-          <img class="clsimg my_img_html" src="{{img_portada_url}}" style="position: relative; width: 100%; ">
-          {% else %}
-          <div class="mi-portada-backw">
+    <div class="card mb-3 p-3 bg-light" style="width: auto;">
+      <div style="display: flex; gap: 15px;">
+        <div>
+          <div class="clase_titulo_portadas">
+            Foto de perfil
           </div>
-          {% endif %}
-        </a>
-      </div>
-
-
-      <div class="card mb-3 p-3 bg-light" style="width: 100%;">
-        <div class="clase_titulo_portadas">
-          Imagen de login y registro
+          <a data-bs-toggle="modal" data-bs-target="#cargarfoto" class="foto-box d-block"
+            onclick="openModal('foto_perfil','{{qryset_foto_obj.foto_perfil}}','{{foto_perfil}}', '{% url 'delete_image' 'foto_perfil' %}')">
+            {% if foto_perfil %}
+            <img class="clsimg my_img_html" src="{{foto_perfil}}" style="position: relative; width: 100%; ">
+            {% else %}
+            <div class="mi-portada-backw">
+            </div>
+            {% endif %}
+          </a>
         </div>
-        <a data-bs-toggle="modal" data-bs-target="#cargar_panel_izquierdo" class="foto-box d-block"
-          onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_panel_izquierdo' %}')">
-          {% if portada_izquierda_url %}
-          <img class="clsimg my_img_html" src="{{portada_izquierda_url}}" style="position: relative; width: 100%; ">
-          {% else %}
-          <div class="mi-portada-backw">
+        <div>
+          <div class="clase_titulo_portadas">
+            Imagen de la portada principal
           </div>
-          {% endif %}
-        </a>
+          <a data-bs-toggle="modal" data-bs-target="#cargar_portada" class="foto-box d-block"
+            onclick="openModal('imagen_de_portada','{{qryset_foto_obj.imagen_de_portada}}' ,'{{img_portada_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
+            {% if img_portada_url %}
+            <img class="clsimg my_img_html" src="{{img_portada_url}}" style="position: relative; width: 100%; ">
+            {% else %}
+            <div class="mi-portada-backw">
+            </div>
+            {% endif %}
+          </a>
+        </div>
+
+        <div>
+          <div class="clase_titulo_portadas">
+            Imagen de login y registro
+          </div>
+          <a data-bs-toggle="modal" data-bs-target="#cargar_panel_izquierdo" class="foto-box d-block"
+            onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_panel_izquierdo' %}')">
+            {% if portada_izquierda_url %}
+            <img class="clsimg my_img_html" src="{{portada_izquierda_url}}" style="position: relative; width: 100%; ">
+            {% else %}
+            <div class="mi-portada-backw">
+            </div>
+            {% endif %}
+          </a>
+        </div>
       </div>
     </div>
     {% endif %}
@@ -121,51 +136,26 @@
 
       <!-- FOTO + DATOS PRINCIPALES -->
       <div class="card mb-3 p-3 bg-light">
-        <div class="row g-3 align-items-start">
-
-          <!-- FOTO -->
-          <div class="col-md-3 text-center">
-            <table style="width:170px">
-              <tr>
-                <td>
-
-                  <!-- FOTO -->
-                  <div>
-
-                    <a data-bs-toggle="modal" data-bs-target="#cargarfoto" class="foto-box d-block"
-                      onclick="openModal('foto_perfil','{{qryset_foto_obj.foto_perfil}}','{{foto_perfil}}', '{% url 'delete_image' 'foto_perfil' %}')">
-                      {% if foto_perfil %}
-                      <img class="clsimg my_img_html" src="{{foto_perfil}}" style="position: relative; width: 100%; ">
-                      {% else %}
-                      <div class="mi-portada-backw">
-                      </div>
-                      {% endif %}
-                    </a>
-                  </div>
-
-                </td>
-              </tr>
-            </table>
-            <!-- <a data-bs-toggle=" modal" data-bs-target="#cargarfoto" id="idimgfot" class="foto-box d-block"></a>
-                    -->
-          </div>
-
+        <div class="row g-3 ">
           <!-- CAMPOS FILA 1 -->
-          <div class="col-md-9">
-            <div class="row g-3">
-              <div class="col-md-4">{{form.documento_identificacion|as_crispy_field}}</div>
-              <div class="col-md-4">{{form.numero_identificacion|as_crispy_field}}</div>
-              <div class="col-md-4">{{form.titulo_mas_reciente|as_crispy_field}}</div>
 
-              <div class="col-md-4">{{form.fecha_expedicion_documento|as_crispy_field}}</div>
-              <div class="col-md-4">{{form.ciudad_expedicion_documento|as_crispy_field}}</div>
-              <div class="col-md-4">{{form.universidad_titulo_mas_reciete|as_crispy_field}}</div>
-            </div>
-          </div>
+          <div class="col-md-4">{{form.documento_identificacion|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.numero_identificacion|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.titulo_mas_reciente|as_crispy_field}}</div>
+
+          <div class="col-md-4">{{form.fecha_expedicion_documento|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.ciudad_expedicion_documento|as_crispy_field}}</div>
+          <div class="col-md-4">{{form.universidad_titulo_mas_reciete|as_crispy_field}}</div>
+
         </div>
       </div>
-      <div class="card mb-3 p-3">
+      <div class="card mb-3 p-3 bg-light">
         {{form.perfil_profesional|as_crispy_field}}
+
+        {{form.descripcion|as_crispy_field}}
+
+        {{form.afiliacion|as_crispy_field}}
+
       </div>
       <div class="card mb-3 p-3 bg-light">
         <div class="row g-3">
@@ -196,6 +186,7 @@
           <div class="col-md-4">{{form.libreta_militar|as_crispy_field}}</div>
           <div class="col-md-4">{{form.distrito_militar|as_crispy_field}}</div>
           <div class="col-md-4">{{form.cuenta_github|as_crispy_field}}</div>
+
         </div>
       </div>
 
@@ -204,11 +195,13 @@
         <div class="diploma-row">
           <div>
             <label class="cargar_documento_whith" for="fotocopia_documento">Adjuntar documento en (<b
-                style='color:red'>.pdf</b>)
+                style='color:red'>.pdf </b>)
+              {% for doc in doc_name_PDF %}
               <div style="margin-top:7px">
                 <input type="file" name="fotocopia_documento" id="fotocopia_documento" class="upload-img green"
-                  data-ruta="{{doc_name_PDF.fotocopia_documento}}">
+                  data-ruta="{{doc.fotocopia_documento}}">
               </div>
+              {% endfor %}
             </label>
 
             <div class="error-upload">
@@ -216,20 +209,28 @@
             </div>
           </div>
           {% if not form.fotocopia_documento.errors %}
+          <div style="display: flex; gap: 5px; margin-left: 10px;">
+            <div>
+              <a onclick="funcionVisualizarModal('{{doc_name_PDF.documento_diploma_url}}','Documento de identidad')"
+                data-bs-toggle="modal" data-bs-target="#vercedula">
+                <img src="{% static 'bs532/img/ver_violeta.svg' %}" width="20" style="margin-top: 27px;">
+              </a>
 
-          <a onclick="funcionVisualizarModal('{{doc_name_PDF.documento_diploma_url}}','Documento de identidad')"
-            data-bs-toggle="modal" data-bs-target="#vercedula">
-            <img src="{% static 'bs532/img/ver_violeta.svg' %}" width="20" style="margin-top: 27px;">
-          </a>
+            </div>
+            <div>
+              <a href="delete_file">
+                <img src="{% static 'bs532/img/eliminar.svg' %}" width="20" style="margin-top: 27px;">
+              </a>
+            </div>
+          </div>
 
-          <a href="delete_file">
-            <img src="{% static 'bs532/img/eliminar.svg' %}" width="20" style="margin-top: 27px;">
-          </a>
           {% endif %}
 
         </div>
 
       </div>
+
+      <hr>
 
       <div class="d-flex justify-content-end gap-2 mt-3">
         <button class="btn btn-sm btn-outline-success" type="submit">

@@ -58,11 +58,27 @@
 
           <div class="full-row">{{ form.linea_pesquisa|as_crispy_field }}</div>
         </div>
+
         <div class="form-grid card bg-light">
-          <div class="full-row">{{ form.doi_link_publicacion|as_crispy_field }}
+          <div>
+            <div class="full-row">
+              {{ form.doi_link_publicacion|as_crispy_field }}
+            </div>
+            <div id="ref_img_ver">
+            </div>
           </div>
-          <div id="ref_img_ver">
-          </div>
+
+          <label class="cargar_documento_whith" for="cargar_icono">
+            Cargue el ícono de su preferencia
+            <div style=" margin-top:7px">
+              <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+            </div>
+            <div class="error-upload">
+              {{ form.cargar_icono.errors.as_text }}
+            </div>
+          </label>
+
+
         </div>
 
         <br>
@@ -166,6 +182,7 @@
         <table class="competencias-table">
           <thead>
             <tr>
+              <th>ícono</th>
               <th>Nombre del trabajo</th>
               <th>Fecha de publicación</th>
               <th>Nombre de la revista</th>
@@ -178,6 +195,9 @@
           <tbody>
             {% for qrdat in querydat %}
             <tr>
+              <td>
+                <img src="{{qrdat.icono_url}}" class="border_imagenes_portada">
+              </td>
               <td>
                 {{ qrdat.nombre_trabajo }}
               </td>

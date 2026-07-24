@@ -57,7 +57,7 @@ class DatosPersonalesForm(forms.ModelForm):
         # Extraer current_user de los argumentos.
         self.current_user = kwargs.pop("current_user", None)
         super().__init__(*args, **kwargs)
-
+        self.fields["cargar_icono"].widget.attrs["class"] = "upload-img green"
         # # Validar si el usuario actual fue proporcionado.
         if not self.current_user:
             self.fields["nombre_usuario"].disabled = True
@@ -88,6 +88,15 @@ class DatosPersonalesForm(forms.ModelForm):
         for field_name in self.fields:
             if hasattr(db_obj, field_name):
                 self.fields[field_name].initial = getattr(db_obj, field_name)
+
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
+    )
+
 
     documento_identificacion = forms.CharField(
     max_length=50,
@@ -270,7 +279,29 @@ class DatosPersonalesForm(forms.ModelForm):
         required=True,
     )
 
+    afiliacion = forms.CharField(
+        max_length=300,
+        label="Afiliación Institucional:",
+        required=False,
+        widget=forms.Textarea(
+                    attrs={
+                        "rows": 2,
+                        "cols": 1,
+                    }
+                ),
+    )
 
+    descripcion = forms.CharField(
+        max_length=200,
+        label="Descripción breve:",
+        required=False,
+        widget=forms.Textarea(
+                    attrs={
+                        "rows": 2,
+                        "cols": 1,
+                    }
+                ),
+    )
 
 class FormularioTitulosAcademicos(forms.ModelForm):
 
@@ -375,7 +406,14 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         ],
     )
 
-
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
+    )
+    
 class FormExperienciaLaboral(forms.ModelForm):
 
     class Meta:
@@ -494,6 +532,14 @@ class FormExperienciaLaboral(forms.ModelForm):
         ],
     )
 
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
+    )
+
 
 class FormularioProduccionAcademica(forms.ModelForm):
 
@@ -555,6 +601,14 @@ class FormularioProduccionAcademica(forms.ModelForm):
         max_length=100,
         label=mark_safe("<span style='color:red'>*</span> Link o DOI:"),
         required=True,
+    )
+
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
     )
 
 
@@ -637,6 +691,15 @@ class FormularioParticipacionCientifica(forms.ModelForm):
         widget=forms.FileInput(),
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
+
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
+    )
+
 
 class FormularioIdiomaExtrangero(forms.ModelForm):
 
@@ -736,6 +799,7 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop("current_user", None)
         super().__init__(*args, **kwargs)
+        self.fields["cargar_icono"].widget.attrs["class"] = "upload-img green"
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
@@ -775,6 +839,13 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
 
+    cargar_icono = forms.ImageField(
+        label="Cargue un ícono de su preferencia",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.2),
+        ],
+    )
 
 class FormCursosImpartidos(forms.ModelForm):
     class Meta:

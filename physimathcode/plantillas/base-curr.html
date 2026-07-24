@@ -128,7 +128,7 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
 
                     <!-- MENÚ CENTRADO -->
-                    <ul class="navbar-nav mx-auto text-center gap-2">
+                    <ul class="navbar-nav mx-auto text-center gap-1">
 
                         <li>
                             <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} nav-link"
@@ -140,16 +140,23 @@
                         </li>
                         <li>
                             <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Investigación</a>
+                                href="#">Intereses</a>
                         </li>
-                        <!-- <li>
-                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Portafolio</a>
-                        </li> -->
                         <li>
                             <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Contacto</a>
+                                href="#">Proyectos</a>
                         </li>
+
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                href="#">Galería</a>
+                        </li>
+
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                href="#">Publicaciones</a>
+                        </li>
+
                         {% if user.is_authenticated %}
                         {% if puede_ver_hv %}
                         <li>
@@ -285,21 +292,26 @@
 
                             <li>
                                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
-                                    Investigación
+                                    Intereses
                                 </a>
                             </li>
-
-                            <!-- <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
-                                    Portafolio
-                                </a>
-                            </li> -->
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
-                                    Contacto
-                                </a>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Proyectos</a>
                             </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Galería</a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Publicaciones</a>
+                            </li>
+
+
 
                             {% if user.is_authenticated %}
                             {% if puede_ver_hv %}
@@ -375,23 +387,26 @@
                             <li>
                                 <a class="{% if request.resolver_match.url_name == 'prod_acad' %}active{% endif %}"
                                     href="">
-                                    Investigación
+                                    Intereses
                                 </a>
                             </li>
-
-                            <!-- <li>
-                                <a class="{% if request.resolver_match.url_name == 'part_cient' %}active{% endif %}"
-                                    href="">
-                                    Portafolio
-                                </a>
-                            </li> -->
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}"
-                                    href="">
-                                    Contacto
-                                </a>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Proyectos</a>
                             </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Galería</a>
+                            </li>
+
+                            <li>
+                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                                    href="#">Publicaciones</a>
+                            </li>
+
+
 
                             {% if user.is_authenticated %}
                             {% if puede_ver_hv %}

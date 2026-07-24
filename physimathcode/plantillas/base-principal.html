@@ -68,6 +68,15 @@
 
     }
 
+    .ref_linkedin a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .ref_linkedin a:hover {
+      text-decoration: underline;
+    }
+
     .person_a a {
       text-decoration: none;
       color: black;
@@ -126,7 +135,7 @@
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Buscar">
           <button class="btn btn-light btn-sm">
-            <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+            <img src="{{ eye_icon_static }}buscar.svg" style="height: 20px; width: 20px;">
           </button>
         </form>
 
@@ -137,7 +146,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
 
           <!-- MENÚ CENTRADO -->
-          <ul class="navbar-nav mx-auto text-center gap-2">
+          <ul class="navbar-nav mx-auto text-center gap-1">
 
             <li>
               <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %} nav-link"
@@ -149,16 +158,21 @@
                 href="{% url 'docencia' %}">Enseñanza</a>
             </li>
             <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                href="#">Investigación</a>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Intereses</a>
             </li>
-            <!-- <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                href="#">Portafolio</a>
-            </li> -->
             <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Contacto</a>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Proyectos</a>
             </li>
+
+            <li>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Galería</a>
+            </li>
+
+            <li>
+              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                href="#">Publicaciones</a>
+            </li>
+
             {% if user.is_authenticated %}
             {% if puede_ver_hv %}
             <li>
@@ -185,7 +199,7 @@
               <img src="{{foto_usuario_login}}"
                 style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
               {% else %}
-              <img src="{{ eye_icon }}persona-blanco.svg"
+              <img src="{{ eye_icon_static }}persona-blanco.svg"
                 style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
               {% endif %}
 
@@ -200,7 +214,7 @@
                 </a>
               </div>
               <div>
-                <img src="{{ eye_icon }}persona-blanco.svg"
+                <img src="{{ eye_icon_static }}persona-blanco.svg"
                   style="width:38px; height:38px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">
               </div>
             </div>
@@ -223,7 +237,7 @@
           <div style="width:7%; display: flex;align-items: center;">
 
             <button onclick="toggleLeftPanel()" class="collapse-btn">
-              <img src="{{ eye_icon }}botton-despliegue.svg">
+              <img src="{{ eye_icon_static }}botton-despliegue.svg">
             </button>
 
           </div>
@@ -243,7 +257,7 @@
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Buscar">
               <button class="btn btn-light btn-sm">
-                <img src="{{ eye_icon }}buscar.svg" style="height: 20px; width: 20px;">
+                <img src="{{ eye_icon_static }}buscar.svg" style="height: 20px; width: 20px;">
               </button>
             </form>
           </div>
@@ -288,21 +302,25 @@
 
               <li>
                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
-                  Investigación
+                  Intereses
                 </a>
               </li>
-
-              <!-- <li>
-                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
-                  Portafolio
-                </a>
-              </li> -->
 
               <li>
-                <a class="{% if request.resolver_match.url_name == 'idiomas' %}active{% endif %}" href="">
-                  Contacto
-                </a>
+                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                  href="#">Proyectos</a>
               </li>
+
+              <li>
+                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Galería</a>
+              </li>
+
+              <li>
+                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                  href="#">Publicaciones</a>
+              </li>
+
+
 
               {% if user.is_authenticated %}
               {% if puede_ver_hv %}
@@ -365,14 +383,14 @@
           <div class="contenedor-btn-gitHub-cv">
             <a href="{% url 'curr-hv' %}" class="btn-cv">
               <span class="icono">
-                <img src="{{ eye_icon }}micv.svg" style="height: 22px; width: 22px;">
+                <img src="{{ eye_icon_static }}micv.svg" style="height: 22px; width: 22px;">
               </span>
               <div style="font-size: 15px;">Currículum</div>
             </a>
 
             <a href="https://github.com/amolinacrn" target="_blank" class="btn-github">
               <span class="icono">
-                <img src="{{ eye_icon }}github.svg" style="height: 20px; width: 20px;">
+                <img src="{{ eye_icon_static }}github.svg" style="height: 20px; width: 20px;">
               </span>
               <div style="font-size: 15px;">GitHub</div>
             </a>
@@ -390,16 +408,25 @@
         </div>
 
         <div class="descripcion-personal-profesion">
-          Profesor universitario, investigador en análisis de datos y desarrollador de software.
+          {% for e in datos_personales %}
+          <div>
+            {{ e.descripcion }}
+          </div>
+          <div>
+            {{ e.afiliacion }}
+          </div>
+
+
+          {% endfor %}
         </div>
         {% for e in estudios|slice:":2" %}
         <div class="educacion-del-sujeto" style="font-size: 14px;">
           <span style="margin-right: 10px;">
-            <img src="{{ eye_icon }}titulo-black.svg" style="height: 20px;width: 16px;">
+            <img src="{{ eye_icon_static }}titulo-black.svg" style="height: 20px;width: 16px;">
             {{ e.titulo_obtenido }}
           </span>
           <span>
-            <img src="{{ eye_icon }}academica-black.svg" style="height: 20px; width: 15px;">
+            <img src="{{ eye_icon_static}}academica-black.svg" style="height: 20px; width: 15px;">
             {{e.institucion_universitaria}}
           </span>
           <!--img src="{{ eye_icon }}ubicacion-Universidad-black.svg" style="width: 22px; height: 25px;"-->

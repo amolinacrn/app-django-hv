@@ -54,6 +54,7 @@
                 <table class="competencias-table">
                     <thead>
                         <tr>
+                            <th>Icono</th>
                             <th>Competencia técnica</th>
                             <th>Dominio básico</th>
                             <th>Dominio medio</th>
@@ -65,7 +66,11 @@
                     <tbody>
                         {% for qrdat in querydat %}
                         <tr>
-                            <td>{{ qrdat.herramienta_tecnica }}</td>
+                            <td>
+                                <img src="{{qrdat.icono_url}}" class="border_imagenes_portada">
+                            </td>
+                            <td>{{ qrdat.herramienta_tecnica }}
+                            </td>
                             <td>
                                 <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
                                     <div
@@ -82,6 +87,7 @@
                                     </div>
                                 </div>
                             </td>
+
                             <td>
                                 <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
                                     <div
@@ -97,7 +103,9 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </td>
+
                             <td>
                                 <div class="progress" style="height: 17px; width: 100%; background-color: #ffffff;">
                                     <div
@@ -192,31 +200,27 @@
             <form enctype="multipart/form-data" method="post" id="editar_datos_formulario">
                 {% csrf_token %}
                 <div class="form-grid card bg-light" style="margin-bottom:16px">
-                    <div>{{ form.herramienta_tecnica|as_crispy_field }}</div>
-                    <div>{{ form.dominio_basico|as_crispy_field }}</div>
-                    <div>{{ form.dominio_medio|as_crispy_field }}</div>
-                    <div>{{ form.dominio_avanzado|as_crispy_field }}</div>
+                    {{ form.herramienta_tecnica|as_crispy_field }}
+                    {{ form.dominio_basico|as_crispy_field }}
+                    {{ form.dominio_medio|as_crispy_field }}
+                    {{ form.dominio_avanzado|as_crispy_field }}
+                    {{ form.cargar_icono|as_crispy_field}}
                 </div>
                 <div class="card form-grid bg-light mb-3 p-3">
 
-                    <div class="diploma-row">
-                        <div>
-                            <label class="cargar_documento_whith" for="documento_soporte">Adjuntar certificado en (<b
-                                    style='color:red'>.pdf</b>)
-                                <div style="margin-top:7px">
-                                    <input type="file" name="documento_soporte" id="documento_soporte"
-                                        class="upload-img green">
-                                </div>
-                            </label>
-                            <div class="error-upload">
-                                {{ form.documento_soporte.errors.as_text }}
-                            </div>
+
+                    <label class="cargar_documento_whith" for="documento_soporte">Adjuntar certificado en (<b
+                            style='color:red'>.pdf</b>)
+                        <div style="margin-top:7px">
+                            <input type="file" name="documento_soporte" id="documento_soporte" class="upload-img green">
                         </div>
-
-                        <a id="ref_img_ver" class="ojo_ver_pdf">
-                        </a>
-
+                    </label>
+                    <div class="error-upload">
+                        {{ form.documento_soporte.errors.as_text }}
                     </div>
+
+                    <a id="ref_img_ver" class="ojo_ver_pdf">
+                    </a>
                 </div>
                 <br>
                 <hr>

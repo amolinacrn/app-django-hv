@@ -16,7 +16,7 @@
 
             <div class="style-info-personal-personal">
                 <div>
-                    <img src="{{ eye_icon }}ubicacion.svg" class="stilo-imagenes-portada" style="width: 21px">
+                    <img src="{{ eye_icon_static }}ubicacion.svg" class="stilo-imagenes-portada" style="width: 21px">
                 </div>
                 <div>
                     {{ e.ciudad_residencia }}, {{ e.departamento_origen }}
@@ -25,7 +25,7 @@
 
             <div class="style-info-personal-personal">
                 <div>
-                    <img src="{{ eye_icon }}email_black.svg" class="stilo-imagenes-portada">
+                    <img src="{{ eye_icon_static }}email_black.svg" class="stilo-imagenes-portada">
                 </div>
                 <div>
                     {{ e.correo_electronico }}
@@ -34,11 +34,19 @@
 
             <div class="style-info-personal-personal">
                 <div>
-                    <img src="{{ eye_icon }}linkedin_black.svg" class="stilo-imagenes-portada">
+                    <img src="{{ eye_icon_static }}telephone-black.svg" class="stilo-imagenes-portada">
                 </div>
                 <div>
-                    <a href="{{e.cuenta_linkedin}}" target="_blank"
-                        style="text-decoration: none; font-weight: bold;">LinkedIn</a>
+                    +{{ e.telefono_celular }}
+                </div>
+            </div>
+
+            <div class="style-info-personal-personal">
+                <div>
+                    <img src="{{ eye_icon_static }}linkedin_black.svg" class="stilo-imagenes-portada">
+                </div>
+                <div class="ref_linkedin">
+                    <a href="{{e.cuenta_linkedin}}" target="_blank">LinkedIn</a>
                 </div>
             </div>
             {% endfor %}
@@ -53,7 +61,7 @@
 
             <div class="style-info-personal">
                 <div class="style-info-academica-laboral">
-                    <img src="{{ eye_icon }}{{e.acronimo}}.png" class="border_imagenes_portada">
+                    <img src="{{e.icono_url}}" class="border_imagenes_portada">
                 </div>
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados">
@@ -70,7 +78,6 @@
                 </div>
             </div>
 
-
             {% endfor %}
         </div>
         <div class="cls-login-name-user">
@@ -83,7 +90,7 @@
 
             <div class="style-info-personal">
                 <div class="style-info-academica-laboral">
-                    <img src="{{ eye_icon }}{{e.acronimo}}.png" class="border_imagenes_portada">
+                    <img src="{{e.icono_url}}" class="border_imagenes_portada">
                 </div>
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados ">
@@ -116,7 +123,7 @@
 
             <div class="style-info-personal">
                 <div class="style-info-academica-laboral">
-                    <img src="{{ eye_icon }}{{e.icono}}.png" class="border_imagenes_portada">
+                    <img src="{{e.icono_url}}" class="border_imagenes_portada">
                 </div>
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados">
@@ -150,7 +157,7 @@
 
             <div class="style-info-personal">
                 <div class="style-info-academica-laboral">
-                    <img src="{{ eye_icon }}{{e.icono}}.png" class="border_imagenes_portada">
+                    <img src="{{e.icono_url}}" class="border_imagenes_portada">
                 </div>
                 <div class="style-info-academica-laboral">
                     {{ e.herramienta_tecnica }}

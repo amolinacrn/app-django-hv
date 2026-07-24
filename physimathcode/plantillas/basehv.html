@@ -126,7 +126,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
 
             <!-- MENÚ CENTRADO -->
-            <ul class="navbar-nav mx-auto text-center gap-2">
+            <ul class="navbar-nav mx-auto text-center gap-1">
 
                 <li class="nav-item">
                     <a class="{% if request.resolver_match.url_name == 'docencia' %}active{% endif %} nav-link"
@@ -135,14 +135,23 @@
                 </li>
                 <li class="nav-item">
                     <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                        href="#">Investigación</a>
+                        href="#">Intereses</a>
                 </li>
-                <!-- <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
-                    <a class="nav-link" href="#">Portafolio</a>
-                </li> -->
-                <li class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                <li>
+                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                        href="#">Proyectos</a>
                 </li>
+
+                <li>
+                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                        href="#">Galería</a>
+                </li>
+
+                <li>
+                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
+                        href="#">Publicaciones</a>
+                </li>
+
                 {% if user.is_authenticated %}
                 {% if puede_ver_hv %}
                 <li>
@@ -432,7 +441,7 @@
                 customDerecho.style.transition = "margin-left 0.4s ease";
                 posicion_hv_html.style.marginRight = "5px";
                 posicion_hv_html.style.marginLeft = "5px";
-                cargar_documento_whith.style.width = "250px";
+                cargar_documento_whith.style.width = "100%";
 
 
             } else {
@@ -442,7 +451,7 @@
                 customDerecho.style.transition = "margin-left 0.4s ease";
                 posicion_hv_html.style.marginRight = "13vw";
                 posicion_hv_html.style.marginLeft = "2vw"
-                cargar_documento_whith.style.width = "350px";
+                cargar_documento_whith.style.width = "100%";
 
             }
 

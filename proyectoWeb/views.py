@@ -185,7 +185,7 @@ def funcion_home(rqst):
     mis_publicaciones = MisPublicaciones.objects.all()
 
     # --- icono ---
-    eye_icon = rqst.build_absolute_uri(
+    eye_icon_static = rqst.build_absolute_uri(
         static("bs532/img/")
     )
 
@@ -194,23 +194,17 @@ def funcion_home(rqst):
     for i in range(1, 20):
         imagenes_carrusel.append(f"img{i}.jpg")
 
-    for t in tecnologias:
-        nombre = t.herramienta_tecnica
 
-        if nombre == "C#":
-            t.icono = "csharp"
-        elif nombre == "C++":
-            t.icono = "cpp"
-        else:
-            t.icono = nombre.lower().replace(" ", "")
-
-    for t in areas_de_interes:
-        nombre = t.linea_pesquisa
-        t.icono = nombre.lower().replace(" ", "")
+    for objeto in list(tecnologias) + list(diplomas) + list(experiencias)+list(areas_de_interes):
+        try:
+            objeto.icono_url = rqst.build_absolute_uri(objeto.cargar_icono.url)
+        except Exception:
+            objeto.icono_url = None
     
 
     # --- contexto ---
     contexto = {
+        "eye_icon_static": eye_icon_static,
 
         "areas_de_interes":areas_de_interes,
 
@@ -219,8 +213,6 @@ def funcion_home(rqst):
         "imagenesCarrusel":imagenes_carrusel,
         
         "puede_ver_hv": es_acceso_hoja_vida(rqst.user),
-
-        "eye_icon": eye_icon,
 
         "datos_personales": datos_personales,
 
