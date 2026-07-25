@@ -390,13 +390,6 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         max_length=50, label="Ciudad:", required=False
     )
 
-    acronimo = forms.CharField(
-        max_length=50,
-        label=mark_safe("Acrónimo:"),
-        required=False
-    )
-
-
     documento_soporte = forms.FileField(
         #label=mark_safe("Adjuntar diploma en (<b><span style='color:red'>.pdf</span></b>):"),
         required=False,
@@ -413,6 +406,7 @@ class FormularioTitulosAcademicos(forms.ModelForm):
             MaxZiseImageValidator(max_img_size=0.2),
         ],
     )
+
     
 class FormExperienciaLaboral(forms.ModelForm):
 
@@ -517,11 +511,7 @@ class FormExperienciaLaboral(forms.ModelForm):
         input_formats=["%Y-%m-%d"],
     )
 
-    acronimo = forms.CharField(
-        max_length=50,
-        label=mark_safe("Acrónimo:"),
-        required=False
-    )
+
 
     documento_soporte = forms.FileField(
         #label=mark_safe("Soporte experiencia laboral (<b>.jpg</b>):"),
@@ -603,6 +593,14 @@ class FormularioProduccionAcademica(forms.ModelForm):
         required=True,
     )
 
+    documento_soporte = forms.FileField(
+        required=False,
+        widget=forms.FileInput(),
+        validators=[
+            MaxZiseFileValidator(max_file_size=1),
+        ],
+    )
+
     cargar_icono = forms.ImageField(
         label="",
         required=False,
@@ -630,6 +628,7 @@ class FormularioParticipacionCientifica(forms.ModelForm):
     label=mark_safe("<span style='color:red'>*</span>  Nombre del evento:"),
     required=True,
     )
+
 
     tipo_evento = forms.CharField(
         max_length=150,
@@ -799,7 +798,6 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop("current_user", None)
         super().__init__(*args, **kwargs)
-        self.fields["cargar_icono"].widget.attrs["class"] = "upload-img green"
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
@@ -876,6 +874,13 @@ class FormCursosImpartidos(forms.ModelForm):
         required=False,
     )
     
+    imprimir_datos= forms.CharField(
+        max_length=10, 
+        label="Imprimir", 
+        widget=forms.Select(choices=IMPRIMIR_DATOS),
+    )
+
+
     titulo_documento_guia = forms.CharField(
         max_length=500,
         label="Bibliografía:",
@@ -987,3 +992,56 @@ class FormCitasBibliograficas(forms.ModelForm):
         widget=forms.Select(choices=CAPITULOS_LIBRO),
     )
 
+class FormImprimirHojaDeVida(forms.ModelForm):
+    class Meta:
+        model = ImprimirHojaDeVida
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop("current_user", None)
+        super().__init__(*args, **kwargs)
+        self.fields["nombre_usuario"].disabled = True
+        self.fields["nombre_usuario"].initial = self.current_user
+
+    imprimir_estudio = forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+    imprimir_experiencia = forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+    imprimir_idioma =forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+    imprimir_produccion = forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+    imprimir_participacion = forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+    imprimir_tecnicas =forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+
+    imprimir_perfil =forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+
+    imprimir_documentacion =forms.TypedChoiceField(
+        choices=IMPRIMIR_DATOS,
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )

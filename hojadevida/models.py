@@ -64,7 +64,7 @@ class TitulosAcademico(models.Model):
     pais_titulo = models.CharField(max_length=20, blank=False, null=False)
     departamento_titulo = models.CharField(max_length=20, blank=False, null=False)
     ciudad_titulo = models.CharField(max_length=50, blank=True, null=True)
-    acronimo = models.CharField(max_length=50, blank=True, null=True)
+
     documento_soporte = models.FileField(
         upload_to="files/docs/diplomas", blank=True, null=True
     )
@@ -92,20 +92,16 @@ class ExperienciasLaborale(models.Model):
     direccion_empresa = models.CharField(max_length=50, blank=True, null=True)
     fecha_inicio = models.DateField(blank=False, null=False)
     fecha_fin = models.DateField(blank=False, null=False)
-    acronimo = models.CharField(max_length=50, blank=True, null=True)
+
     documento_soporte = models.FileField(
         upload_to="files/docs/experiencia", blank=True, null=True
     )
+
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
     class Meta:
         ordering = ['-fecha_inicio']
 
-
-
 class ProduccionAcademica(models.Model):
-    class Meta:
-        ordering = ['-fecha_publicacion']
-
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
     )
@@ -118,7 +114,12 @@ class ProduccionAcademica(models.Model):
     linea_pesquisa = models.CharField(max_length=150, blank=True, null=True)
     doi_link_publicacion = models.URLField(max_length=100, blank=False, null=False)
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
-    acronimo = models.CharField(max_length=50, blank=True, null=True)
+
+    documento_soporte = models.FileField(
+        upload_to="files/docs/papers", blank=True, null=True
+    )
+    class Meta:
+        ordering = ['-fecha_publicacion']
 
 class ParticipacionCientifica(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -136,8 +137,9 @@ class ParticipacionCientifica(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/eventos", blank=True, null=True
     )
+
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
-    acronimo = models.CharField(max_length=50, blank=True, null=True)
+
 
 class IdiomaExtrangero(models.Model):
     nombre_usuario = models.ForeignKey(
@@ -164,7 +166,7 @@ class IdiomaExtrangero(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/idiomas", blank=True, null=True
     )
-
+  
 
 class CompetenciasTecnicasComputacionale(models.Model):
     class Meta:
@@ -181,6 +183,7 @@ class CompetenciasTecnicasComputacionale(models.Model):
         upload_to="files/docs/certificados", blank=True, null=True
     )
 
+
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
 
 
@@ -194,6 +197,7 @@ class CursosImpartidos(models.Model):
     identificador_disciplina = models.CharField(max_length=10, blank=False, null=False)
     nombre_disciplina = models.CharField(max_length=30, blank=False, null=False)
     conjunto_tematicas = models.CharField(max_length=1000, blank=True, null=True)
+
  
 
 class CitasBibliograficas(models.Model):
@@ -232,3 +236,15 @@ class UnidadesCursosImpartidos(models.Model):
     unidades_de_tematica =  models.CharField(max_length=1000, blank=True, null=True)
     numero_unidad = models.CharField(max_length=3, blank=True)
  
+class ImprimirHojaDeVida(models.Model):
+    nombre_usuario = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )
+    imprimir_estudio = models.BooleanField(default=False)
+    imprimir_experiencia = models.BooleanField(default=False)
+    imprimir_idioma = models.BooleanField(default=False)
+    imprimir_produccion = models.BooleanField(default=False)
+    imprimir_participacion = models.BooleanField(default=False)
+    imprimir_tecnicas = models.BooleanField(default=False)
+    imprimir_perfil = models.BooleanField(default=False)
+    imprimir_documentacion = models.BooleanField(default=False)

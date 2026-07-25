@@ -83,7 +83,7 @@
 
 
     <div class="card mb-3 p-3 bg-light" style="width: auto;">
-      <div style="display: flex; gap: 15px;">
+      <div class="img_datos_personales">
         <div>
           <div class="clase_titulo_portadas">
             Foto de perfil
@@ -100,7 +100,7 @@
         </div>
         <div>
           <div class="clase_titulo_portadas">
-            Imagen de la portada principal
+            Foto de portada
           </div>
           <a data-bs-toggle="modal" data-bs-target="#cargar_portada" class="foto-box d-block"
             onclick="openModal('imagen_de_portada','{{qryset_foto_obj.imagen_de_portada}}' ,'{{img_portada_url}}', '{% url 'delete_image' 'imagen_de_portada' %}')">
@@ -115,7 +115,7 @@
 
         <div>
           <div class="clase_titulo_portadas">
-            Imagen de login y registro
+            Portada login/registro
           </div>
           <a data-bs-toggle="modal" data-bs-target="#cargar_panel_izquierdo" class="foto-box d-block"
             onclick="openModal('imagen_panel_izquierdo','{{qryset_foto_obj.imagen_panel_izquierdo}}' ,'{{portada_izquierda_url}}', '{% url 'delete_image' 'imagen_panel_izquierdo' %}')">
@@ -249,7 +249,7 @@
         </button>
 
 
-        <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger">
+        <a href="{% url 'hojadevida' 0 %}" class="btn btn-sm btn-outline-danger">
 
           <table>
             <tr>

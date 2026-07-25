@@ -26,6 +26,13 @@ def es_acceso_hoja_vida(user):
         name="acceso-hoja-de-vida"
     ).exists()
 
+def obtener_url_absoluta(request, archivo):
+    if not archivo:
+        return None
+    try:
+        return request.build_absolute_uri(archivo.url)
+    except Exception:
+        return None
 
 def acceso_hoja_de_vida(user):
     return user.groups.filter(name="acceso-hoja-de-vida").exists()
@@ -72,12 +79,12 @@ def file_delete(request):
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
-def Menu_HV(request):
+def funcion_Menu_HV(rqst):
 
-    if not request.user.is_authenticated:
+    if not rqst.user.is_authenticated:
         return redirect("login")
 
-    user = request.user
+    user = rqst.user
 
     # --- consultas ---
     foto_obj = FotosPersonale.objects.filter(
@@ -101,7 +108,7 @@ def Menu_HV(request):
     )
 
     # --- icono ---
-    eye_icon = request.build_absolute_uri(
+    eye_icon = rqst.build_absolute_uri(
         static("bs532/img/")
     )
 
@@ -109,7 +116,7 @@ def Menu_HV(request):
     foto_url_perfil = ""
 
     if foto_obj and foto_obj.foto_perfil:
-        foto_url_perfil = request.build_absolute_uri(
+        foto_url_perfil = rqst.build_absolute_uri(
             foto_obj.foto_perfil.url
         )
 
@@ -125,7 +132,7 @@ def Menu_HV(request):
 
 
     try:
-        usuario_login = User.objects.get(username=request.user)
+        usuario_login = User.objects.get(username=rqst.user)
     except:
         usuario_login=None
 
@@ -141,12 +148,13 @@ def Menu_HV(request):
 
         if obj_usuario_login and obj_usuario_login.name:
             
-            url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
+            url_usuario_login = rqst.build_absolute_uri(obj_usuario_login.url)
+
 
 
     # --- contexto ---
     contexto = {
-        "puede_ver_hv": es_acceso_hoja_vida(request.user),
+        "puede_ver_hv": es_acceso_hoja_vida(rqst.user),
 
         "eye_icon": eye_icon,
 
@@ -170,11 +178,7 @@ def Menu_HV(request):
 
     }
 
-    return render(
-        request,
-        "datos_HV.html",
-        contexto
-    )
+    return contexto
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
@@ -188,7 +192,8 @@ def view_pdf_HV(request):
     produccion_academica= ProduccionAcademica.objects.filter(nombre_usuario_id=request.user.id)
     participacion_cientifica=ParticipacionCientifica.objects.filter(nombre_usuario_id=request.user.id)
     competencias_tecnicas_computacionales=CompetenciasTecnicasComputacionale.objects.filter(nombre_usuario_id=request.user.id)
-
+    imprimir_datos = ImprimirHojaDeVida.objects.filter(nombre_usuario_id=request.user.id)
+    
     matriz_imagenes_base64 = []
 
     eye_icon = request.build_absolute_uri(static('bs532/img/'))
@@ -216,29 +221,33 @@ def view_pdf_HV(request):
     conjuto_modelos = {
         "diplomas_de_estudio": {
             "queryset": diplomas_de_estudio,
-            # "modelo": TitulosAcademico,
             "certificado_pdf":"documento_soporte",
-
+            "imprimir_datos":imprimir_datos[0].imprimir_estudio,
         },
         "experiencias_laborales": {
             "queryset": experiencias_laborales,
             "certificado_pdf":"documento_soporte",
+            "imprimir_datos":imprimir_datos[0].imprimir_experiencia,
         },
         "idioma_extrangero": {
             "queryset": idioma_extrangero,
             "certificado_pdf":"documento_soporte",
+            "imprimir_datos":imprimir_datos[0].imprimir_idioma,
         },
         "participacion_cientifica": {
             "queryset": participacion_cientifica,
-            "certificado_pdf":"documento_soporte"
+            "certificado_pdf":"documento_soporte",
+            "imprimir_datos":imprimir_datos[0].imprimir_participacion
         },
         "competencias_tecnicas_computacionale": {
             "queryset": competencias_tecnicas_computacionales,
-            "certificado_pdf":"documento_soporte"
+            "certificado_pdf":"documento_soporte",
+            "imprimir_datos":imprimir_datos[0].imprimir_tecnicas
         },
     }
 
     for _, info in conjuto_modelos.items():
+        imprimir_doc = info["imprimir_datos"]
         if info["queryset"].count() != 0:
             for modelo in info["queryset"]:
                 campo_pdf = info["certificado_pdf"]
@@ -267,10 +276,11 @@ def view_pdf_HV(request):
                     imagenes_base64.append(img_str)
 
                 matriz_imagenes_base64.append(
-                    (imagenes_base64, modelo.link, url_absoluta)
+                    (imagenes_base64, modelo.link, url_absoluta, imprimir_doc)
                 )
 
     contexto={
+        "imprimir_datos":imprimir_datos,
         'eye_icon': eye_icon,
         "datos_personales": datos_personales,
         "estudios": diplomas_de_estudio,
@@ -344,6 +354,7 @@ def codigo_vistas_automaticas_post_hv(request,
 
     return (plantilla_html, Contexto, es_valido)
 
+
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
 def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
@@ -355,24 +366,19 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
         nombre_usuario_id=request.user.id
     )
 
+
+
     for objeto in queryset_dat:
-        archivo_soporte = getattr(objeto, documento_soporte, None) if documento_soporte else None
-        mostrar_icono = getattr(objeto, "cargar_icono", None) if "cargar_icono" else None
-        
-        if archivo_soporte:
-            try:
-                objeto.documento_url = request.build_absolute_uri(
-                    archivo_soporte.url
-                )
-            except:
-                objeto.documento_url = None
 
-        if mostrar_icono:
-            try:
-                objeto.icono_url=request.build_absolute_uri(mostrar_icono.url)
-            except:
-                objeto.icono_url = None
+        objeto.documento_url = obtener_url_absoluta(
+            request,
+            getattr(objeto, documento_soporte, None) if documento_soporte else None
+        )
 
+        objeto.icono_url = obtener_url_absoluta(
+            request,
+            getattr(objeto, "cargar_icono", None)
+        )
 
     eye_icon = request.build_absolute_uri(
         static("bs532/img/")
@@ -683,7 +689,7 @@ class ProduccionAcademicaHV(View):
         plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
                                                                     FormularioProduccionAcademica,
                                                                     ProduccionAcademica,
-                                                                    None,
+                                                                    "documento_soporte",
                                                                     "produccion_academica.html")
         return render(request, plantilla_html, contexto)
 
@@ -988,3 +994,50 @@ class CitasBibliograficasHV(View):
         if validacion_form:
             return redirect(plantilla, contexto)
         return render(request, plantilla,contexto)
+
+
+class ImprimirHojaDeVidaHV(View):
+
+    def get(self, request, pk=0):
+        if not request.user.is_authenticated:
+            return redirect("logear")
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
+        
+        plantilla_html, contexto = Codigo_vistas_automaticas_get_hv(request,
+                                                                    FormImprimirHojaDeVida,
+                                                                    ImprimirHojaDeVida,
+                                                                    None,
+                                                                    "datos_HV.html")
+        form_context=funcion_Menu_HV(request)
+
+        form_context ["form_imprimir"]= contexto 
+
+        return render(request, plantilla_html, form_context)
+
+    def post(self, request, pk=0):
+        if not request.user.is_authenticated:
+            return redirect("logear")
+
+        if not request.user.groups.filter(
+            name="acceso-hoja-de-vida"
+        ).exists():
+            return redirect("/autenticacion/acceso-denegado/")
+
+        form_context=funcion_Menu_HV(request)
+
+        plantilla, contexto, validacion_form = codigo_vistas_automaticas_post_hv(request,
+                                                                FormImprimirHojaDeVida,
+                                                                ImprimirHojaDeVida,
+                                                                "datos_HV.html",
+                                                                "hojadevida",
+                                                                pk,
+                                                                False)
+   
+        form_context ["form_imprimir"]= contexto 
+
+        if validacion_form:
+            return redirect(plantilla, contexto)
+        return render(request, plantilla, form_context)

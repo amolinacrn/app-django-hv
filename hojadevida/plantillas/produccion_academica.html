@@ -34,7 +34,7 @@
             <b class="text-uppercase">Registro producción académica</b>
           </td>
           <td style="font-size:15px;">
-            <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-outline-danger float-end">
 
               <b>salir</b>
             </a>
@@ -48,24 +48,39 @@
         {% csrf_token %}
 
         <div class="form-grid card bg-light" style="margin-bottom:16px">
-          <div>{{ form.autores_trabajo|as_crispy_field }}</div>
-          <div>{{ form.nombre_trabajo|as_crispy_field }}</div>
-          <div>{{ form.pais_publicacion|as_crispy_field }}</div>
+          {{ form.autores_trabajo|as_crispy_field }}
+          {{ form.nombre_trabajo|as_crispy_field }}
+          {{ form.pais_publicacion|as_crispy_field }}
 
-          <div>{{ form.fecha_publicacion|as_crispy_field }}</div>
-          <div>{{ form.nombre_revista|as_crispy_field }}</div>
-          <div>{{ form.area_concentracion|as_crispy_field }}</div>
+          {{ form.fecha_publicacion|as_crispy_field }}
+          {{ form.nombre_revista|as_crispy_field }}
+          {{ form.area_concentracion|as_crispy_field }}
 
-          <div class="full-row">{{ form.linea_pesquisa|as_crispy_field }}</div>
+
+          {{ form.linea_pesquisa|as_crispy_field }}
+          {{ form.doi_link_publicacion|as_crispy_field }}
+
         </div>
 
-        <div class="form-grid card bg-light">
-          <div>
-            <div class="full-row">
-              {{ form.doi_link_publicacion|as_crispy_field }}
+        <div class="card form-grid bg-light">
+
+          <div class="diploma-row">
+            <div style="width: 100%;">
+              <label class="cargar_documento_whith" for="documento_soporte">Cargar documento
+                (<b style='color:red'>.pdf</b>):
+                <div style="margin-top:7px">
+                  <input type="file" name="documento_soporte" id="documento_soporte" class="upload-img green">
+                </div>
+                <div class="error-upload">
+                  {{ form.documento_soporte.errors.as_text }}
+                </div>
+              </label>
             </div>
-            <div id="ref_img_ver">
+
+            <div id="ref_img_ver" class="ojo_ver_pdf">
+              <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">
             </div>
+
           </div>
 
           <label class="cargar_documento_whith" for="cargar_icono">
@@ -77,9 +92,8 @@
               {{ form.cargar_icono.errors.as_text }}
             </div>
           </label>
-
-
         </div>
+
 
         <br>
         <hr>
@@ -146,7 +160,7 @@
             <b class="text-uppercase">Producción académica</b>
           </td>
           <td style="font-size:15px;">
-            <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-outline-danger float-end">
 
               <b>salir</b>
             </a>
@@ -220,6 +234,11 @@
               </td>
 
               <td>
+                <!-- Ver soporte -->
+                <button type="button" class="icon-btn"
+                  onclick="funcionVisualizarModal('{{ qrdat.documento_url }}','Experiencia {{ qrdat.cargo }} - {{ qrdat.nombre_empresa }}')">
+                  <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
+                </button>
 
                 <!-- Editar -->
 
@@ -230,13 +249,14 @@
                   data-nombre_revista="{{ qrdat.nombre_revista }}"
                   data-area_concentracion="{{ qrdat.area_concentracion }}"
                   data-linea_pesquisa="{{ qrdat.linea_pesquisa }}"
-                  data-doi_link_publicacion="{{ qrdat.doi_link_publicacion }}">
+                  data-doi_link_publicacion="{{ qrdat.doi_link_publicacion }}"
+                  data-documento_soporte="{{ qrdat.documento_soporte }}" data-documento_url="{{ qrdat.documento_url }}"
+                  data-cargar_icono="{{qrdat.cargar_icono}}">
+
 
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
                 </button>
-
-
 
                 <!-- Eliminar -->
                 <a href="{% url 'delete_file_record' 'ProduccionAcademica' qrdat.id %}" class="icon-btn">

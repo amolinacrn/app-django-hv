@@ -33,7 +33,7 @@
             <b class="text-uppercase">Formación académica</b>
           </td>
           <td>
-            <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-outline-danger float-end">
 
               <b>salir</b>
             </a>
@@ -63,6 +63,7 @@
           {{form.departamento_titulo|as_crispy_field}}
           {{form.ciudad_titulo|as_crispy_field}}
 
+
         </div>
 
         <div class="card form-grid bg-light mb-3 p-3">
@@ -76,10 +77,9 @@
         <div class="card form-grid bg-light">
 
           <div class="diploma-row">
-
             <div style="width: 100%;">
-              <label class="cargar_documento_whith" for="documento_soporte">Adjuntar diploma en (<b
-                  style='color:red'>.pdf</b>)
+              <label class="cargar_documento_whith" for="documento_soporte">Cargar documento
+                (<b style='color:red'>.pdf</b>):
                 <div style="margin-top:7px">
                   <input type="file" name="documento_soporte" id="documento_soporte" class="upload-img green">
                 </div>
@@ -89,9 +89,8 @@
               </label>
             </div>
 
-            <div>
-              <div id="ref_img_ver" class="ojo_ver_pdf">
-              </div>
+            <div id="ref_img_ver" class="ojo_ver_pdf">
+              <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">
             </div>
 
           </div>
@@ -105,11 +104,7 @@
               {{ form.cargar_icono.errors.as_text }}
             </div>
           </label>
-
-
-
         </div>
-
         <br>
         <hr>
 
@@ -170,7 +165,7 @@
             <b class="text-uppercase">Formación académica</b>
           </td>
           <td>
-            <a href="{% url 'hojadevida' %}" class="btn btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-outline-danger float-end">
 
               <b>salir</b>
             </a>
@@ -268,7 +263,7 @@
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}" data-pais_titulo="{{ qrdat.pais_titulo }}"
                   data-departamento_titulo="{{ qrdat.departamento_titulo }}"
                   data-ciudad_titulo="{{ qrdat.ciudad_titulo }}" data-documento_url="{{ qrdat.documento_url }}"
-                  data-acronimo="{{ qrdat.acronimo }}">
+                  data-cargar_icono="{{qrdat.cargar_icono}}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
                 </button>
 

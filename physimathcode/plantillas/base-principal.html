@@ -176,7 +176,7 @@
             {% if user.is_authenticated %}
             {% if puede_ver_hv %}
             <li>
-              <a class="nav-link" href="{% url 'hojadevida' %}">
+              <a class="nav-link" href="{% url 'hojadevida' 0 %}">
                 Gestión
               </a>
             </li>
@@ -325,7 +325,7 @@
               {% if user.is_authenticated %}
               {% if puede_ver_hv %}
               <li>
-                <a class="nav-link" href="{% url 'hojadevida' %}">
+                <a class="nav-link" href="{% url 'hojadevida' 0 %}">
                   Gestión
                 </a>
               </li>

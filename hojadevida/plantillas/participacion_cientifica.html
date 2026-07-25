@@ -35,7 +35,7 @@
             <b class="text-uppercase">Registro de participación científica</b>
           </td>
           <td style="font-size:15px;">
-            <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-sm btn-outline-danger float-end">
               <b>salir</b>
             </a>
           </td>
@@ -61,9 +61,10 @@
           <div>{{ form.modalidad_evento|as_crispy_field }}</div>
           <div>{{ form.departamento_evento|as_crispy_field }}</div>
 
+
         </div>
 
-        <div class="card form-grid bg-light mb-3 p-3">
+        <div class="card form-grid bg-light">
 
           <div class="diploma-row">
             <div>
@@ -78,8 +79,9 @@
               </div>
             </div>
 
-            <a id="ref_img_ver" class="ojo_ver_pdf">
-            </a>
+            <div id="ref_img_ver" class="ojo_ver_pdf">
+              <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">
+            </div>
 
           </div>
         </div>
@@ -149,7 +151,7 @@
             <b class="text-uppercase">Participación científica</b>
           </td>
           <td style="font-size:15px;">
-            <a href="{% url 'hojadevida' %}" class="btn btn-sm btn-outline-danger float-end">
+            <a href="{% url 'hojadevida' 0 %}" class="btn btn-sm btn-outline-danger float-end">
               <b>salir</b>
             </a>
           </td>

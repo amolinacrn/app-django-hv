@@ -4,6 +4,9 @@ capitulos = [None,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ]
 
+IMPRIMIR_DATOS=[(None,"Imprimir"),
+                (True,"Si"),
+                (False,"No")]
 
 CAPITULOS_LIBRO = []
 for i in capitulos:

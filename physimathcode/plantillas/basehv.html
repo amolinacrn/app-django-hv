@@ -48,6 +48,10 @@
 
         }
 
+        #ref_img_ver {
+            display: none;
+        }
+
         .css-tabla tr {
             background-color: var(--color-tabla-tr);
         }
@@ -85,6 +89,11 @@
             gap: 15px;
         }
 
+        .img_datos_personales {
+            display: flex;
+            gap: 15px;
+        }
+
 
         @media (max-width: 1100px) {
             .cabecera-curr-hv {
@@ -97,6 +106,10 @@
                 grid-template-columns: 1fr 1fr;
                 justify-content: center;
                 text-align: center;
+            }
+
+            .img_datos_personales {
+                flex-direction: column;
             }
 
         }
@@ -156,7 +169,7 @@
                 {% if puede_ver_hv %}
                 <li>
                     <a class="{% if request.resolver_match.url_name == 'hojadevida' %}active{% endif %} nav-link"
-                        href="{% url 'hojadevida' %}">
+                        href="{% url 'hojadevida' 0 %}">
                         Gestión
                     </a>
                 </li>
@@ -287,7 +300,7 @@
                             <li>
                                 <a class="{% if request.resolver_match.url_name == 'descargar_hv' %}active{% endif %}"
                                     href="{% url 'view_pdf_HV' %}" target="_blank">
-                                    Descargar Gestión
+                                    Descargar hoja de vida
                                 </a>
                             </li>
 
@@ -568,17 +581,23 @@
             });
         });
 
-
         function CargarArchivoPdf(path_file_pdf) {
 
-            const span_name = document.querySelector(".file-name"); // selecciona el span ya creado
-            if (!span_name) return;
+            const span_name = document.querySelectorAll(".file-name"); // selecciona el span ya creado
 
-            if (path_file_pdf) {
-                span_name.innerHTML = path_file_pdf.split("/").pop();
-            } else {
-                span_name.innerHTML = "Cargar un  archivo";
-            }
+            span_name.forEach((f, num) => {
+
+                if (!f) return;
+
+                if (path_file_pdf[num]) {
+
+                    f.innerHTML = path_file_pdf[num].split("/").pop();
+
+                } else {
+
+                    f.innerHTML = "Cargar un  archivo";
+                }
+            })
         }
 
         function TablaDeRegistros() {
@@ -597,13 +616,17 @@
 
             const input = document.getElementById("id_tematica_curso");
 
-            // if (input) {
-            //     input.value = el_tema ?? "";
-            // }
-
             const data = btn.dataset;
 
-            console.log(data);
+            Object.entries(data).forEach(([campo, valor]) => {
+
+                const input = document.getElementById(`id_${campo}`);
+                if (input) {
+                    input.value = valor ?? "";
+
+                }
+
+            });
 
             //const agregar_mas_formulario = document.querySelector(".agregar-mas-formulario");
             document.querySelector('.hidden-field-one').style.display = "block";
@@ -615,35 +638,32 @@
 
             if (Object.keys(data).length !== 0) {
                 form.action = data.id;
-                //agregar_mas_formulario.style.display = "block";
             } else {
                 form.reset();
-                //agregar_mas_formulario.style.display = "none";
             }
 
-            CargarArchivoPdf(data.documento_soporte);
+            let imputs_data = [data.documento_soporte, data.cargar_icono]
 
-            const btn_ver_img = document.getElementById("ref_img_ver");
+            CargarArchivoPdf(imputs_data);
 
-            if (data.documento_url) {
-                btn_ver_img.innerHTML = `<img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">`;
+            const btn_ver_img = document.querySelector("#ref_img_ver");
+
+            if (data.documento_url && data.documento_url !== "None") {
+
+                btn_ver_img.style.display = "block";
             } else {
-                btn_ver_img.innerHTML = ``;
+                btn_ver_img.style.display = "none";
             }
 
             btn_ver_img.onclick = function () {
                 funcionVisualizarModal(data.documento_url);
             };
 
-            Object.entries(data).forEach(([campo, valor]) => {
-                const input = document.getElementById(`id_${campo}`);
-                if (input) {
-                    input.value = valor ?? "";
-                }
-
-            });
-
         };
+
+        // document.addEventListener("DOMContentLoaded", () => {
+
+        // })
 
         window.addEventListener("load", async () => {
             await TablaDeRegistros();

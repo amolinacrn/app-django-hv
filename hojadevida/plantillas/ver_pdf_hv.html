@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    {% for imp in imprimir_datos %}
 
     <div class="class-div" id="secciones_hoja_de_vida">
 
@@ -89,7 +90,7 @@
             </tr>
 
         </table>
-
+        {% if imp.imprimir_perfil %}
         <div class="datos-personales-div">
             <span class="titulo-div">Perfil profesional</span>
         </div>
@@ -104,15 +105,18 @@
             <tr class="color-cuerpo-tablas">
                 {% for e in datos_personales %}
                 <td style="text-align: justify;">
+
                     {{e.perfil_profesional}}
+
                 </td>
                 {% endfor %}
             </tr>
         </table>
         {% endif %}
+        {% endif %}
 
 
-        {% if estudios %}
+        {% if estudios and imp.imprimir_estudio %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">formación académica</span>
@@ -145,7 +149,7 @@
 
         {% endif %}
 
-        {% if experiencias_laborales %}
+        {% if experiencias_laborales and imp.imprimir_experiencia %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">experiencia laboral</span>
@@ -195,7 +199,7 @@
 
         {% endif %}
 
-        {% if idioma_extrangero %}
+        {% if idioma_extrangero and imp.imprimir_idioma %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Idioma extranjero</span>
@@ -243,7 +247,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.domimio_conversacional }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.domimio_conversacional }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.domimio_conversacional }}" aria-valuemin="0"
                                 aria-valuemax="100">""
                             </div>
@@ -259,7 +263,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.dominio_lectura }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.dominio_lectura }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.dominio_lectura }}" aria-valuemin="0" aria-valuemax="100">""
                             </div>
                             <div
@@ -274,7 +278,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.dominio_escritura }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.dominio_escritura }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.dominio_escritura }}" aria-valuemin="0" aria-valuemax="100">""
                             </div>
                             <div
@@ -295,7 +299,7 @@
 
         {% endif %}
 
-        {% if produccion_academica %}
+        {% if produccion_academica and imp.imprimir_produccion %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Producción académica</span>
@@ -378,7 +382,7 @@
 
         {% endif %}
 
-        {% if participacion_cientifica %}
+        {% if participacion_cientifica and imp.imprimir_participacion %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Participación científica</span>
@@ -460,7 +464,7 @@
         {% endif %}
 
 
-        {% if competencias_tecnicas_computacionale %}
+        {% if competencias_tecnicas_computacionale and imp.imprimir_tecnicas %}
         <div class="datos-personales-div">
             <span class="titulo-div">competencias técnicas</span>
         </div>
@@ -498,7 +502,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.dominio_basico }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.dominio_basico }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.dominio_basico }}" aria-valuemin="0" aria-valuemax="100">
                                 {% if idioma.dominio_basico != "0" %}
 
@@ -517,7 +521,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.dominio_medio }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.dominio_medio }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.dominio_medio }}" aria-valuemin="0" aria-valuemax="100">
                                 {% if idioma.dominio_medio != "0" %}
 
@@ -536,7 +540,7 @@
                         <div
                             style=" background-color: rgba(183, 36, 36, 0);width: 100%; text-align: center; position: relative;">
                             <div class="progress-bar" role="progressbar"
-                                style="width: {{ idioma.dominio_avanzado }}%; background-color:#f97306; color: transparent;;"
+                                style="width: {{ idioma.dominio_avanzado }}%; background-color:#ffcca6; color: transparent;;"
                                 aria-valuenow="{{ idioma.dominio_avanzado }}" aria-valuemin="0" aria-valuemax="100">
                                 {% if idioma.dominio_avanzado != "0" %}
 
@@ -560,6 +564,9 @@
 
         </table>
         {% endif %}
+
+        {% if imp.imprimir_documentacion %}
+
 
         <div class="datos-personales-div">
             <span class="titulo-div">documentación</span>
@@ -610,18 +617,17 @@
             </tr>
             {% endfor %}
 
-
         </table>
 
-
-
-
+        {% endif %}
 
 
         {% if matriz_imagenes_base64 %}
 
-        {% for conjuto_doc, link_ref, url_file in matriz_imagenes_base64 %}
+        {% for conjuto_doc, link_ref, url_file, imprima in matriz_imagenes_base64 %}
+        {% if imprima %}
         {% for doc_hojas in conjuto_doc %}
+
         <table class="tabla-personalizada">
 
             <tr>
@@ -647,12 +653,17 @@
                 </td>
             </tr>
         </table>
+
         {% endfor %}
+
+        {% endif %}
+
         {% endfor %}
 
         {% endif %}
 
     </div>
+    {% endfor %}
 </body>
 
 </html>
