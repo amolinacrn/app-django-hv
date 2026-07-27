@@ -6,8 +6,10 @@
 
 {% block content_derecho %}
 
+
 <div class="posicion_hv_html">
   <div class="class_div container-vertical font-size-presentacion" style="margin-bottom: 20px;">
+
     {% for ss in form_imprimir.querydat %}
     <form enctype="multipart/form-data" method="post" action="{% url 'hojadevida' ss.id %}">
       {% csrf_token %}
@@ -461,7 +463,6 @@
         data-imprimir_tecnicas="{{ ss.imprimir_tecnicas }}"
         data-imprimir_documentacion="{{ ss.imprimir_documentacion }}" hidden>
       </div>
-
 
     </form>
 

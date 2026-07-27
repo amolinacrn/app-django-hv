@@ -130,7 +130,6 @@ def funcion_Menu_HV(rqst):
     agregar_link(idiomas, "idioma_extrangero")
     agregar_link(diplomas, "titulo_obtenido")
 
-
     try:
         usuario_login = User.objects.get(username=rqst.user)
     except:
@@ -149,8 +148,6 @@ def funcion_Menu_HV(rqst):
         if obj_usuario_login and obj_usuario_login.name:
             
             url_usuario_login = rqst.build_absolute_uri(obj_usuario_login.url)
-
-
 
     # --- contexto ---
     contexto = {
@@ -198,7 +195,7 @@ def view_pdf_HV(request):
         # Manejar el caso en que no existe el registro
         imprimir_estudio = False      # o el valor por defecto que tenga sentido
     else:
-        imprimir_estudio = imprimir_datos.imprimir_estudio
+        imprimir_estudio = imprimir_datos.imprimir_estudio    
 
     matriz_imagenes_base64 = []
 
@@ -228,27 +225,27 @@ def view_pdf_HV(request):
         "diplomas_de_estudio": {
             "queryset": diplomas_de_estudio,
             "certificado_pdf":"documento_soporte",
-            "imprimir_datos":imprimir_datos[0].imprimir_estudio,
+            "imprimir_datos":imprimir_datos.imprimir_estudio if imprimir_datos else False,
         },
         "experiencias_laborales": {
             "queryset": experiencias_laborales,
             "certificado_pdf":"documento_soporte",
-            "imprimir_datos":imprimir_datos[0].imprimir_experiencia,
+            "imprimir_datos":imprimir_datos.imprimir_experiencia if imprimir_datos else False,
         },
         "idioma_extrangero": {
             "queryset": idioma_extrangero,
             "certificado_pdf":"documento_soporte",
-            "imprimir_datos":imprimir_datos[0].imprimir_idioma,
+            "imprimir_datos":imprimir_datos.imprimir_idioma if imprimir_datos else False,
         },
         "participacion_cientifica": {
             "queryset": participacion_cientifica,
             "certificado_pdf":"documento_soporte",
-            "imprimir_datos":imprimir_datos[0].imprimir_participacion
+            "imprimir_datos":imprimir_datos.imprimir_participacion if imprimir_datos else False,
         },
         "competencias_tecnicas_computacionale": {
             "queryset": competencias_tecnicas_computacionales,
             "certificado_pdf":"documento_soporte",
-            "imprimir_datos":imprimir_datos[0].imprimir_tecnicas
+            "imprimir_datos":imprimir_datos.imprimir_tecnicas if imprimir_datos else False,
         },
     }
 
@@ -284,7 +281,7 @@ def view_pdf_HV(request):
                 matriz_imagenes_base64.append(
                     (imagenes_base64, modelo.link, url_absoluta, imprimir_doc)
                 )
-
+                print(imprimir_doc)
     contexto={
         "imprimir_datos":imprimir_datos,
         'eye_icon': eye_icon,
@@ -372,8 +369,6 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
         nombre_usuario_id=request.user.id
     )
 
-
-
     for objeto in queryset_dat:
 
         objeto.documento_url = obtener_url_absoluta(
@@ -413,8 +408,6 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
         if obj_usuario_login and obj_usuario_login.name:
             
             url_usuario_login = request.build_absolute_uri(obj_usuario_login.url)
-
-
 
     contexto = {
         "icono_media":icono_media,
@@ -723,6 +716,7 @@ class ProduccionAcademicaHV(View):
         return render(request, plantilla,contexto)
 
 class ParticipacionCientificaHV(View):
+
     def get(self, request, *args, **kwargs):
         id_pcient= kwargs.get("pk")
         if not request.user.is_authenticated:
@@ -927,7 +921,7 @@ class CursosImpartidosHV(View):
 
 
 class UnidadesCursosImpartidosHV(View):
-    def get(self, request, pk=0):
+    def get(self, request, pk):
         if not request.user.is_authenticated:
             return redirect("logear")
         if not request.user.groups.filter(
@@ -945,7 +939,7 @@ class UnidadesCursosImpartidosHV(View):
         return render(request, plantilla_html, contexto)
 
 
-    def post(self, request, pk=0):
+    def post(self, request, pk):
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -966,7 +960,8 @@ class UnidadesCursosImpartidosHV(View):
         return render(request, plantilla,contexto)
 
 class CitasBibliograficasHV(View):
-    def get(self, request, pk=0):
+    def get(self, request, *args, **kwargs):
+        pk=kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
         if not request.user.groups.filter(
@@ -982,7 +977,7 @@ class CitasBibliograficasHV(View):
 
         return render(request, plantilla_html, contexto)
 
-    def post(self, request, pk=0):
+    def post(self, request, pk):
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -1005,8 +1000,8 @@ class CitasBibliograficasHV(View):
 
 
 class ImprimirHojaDeVidaHV(View):
-
-    def get(self, request, pk=0):
+    def get(self, request, *args, **kwargs):
+        pk=kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
         if not request.user.groups.filter(
@@ -1019,13 +1014,17 @@ class ImprimirHojaDeVidaHV(View):
                                                                     ImprimirHojaDeVida,
                                                                     None,
                                                                     "datos_HV.html")
-        form_context=funcion_Menu_HV(request)
 
+        ImprimirHojaDeVida.objects.get_or_create(nombre_usuario=request.user)
+        
+        form_context=funcion_Menu_HV(request)
+       
         form_context ["form_imprimir"]= contexto 
+        print(contexto)
 
         return render(request, plantilla_html, form_context)
 
-    def post(self, request, pk=0):
+    def post(self, request, pk):
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -1043,8 +1042,8 @@ class ImprimirHojaDeVidaHV(View):
                                                                 "hojadevida",
                                                                 pk,
                                                                 False)
-   
-        form_context ["form_imprimir"]= contexto 
+
+        form_context ["form_imprimir"]= contexto       
 
         if validacion_form:
             return redirect(plantilla, contexto)
