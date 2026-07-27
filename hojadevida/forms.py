@@ -93,7 +93,7 @@ class DatosPersonalesForm(forms.ModelForm):
         label="",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
@@ -315,6 +315,13 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
+    website = forms.URLField(
+        max_length=100,
+        label="Sitio Web:",
+        required=False
+    )
+
+
     grado_academico = forms.CharField(
         max_length=80,
         label=mark_safe("<span style='color:red'>*</span> Titulación académica:"),
@@ -403,7 +410,7 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         label="",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
@@ -526,10 +533,15 @@ class FormExperienciaLaboral(forms.ModelForm):
         label="",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
+    website = forms.URLField(
+        max_length=100,
+        label="Sitio Web:",
+        required=False
+    )
 
 class FormularioProduccionAcademica(forms.ModelForm):
 
@@ -551,28 +563,28 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     nombre_trabajo = forms.CharField(
         max_length=300,
-        label=mark_safe("<span style='color:red'>*</span> Nombre publicación:"),
-        required=True,
+        label="Nombre publicación:",
+        required=False,
     )
 
     pais_publicacion = forms.CharField(
         max_length=50,
-        label=mark_safe("<span style='color:red'>*</span>  País:"),
-        required=True,
+        label="País:",
+        required=False,
         widget=forms.Select(choices=LISTA_PAISES_MUNDO),
     )
 
     fecha_publicacion = forms.DateField(
-        label=mark_safe("<span style='color:red'>*</span>  Fecha publicaciòn:"),
-        required=True,
+        label="Fecha publicaciòn:",
+        required=False,
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
         input_formats=["%Y-%m-%d"],
     )
 
     nombre_revista = forms.CharField(
         max_length=100,
-        label=mark_safe("<span style='color:red'>*</span> Nombre revista:"),
-        required=True,
+        label="Nombre revista:",
+        required=False,
     )
 
     area_concentracion = forms.CharField(
@@ -589,8 +601,8 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     doi_link_publicacion = forms.URLField(
         max_length=100,
-        label=mark_safe("<span style='color:red'>*</span> Link o DOI:"),
-        required=True,
+        label="Link o DOI:",
+        required=False,
     )
 
     documento_soporte = forms.FileField(
@@ -605,11 +617,51 @@ class FormularioProduccionAcademica(forms.ModelForm):
         label="",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
+    tipos_de_productos = forms.CharField(
+        max_length=50,
+        label="Tipo de producto:",
+        required=False,
+        widget=forms.Select(choices=TIPOS_PRODUCTO),
+    )
 
+    descripcion = forms.CharField(
+        max_length=500,
+        label="Descripción:",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 3,
+                "cols": 1,
+            })
+    )
+
+    palabras_clave = forms.CharField(
+        max_length=200,
+        label="Palabras clave:",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 1,
+                "cols": 1,
+            })
+    )    
+
+    mostrar_producto =forms.TypedChoiceField(
+        choices=[(True,"Si"),
+                 (False,"No")],
+        coerce=lambda x: x == "True",
+        widget=forms.Select(),
+    )
+
+    tecnologias_utilizadas = forms.CharField(
+        max_length=500,
+        label="Tecnologías utilizadas:",
+        required=False,
+    )    
 
 class FormularioParticipacionCientifica(forms.ModelForm):
 
@@ -691,11 +743,13 @@ class FormularioParticipacionCientifica(forms.ModelForm):
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
 
+
+
     cargar_icono = forms.ImageField(
         label="",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
@@ -841,7 +895,7 @@ class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):
         label="Cargue un ícono de su preferencia",
         required=False,
         validators=[
-            MaxZiseImageValidator(max_img_size=0.2),
+            MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
 
@@ -888,11 +942,11 @@ class FormCursosImpartidos(forms.ModelForm):
     )
     conjunto_tematicas = forms.CharField(
         max_length=1000,
-        label="Agregue las temáticas del curso separadas por guion (-):",
+        label="Agregue las temáticas del curso:",
         required=False,
         widget=forms.Textarea(
             attrs={
-                "rows": 3,
+                "rows": 10,
                 "cols": 1,
             })
         )

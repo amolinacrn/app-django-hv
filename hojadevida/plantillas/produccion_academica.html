@@ -56,11 +56,20 @@
           {{ form.nombre_revista|as_crispy_field }}
           {{ form.area_concentracion|as_crispy_field }}
 
-
           {{ form.linea_pesquisa|as_crispy_field }}
           {{ form.doi_link_publicacion|as_crispy_field }}
-
+          {{form.mostrar_producto|as_crispy_field}}
+          {{ form.tipos_de_productos|as_crispy_field }}
         </div>
+
+        <div class="card mb-3 p-3 bg-light">
+          {{ form.descripcion|as_crispy_field }}
+          {{ form.palabras_clave|as_crispy_field }}
+          {{form.tecnologias_utilizadas|as_crispy_field}}
+        </div>
+
+
+
 
         <div class="card form-grid bg-light">
 
@@ -80,6 +89,8 @@
             <div id="ref_img_ver" class="ojo_ver_pdf">
               <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">
             </div>
+
+
 
           </div>
 
@@ -236,7 +247,7 @@
               <td>
                 <!-- Ver soporte -->
                 <button type="button" class="icon-btn"
-                  onclick="funcionVisualizarModal('{{ qrdat.documento_url }}','Experiencia {{ qrdat.cargo }} - {{ qrdat.nombre_empresa }}')">
+                  onclick="funcionVisualizarModal('{{ qrdat.documento_url }}','{{ qrdat.nombre_trabajo }}')">
                   <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
                 </button>
 
@@ -251,9 +262,10 @@
                   data-linea_pesquisa="{{ qrdat.linea_pesquisa }}"
                   data-doi_link_publicacion="{{ qrdat.doi_link_publicacion }}"
                   data-documento_soporte="{{ qrdat.documento_soporte }}" data-documento_url="{{ qrdat.documento_url }}"
-                  data-cargar_icono="{{qrdat.cargar_icono}}">
-
-
+                  data-tipos_de_productos="{{qrdat.tipos_de_productos}}"
+                  data-mostrar_producto="{{qrdat.mostrar_producto}}" data-descripcion="{{qrdat.descripcion}}"
+                  data-palabras_clave="{{qrdat.palabras_clave}}" data-cargar_icono="{{qrdat.cargar_icono}}"
+                  data-tecnologias_utilizadas="{{qrdat.tecnologias_utilizadas}}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
                 </button>

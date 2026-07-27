@@ -90,6 +90,16 @@
       text-decoration: underline;
     }
 
+    .area-de-interes a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .area-de-interes a:hover {
+      text-decoration: underline;
+    }
+
+
     .video_frame {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -158,19 +168,17 @@
                 href="{% url 'docencia' %}">Enseñanza</a>
             </li>
             <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Intereses</a>
-            </li>
-            <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Proyectos</a>
-            </li>
-
-            <li>
-              <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Galería</a>
-            </li>
-
-            <li>
               <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                href="#">Publicaciones</a>
+                href="{% url 'intereses' %}">Intereses</a>
+            </li>
+            <li>
+              <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                href="{% url 'academia' %}">Producción</a>
+            </li>
+
+            <li>
+              <a class="{% if request.resolver_match.url_name == 'publicaciones' %}active{% endif %} nav-link"
+                href="{% url 'publicaciones' %}">Publicaciones</a>
             </li>
 
             {% if user.is_authenticated %}
@@ -301,23 +309,22 @@
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
+                <a class="{% if request.resolver_match.url_name == 'intereses' %}active{% endif %}"
+                  href="{% url 'intereses' %}">
                   Intereses
                 </a>
               </li>
 
               <li>
-                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                  href="#">Proyectos</a>
+                <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                  href="{% url 'academia' %}">Producción</a>
               </li>
 
-              <li>
-                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link" href="#">Galería</a>
-              </li>
+
 
               <li>
-                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                  href="#">Publicaciones</a>
+                <a class="{% if request.resolver_match.url_name == 'publicaciones' %}active{% endif %} nav-link"
+                  href="{% url 'publicaciones' %}">Publicaciones</a>
               </li>
 
 

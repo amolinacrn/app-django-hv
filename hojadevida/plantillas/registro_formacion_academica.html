@@ -62,7 +62,7 @@
           {{form.pais_titulo|as_crispy_field}}
           {{form.departamento_titulo|as_crispy_field}}
           {{form.ciudad_titulo|as_crispy_field}}
-
+          {{form.website|as_crispy_field}}
 
         </div>
 
@@ -263,7 +263,7 @@
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}" data-pais_titulo="{{ qrdat.pais_titulo }}"
                   data-departamento_titulo="{{ qrdat.departamento_titulo }}"
                   data-ciudad_titulo="{{ qrdat.ciudad_titulo }}" data-documento_url="{{ qrdat.documento_url }}"
-                  data-cargar_icono="{{qrdat.cargar_icono}}">
+                  data-cargar_icono="{{qrdat.cargar_icono}}" data-website="{{qrdat.website}}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
                 </button>
 

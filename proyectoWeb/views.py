@@ -259,8 +259,7 @@ def home_post(request):
                     campo_id_video = obtener_id_youtube(obj.publicaciones_url)
                     
                     preview = obtener_preview_youtube(obj.publicaciones_url)
-                    
-                    
+                                        
                     obj.titulo_publicacion = preview["titulo"]
                     obj.descripcion_publicacion = preview["descripcion"]
                     obj.imagen_publicacion = preview["imagen"]
@@ -281,7 +280,6 @@ def home_post(request):
                 contexto["advertencia_preview"]= "* No se pudo procesar el enlace."
               
     contexto["form"] = form
-
 
     return render(request, "plt-home.html", contexto)
     

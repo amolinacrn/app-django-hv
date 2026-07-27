@@ -94,6 +94,17 @@
             gap: 15px;
         }
 
+        .intereses_cientificos {
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            height: auto;
+            background-color: rgba(5, 5, 5, 0.726);
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
 
         @media (max-width: 1100px) {
             .cabecera-curr-hv {
@@ -147,22 +158,18 @@
                         Enseñanza</a>
                 </li>
                 <li class="nav-item">
-                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                        href="#">Intereses</a>
+                    <a class="{% if request.resolver_match.url_name == 'intereses' %}active{% endif %} nav-link"
+                        href="{% url 'intereses' %}">Intereses</a>
                 </li>
                 <li>
-                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                        href="#">Proyectos</a>
-                </li>
-
-                <li>
-                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                        href="#">Galería</a>
+                    <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                        href="{% url 'academia' %}">Producción</a>
                 </li>
 
+
                 <li>
-                    <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                        href="#">Publicaciones</a>
+                    <a class="{% if request.resolver_match.url_name == 'publicaciones' %}active{% endif %} nav-link"
+                        href="{% url 'publicaciones' %}">Publicaciones</a>
                 </li>
 
                 {% if user.is_authenticated %}
@@ -418,7 +425,7 @@
                 widthVentana.style.transition = "width 0.3s ease";
                 posicion_hv_html.style.transition = "margin-right 0.4s ease";
 
-                if (anchoVentanapequenya <= 1000) {
+                if (anchoVentanapequenya <= 1150) {
                     customDerecho.style.marginLeft = "0px";
                     posicion_hv_html.style.marginLeft = "5px";
                 } else {
@@ -432,7 +439,7 @@
                 customDerecho.style.marginLeft = "0px"
                 posicion_hv_html.style.transition = "margin-right 0.4s ease";
 
-                if (anchoVentanapequenya <= 1000) {
+                if (anchoVentanapequenya <= 1150) {
                     posicion_hv_html.style.marginLeft = "5px";
                 } else {
                     posicion_hv_html.style.marginRight = "5vw"
@@ -447,7 +454,7 @@
             let customDerecho = document.querySelector('.custom_derecho');
             let cargar_documento_whith = document.querySelector('.cargar_documento_whith');
 
-            if (anchoLeftVentana <= 1000) {
+            if (anchoLeftVentana <= 1150) {
                 customDerecho.style.marginLeft = "0px";
                 leftPanelVentana.style.width = "0px";
                 leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
@@ -509,7 +516,7 @@
         function updateBotton() {
 
             let collapseElementBtn = document.querySelector('.classTable');
-            if (collapseElementBtn && anchoVentana <= 1000) {
+            if (collapseElementBtn && anchoVentana <= 1150) {
                 collapseElementBtn.style.display = "block";
             } else if (collapseElementBtn) {
                 collapseElementBtn.style.display = "none";
@@ -656,14 +663,12 @@
             }
 
             btn_ver_img.onclick = function () {
-                funcionVisualizarModal(data.documento_url);
+                funcionVisualizarModal(data.documento_url,
+                    data.documento_soporte.split("/")[3]);
+                console.log(data);
             };
 
         };
-
-        // document.addEventListener("DOMContentLoaded", () => {
-
-        // })
 
         window.addEventListener("load", async () => {
             await TablaDeRegistros();

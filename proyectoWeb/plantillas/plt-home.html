@@ -66,7 +66,11 @@
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados">
                         <li style="  font-weight: bold;">
-                            {{e.institucion_universitaria}}
+                            <div class="area-de-interes">
+                                <a href="{{e.website}}" target="_blank">
+                                    {{e.institucion_universitaria}}
+                                </a>
+                            </div>
                         </li>
                         <li>
                             {{ e.titulo_obtenido }}
@@ -95,7 +99,11 @@
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados ">
                         <li style=" font-weight: bold;">
-                            {{ e.nombre_empresa }}
+                            <div class="area-de-interes">
+                                <a href="{{e.website}}" target="_blank">
+                                    {{ e.nombre_empresa }}
+                                </a>
+                            </div>
                         </li>
 
                         <li>
@@ -119,8 +127,9 @@
             Áreas de interés
         </div>
         <div style="padding: 10px;">
-            {% for e in areas_de_interes %}
 
+            {% for e in areas_de_interes %}
+            {% if e.mostrar_producto %}
             <div class="style-info-personal">
                 <div class="style-info-academica-laboral">
                     <img src="{{e.icono_url}}" class="border_imagenes_portada">
@@ -128,18 +137,23 @@
                 <div class="style-info-academica-laboral">
                     <ul class="lista-de-grados">
                         <li style="  font-weight: bold;">
-                            {{e.area_concentracion}}
+                            <div class="area-de-interes">
+                                <a href="{% url 'academia' %}">
+                                    {{e.linea_pesquisa}}
+                                </a>
+                            </div>
                         </li>
                         <li>
-                            {{e.linea_pesquisa}}
+                            {{e.area_concentracion}}
                         </li>
 
                     </ul>
+
                 </div>
             </div>
-
-
+            {% endif %}
             {% endfor %}
+
         </div>
 
 
@@ -195,6 +209,7 @@
 
 
 {% for publicacion in las_publicaciones %}
+
 <div class="contenido-en-right-Panel-base">
     <div style="height: auto;padding:12px; ">
 

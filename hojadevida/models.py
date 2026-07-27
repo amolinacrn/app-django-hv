@@ -69,6 +69,7 @@ class TitulosAcademico(models.Model):
         upload_to="files/docs/diplomas", blank=True, null=True
     )
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    website = models.URLField(max_length=100, blank=True, null=True)
 
     class Meta:
         ordering = ['fecha_inicio']
@@ -96,7 +97,7 @@ class ExperienciasLaborale(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/experiencia", blank=True, null=True
     )
-
+    website = models.URLField(max_length=100, blank=True, null=True)
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
     class Meta:
         ordering = ['-fecha_inicio']
@@ -105,19 +106,27 @@ class ProduccionAcademica(models.Model):
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
     )
+
+    tipos_de_productos=models.CharField(max_length=200, blank=True, null=True)
+    descripcion = models.CharField(max_length=500, blank=True, null=True)
+    palabras_clave = models.CharField(max_length=200, blank=True, null=True)
     autores_trabajo = models.CharField(max_length=200, blank=True, null=True)
-    nombre_trabajo = models.CharField(max_length=300, blank=False, null=False)
-    pais_publicacion = models.CharField(max_length=50, blank=False, null=False)
-    fecha_publicacion = models.DateField(blank=False, null=False)
-    nombre_revista = models.CharField(max_length=100, blank=False, null=False)
-    area_concentracion = models.CharField(max_length=150, blank=True, null=False)
+    nombre_trabajo = models.CharField(max_length=300, blank=True, null=True)
+    pais_publicacion = models.CharField(max_length=50, blank=True, null=True)
+    fecha_publicacion = models.DateField(blank=False, null=True)
+    nombre_revista = models.CharField(max_length=100, blank=True, null=True)
+    area_concentracion = models.CharField(max_length=150, blank=True, null=True)
     linea_pesquisa = models.CharField(max_length=150, blank=True, null=True)
-    doi_link_publicacion = models.URLField(max_length=100, blank=False, null=False)
+    doi_link_publicacion = models.URLField(max_length=100, blank=True, null=True)
     cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    tecnologias_utilizadas =  models.CharField(max_length=500, blank=True, null=True)
 
     documento_soporte = models.FileField(
         upload_to="files/docs/papers", blank=True, null=True
     )
+
+    mostrar_producto = models.BooleanField(default=None, blank=True, null=True)
+
     class Meta:
         ordering = ['-fecha_publicacion']
 

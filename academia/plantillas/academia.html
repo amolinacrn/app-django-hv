@@ -1,0 +1,55 @@
+{% extends "base-curr.html" %}
+
+{% load static %}
+
+
+{% block content_derecho %}
+
+
+<div>
+    {% for e in queryset_produccion_academica %}
+    {% if not e.mostrar_producto %}
+    <div class="class_div-copia">
+        <div class="vistas_web_menu">
+            <div class="icono_producto_curr">
+                <img src="{{e.icono_url}}" class="stilo-imagenes-intereses">
+            </div>
+            <div>
+                <div class="titulo_produccion" style="font-size: 18px; font-weight: bold; padding-bottom: 5px;">
+                    <a href="">
+                        {{e.nombre_trabajo}}
+                    </a>
+
+                </div>
+                <div style="font-weight: bold; padding-bottom: 5px;">
+                    {{e.area_concentracion}} - {{e.linea_pesquisa}}
+                </div>
+                <div>
+                    {{e.autores_trabajo}}
+                </div>
+                <hr style="border: 2px solid #f38807;">
+                <div style="padding-bottom: 5px; text-align: justify;">
+                    <b>
+                        Descripcion:
+                    </b> {{e.descripcion}}
+                </div>
+                <hr style="border: 2px solid #f38807;">
+
+                <div>
+                    <b>
+                        Categoria:
+                    </b>
+                    {{e.tipos_de_productos}}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

@@ -54,13 +54,9 @@
                 {% csrf_token %}
 
                 <div class="form-grid card bg-light" style="margin-bottom:16px">
-                    <div>{{ form.identificador_disciplina|as_crispy_field }}</div>
-                    <div>{{ form.nombre_disciplina|as_crispy_field }}</div>
+                    {{ form.identificador_disciplina|as_crispy_field }}
+                    {{ form.nombre_disciplina|as_crispy_field }}
                     {{form.imprimir_datos|as_crispy_field}}
-                </div>
-
-
-                <div class="card mb-3 p-3 bg-light" style="width: 100%;">
                     {{ form.conjunto_tematicas|as_crispy_field }}
                 </div>
 

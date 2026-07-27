@@ -1,0 +1,25 @@
+{% extends "base-curr.html" %}
+
+{% load static %}
+
+
+{% block content_derecho %}
+
+{% for e in queryset_produccion_academica %}
+
+{% if e.mostrar_producto %}
+
+<!-- <div class="class_div-copia">
+    <div class="vistas_web_menu">
+
+    </div>
+
+
+</div> -->
+
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

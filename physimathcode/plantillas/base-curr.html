@@ -46,7 +46,12 @@
         :root {
             --color-tabla-tr: rgb(243, 241, 241);
             --color-nivel: #ff8c0081;
+            --sombras-divs-app-iconos: 1px 1px 7px 2px rgba(136, 136, 136, 0.486);
+        }
 
+        body {
+            font-family: "arial";
+            font-size: 15px;
         }
 
         .css-tabla tr {
@@ -86,6 +91,35 @@
             gap: 15px;
         }
 
+        .stilo-imagenes-intereses {
+            width: 300px;
+            box-shadow: var(--sombras-divs-app-iconos);
+            border-radius: 5px;
+        }
+
+
+        .vistas_web_menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icono_producto_curr {
+            text-align: center;
+        }
+
+        .titulo_produccion a {
+            text-decoration: none;
+            color: rgb(2, 113, 146);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .titulo_produccion a:hover {
+            text-decoration: underline;
+        }
+
+
+
         @media (max-width: 800px) {
             .cabecera-curr-hv {
                 flex-direction: column;
@@ -99,6 +133,15 @@
                 text-align: center;
             }
 
+            .vistas_web_menu {
+                flex-direction: column;
+                padding: 10px;
+
+            }
+
+            .stilo-imagenes-intereses {
+                width: 100%;
+            }
         }
     </style>
 
@@ -139,22 +182,19 @@
                                 href="{% url 'docencia' %}">Enseñanza</a>
                         </li>
                         <li>
-                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Intereses</a>
+                            <a class="{% if request.resolver_match.url_name == 'intereses' %}active{% endif %} nav-link"
+                                href="{% url 'intereses' %}">Intereses</a>
                         </li>
                         <li>
-                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Proyectos</a>
-                        </li>
-
-                        <li>
-                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Galería</a>
+                            <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                                href="{% url 'academia' %}">Producción</a>
                         </li>
 
+
+
                         <li>
-                            <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                href="#">Publicaciones</a>
+                            <a class="{% if request.resolver_match.url_name == 'publicaciones' %}active{% endif %} nav-link"
+                                href="{% url 'publicaciones' %}">Publicaciones</a>
                         </li>
 
                         {% if user.is_authenticated %}
@@ -291,24 +331,22 @@
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %}" href="">
+                                <a class="{% if request.resolver_match.url_name == 'intereses' %}active{% endif %}"
+                                    href="{% url 'intereses' %}">
                                     Intereses
                                 </a>
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Proyectos</a>
+                                <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                                    href="{% url 'academia' %}">Producción</a>
                             </li>
 
-                            <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Galería</a>
-                            </li>
+
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Publicaciones</a>
+                                <a class="{% if request.resolver_match.url_name == 'publicaciones' %}active{% endif %} nav-link"
+                                    href="{% url 'publicaciones' %}">Publicaciones</a>
                             </li>
 
 
@@ -348,7 +386,7 @@
     </div>
 
 
-    <div id="container_personal">
+    <div class="cuerpo-ccsbase-body">
 
         <div class="leftPanel">
             <div style="padding: 20px;">
@@ -392,18 +430,15 @@
                             </li>
 
                             <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Proyectos</a>
+                                <a class="{% if request.resolver_match.url_name == 'academia' %}active{% endif %} nav-link"
+                                    href="{% url 'academia' %}">Producción</a>
                             </li>
+
+
 
                             <li>
                                 <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Galería</a>
-                            </li>
-
-                            <li>
-                                <a class="{% if request.resolver_match.url_name == '' %}active{% endif %} nav-link"
-                                    href="#">Publicaciones</a>
+                                    href="{% url 'publicaciones' %}">Publicaciones</a>
                             </li>
 
 
@@ -449,6 +484,8 @@
 
 
     </div>
+
+
 
     <script>
 

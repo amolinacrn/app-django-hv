@@ -4,6 +4,22 @@ capitulos = [None,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ]
 
+TIPOS_PRODUCTO = [
+    (None,"Seleccione..."),
+    ("Investigación", "Investigación"),
+    ("Desarrollo de software", "Desarrollo de software"),
+    ("Docencia", "Docencia"),
+    ("Análisis de datos", "Análisis de datos"),
+    ("Divulgación", "Divulgación"),
+    ("Proyecto","Proyecto"),
+    ("Sitio Web","Sitio Web"),
+    ("Intereses","Intereses"),
+    ("Artículo","Artículo"),
+    
+]
+
+
+
 IMPRIMIR_DATOS=[(None,"Imprimir"),
                 (True,"Si"),
                 (False,"No")]

@@ -23,11 +23,14 @@ from django.urls import include
 from .views import home, curr_hv, home_post
 from proyectoWeb.views import delete_record_from_database 
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hojadevida/", include("hojadevida.urls")),
     path("autenticacion/", include("autenticacion.urls")),
+    path("intereses/", include("intereses.urls")),
+    path("academia/", include("academia.urls")),
+    path("galeria/", include("galeria.urls")),
+    path("publicaciones/", include("publicaciones.urls")),
     path("ensenanza/", include("ensenanza.urls")),
     path("", home, name='home'),  
     path("home_post",home_post, name="home_post"),
