@@ -192,8 +192,14 @@ def view_pdf_HV(request):
     produccion_academica= ProduccionAcademica.objects.filter(nombre_usuario_id=request.user.id)
     participacion_cientifica=ParticipacionCientifica.objects.filter(nombre_usuario_id=request.user.id)
     competencias_tecnicas_computacionales=CompetenciasTecnicasComputacionale.objects.filter(nombre_usuario_id=request.user.id)
-    imprimir_datos = ImprimirHojaDeVida.objects.filter(nombre_usuario_id=request.user.id)
-    
+    imprimir_datos = ImprimirHojaDeVida.objects.filter(nombre_usuario_id=request.user.id).first()
+
+    if imprimir_datos is None:
+        # Manejar el caso en que no existe el registro
+        imprimir_estudio = False      # o el valor por defecto que tenga sentido
+    else:
+        imprimir_estudio = imprimir_datos.imprimir_estudio
+
     matriz_imagenes_base64 = []
 
     eye_icon = request.build_absolute_uri(static('bs532/img/'))
