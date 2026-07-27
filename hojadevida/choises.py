@@ -20,8 +20,7 @@ TIPOS_PRODUCTO = [
 
 
 
-IMPRIMIR_DATOS=[(None,"Imprimir"),
-                (True,"Si"),
+IMPRIMIR_DATOS=[(True,"Si"),
                 (False,"No")]
 
 CAPITULOS_LIBRO = []
