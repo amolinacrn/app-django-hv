@@ -601,8 +601,8 @@ class formDatPersonView:
 
 class FormacionAcademicaHV(View):
 
-    def get(self, request, id_diploma=None):
-
+    def get(self, request, *args, **kwargs):
+        id_diploma= kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -619,8 +619,8 @@ class FormacionAcademicaHV(View):
         return render(request, plantilla_html, contexto)
 
 
-    def post(self, request, id_diploma=None):
-
+    def post(self, request, id_diploma):
+       
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -643,8 +643,8 @@ class FormacionAcademicaHV(View):
 
 class ExperienciaLaboralHV(View):
 
-    def get(self, request, id_explab=None):
-
+    def get(self, request, *args, **kwargs):
+        id_explab = kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -684,8 +684,8 @@ class ExperienciaLaboralHV(View):
 
 class ProduccionAcademicaHV(View):
 
-    def get(self, request, id_pracad=None):
-
+    def get(self, request, *args,**kwargs):
+        id_pracad= kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
         if not request.user.groups.filter(
@@ -723,7 +723,8 @@ class ProduccionAcademicaHV(View):
         return render(request, plantilla,contexto)
 
 class ParticipacionCientificaHV(View):
-    def get(self, request, id_pcient=None):
+    def get(self, request, *args, **kwargs):
+        id_pcient= kwargs.get("pk")
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -763,8 +764,8 @@ class ParticipacionCientificaHV(View):
 
 
 class CompetenciasTecnicasComputacionalesHV(View):
-    def get(self, request, id_comput=None):
-
+    def get(self, request, *args, **kwargs):
+        id_comput = kwargs.get("pk") 
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -805,7 +806,8 @@ class CompetenciasTecnicasComputacionalesHV(View):
 
 
 class IdiomaExtrangeroHV(View):
-    def get(self, request, pasar_id = None):
+    def get(self, request, *args, **kwargs):
+        pasar_id = kwargs.get("pk") 
         if not request.user.is_authenticated:
             return redirect("logear")
         if not request.user.groups.filter(
