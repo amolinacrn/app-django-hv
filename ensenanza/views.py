@@ -106,7 +106,9 @@ def vista_ensenanza(request):
             "tematicas_curso": dict_campos[campo]["contenidos"],
             "cita_bibliografica": dict_bibliografia[campo]["citas"],
         })
-
+        print(type(campo))
+        print(campo)
+        print(dict_bibliografia.keys())
     eye_icon = request.build_absolute_uri(
         static("bs532/img/")
     )

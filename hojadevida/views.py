@@ -543,7 +543,7 @@ class formDatPersonView:
 
             form.save()
 
-            return redirect("hojadevida")
+            return redirect("hojadevida", 0)
 
         # si el form no es válido
         contexto = {
