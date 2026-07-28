@@ -57,7 +57,6 @@ def vista_ensenanza(request):
             citas.capitulos_texto
         ))
 
-
     for codigo, cita, link, tipo,unidd in datos_citas: 
         bibliografia_cursos[codigo]["codigo"] = codigo
         bibliografia_cursos[codigo]["citas"].append({
@@ -104,11 +103,9 @@ def vista_ensenanza(request):
             "idd": "id"+campo,
             "disciplina":dict_campos[campo]["nombre"],
             "tematicas_curso": dict_campos[campo]["contenidos"],
-            "cita_bibliografica": dict_bibliografia[campo]["citas"],
+            "cita_bibliografica": dict_bibliografia.get(campo, {"citas": []})["citas"],
         })
-        print(type(campo))
-        print(campo)
-        print(dict_bibliografia.keys())
+
     eye_icon = request.build_absolute_uri(
         static("bs532/img/")
     )

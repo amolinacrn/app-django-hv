@@ -119,10 +119,7 @@
 
     </div>
 
-    <div class="left-Panel-base-hijo" style="margin-top: 15px;">
-
-
-
+    <div class="left-Panel-base-hijo">
         <div class="cls-login-name-user">
             Áreas de interés
         </div>
@@ -160,7 +157,7 @@
 
     </div>
 
-    <div class="left-Panel-base-hijo" style="margin-top: 15px;">
+    <div class="left-Panel-base-hijo">
 
 
         <div class="cls-login-name-user">
@@ -190,8 +187,9 @@
 {% block right_Panel_base %}
 
 {% if user.is_staff %}
+
 <div class="contenido-en-right-Panel-base">
-    <div style="display:flex; gap: 10px;padding: 12px;">
+    <div style="display:flex; gap: 10px;padding: 12px">
         <div>
             <img src="{{foto_usuario_login}}"
                 style="width:40px ;border-radius: 50%; border: 1px solid rgb(212, 212, 212);">

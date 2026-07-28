@@ -461,13 +461,13 @@
 
         <div style="margin-right: auto;">
           <button onclick="moverIzquierda()" class="collapse-botton-acordeon ">
-            <img src="{{ eye_icon }}botton-izquierda.svg" style="height: 30px; width: 30px;">
+            <img src="{{ eye_icon_static }}botton-izquierda.svg" style="height: 30px; width: 30px;">
           </button>
         </div>
 
         <div>
           <button onclick="moverDerecha()" class="collapse-botton-acordeon-derecho">
-            <img src="{{ eye_icon }}botton-derecha.svg" style="height: 30px; width: 30px;">
+            <img src="{{ eye_icon_static }}botton-derecha.svg" style="height: 30px; width: 30px;">
           </button>
         </div>
 
@@ -629,7 +629,8 @@
     let anchoItem = 1;
     let posicion_antes = 0;
     let indice_max = 0;
-    let collapse_botton_acordeon = document.querySelector('.collapse-botton-acordeon')
+    let collapse_botton_acordeon = document.querySelector('.collapse-botton-acordeon');
+    let collapse_botton_acordeon_derecho = document.querySelector(".collapse-botton-acordeon-derecho");
     const carrusel = document.querySelector('.carrusel');
     const items = document.querySelectorAll('.item');
 
@@ -692,16 +693,19 @@
         collapse_botton_acordeon.style.display = 'none';
       } else {
         collapse_botton_acordeon.style.display = 'block';
+        collapse_botton_acordeon_derecho.style.display = 'block';
       }
 
       if (variable_entrada === "derecha") {
         if (indice < indice_max) {
           carrusel.style.transform = `translateX(${posicion + desface - 15}px)`;
           // probandoxxx.innerHTML = posicion;
+
         } else if (indice === indice_max) {
           posicion = -anchoItem * (indice_max - 1) - ancho_imagenes_faltantes;
           carrusel.style.transform = `translateX(${posicion + desface + 15}px)`;
           // probandoxxx.innerHTML = posicion + "--" + anchoItem * (indice_max - 1);
+          collapse_botton_acordeon_derecho.style.display = 'none';
         }
       }
 
@@ -753,7 +757,6 @@
         menu_acordeon_panel.style.height = "0px";
         menu_acordeon_panel.style.transition = "height 0s ease, border 0s ease";
         // contenedor_carrusel.style.display = "none";
-        // menu_acordeon_panel.style.transition = "border 1ms ease";
         menu_acordeon_panel.style.border = "0px solid rgba(221, 221, 221, 0.767)";
         menu_acordeon_panel.style.boxShadow = "0px 0px 0px 0px rgba(150, 150, 150, 0.226)";
         subportad_boddy_bd.style.paddingBottom = "0px";
