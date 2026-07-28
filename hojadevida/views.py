@@ -191,12 +191,6 @@ def view_pdf_HV(request):
     competencias_tecnicas_computacionales=CompetenciasTecnicasComputacionale.objects.filter(nombre_usuario_id=request.user.id)
     imprimir_datos = ImprimirHojaDeVida.objects.filter(nombre_usuario_id=request.user.id).first()
 
-    if imprimir_datos is None:
-        # Manejar el caso en que no existe el registro
-        imprimir_estudio = False      # o el valor por defecto que tenga sentido
-    else:
-        imprimir_estudio = imprimir_datos.imprimir_estudio    
-
     matriz_imagenes_base64 = []
 
     eye_icon = request.build_absolute_uri(static('bs532/img/'))
@@ -281,7 +275,7 @@ def view_pdf_HV(request):
                 matriz_imagenes_base64.append(
                     (imagenes_base64, modelo.link, url_absoluta, imprimir_doc)
                 )
-                print(imprimir_doc)
+       
     contexto={
         "imprimir_datos":imprimir_datos,
         'eye_icon': eye_icon,
@@ -850,22 +844,16 @@ class CursosImpartidosHV(View):
                                                                     CursosImpartidos,
                                                                     None,
                                                                     "vista-docencia.html")
+    
+        mostrar_unidades = UnidadesCursosImpartidos.objects.filter(
+            nombre_usuario_id=request.user.id
+            )
         
-        contenido_unidades = UnidadesCursosImpartidos.objects.values_list("disciplina_o_curso_id", flat=True)
-        numero_de_registros=set(contenido_unidades)
-
-        if len(numero_de_registros) != 0:
-
-            for curso , id in zip(contexto["querydat"], numero_de_registros):
-                registro = UnidadesCursosImpartidos.objects.filter(
-                            disciplina_o_curso_id=id
-                        )
-                curso.tematicas_lista = registro
-
+        contexto["queryset_unidades"]=mostrar_unidades
 
         return render(request, plantilla_html, contexto)
 
-    def post(self, request, pk=0):
+    def post(self, request, pk):
         if not request.user.is_authenticated:
             return redirect("logear")
 
@@ -880,45 +868,9 @@ class CursosImpartidosHV(View):
                                                                 "vista-docencia.html",
                                                                 "cursos_impartidos",
                                                                 pk)
-        
-
-        queryset_unidades = UnidadesCursosImpartidos.objects.filter(disciplina_o_curso_id=pk) 
-        
-        las_tematicas=queryset_unidades.values_list(
-            "tematicas", flat=True
-            )
-     
-        unidades = list(las_tematicas)
-
-        unidades = [x.strip() for x in unidades if x.strip()]
-
-        queryset_cursos_imparitdos = CursosImpartidos.objects.filter(id=pk) 
-
-        cursos_impartidos = list(queryset_cursos_imparitdos.values_list(
-            "conjunto_tematicas", flat=True
-            ))
-
-        objetos = []
-
-        cursos_impartidos = [x.strip() for x in cursos_impartidos[0].split("\n") if x.strip()]
-
-        for curso in cursos_impartidos:
-            if curso in unidades:
-                continue
-
-            objetos.append(UnidadesCursosImpartidos(
-                disciplina_o_curso=queryset_cursos_imparitdos.first(),
-                tematicas=curso,
-                nombre_usuario=request.user
-                ))   
-   
-
-        UnidadesCursosImpartidos.objects.bulk_create(objetos)
-
         if validacion_form:
             return redirect(plantilla, contexto)
         return render(request, plantilla,contexto)
-
 
 class UnidadesCursosImpartidosHV(View):
     def get(self, request, pk):
@@ -933,8 +885,9 @@ class UnidadesCursosImpartidosHV(View):
                                                                     UnidadesCursosImpartidos,
                                                                     None,
                                                                     "unidades-cursos-impartidos.html")
-
+        
         contexto["id_actual"] = pk
+        print(pk)
 
         return render(request, plantilla_html, contexto)
 
@@ -958,6 +911,7 @@ class UnidadesCursosImpartidosHV(View):
         if validacion_form:
             return redirect("cursos_impartidos",0)
         return render(request, plantilla,contexto)
+
 
 class CitasBibliograficasHV(View):
     def get(self, request, *args, **kwargs):

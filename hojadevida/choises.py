@@ -637,7 +637,7 @@ competencias_tecnicas_computacionales = [
     "Wolfram Matemática",
     "Excel",
     "Power BI",
-    "ROOT"
+    "Root"
 ]
 
 COMPETENCIAS_TECNICAS_COMPUTACIONALES = []

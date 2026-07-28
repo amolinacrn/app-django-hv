@@ -909,10 +909,10 @@ class FormCursosImpartidos(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
-
+        
     identificador_disciplina = forms.CharField(
         max_length=10,
-        label=mark_safe("<span style='color:red'>*</span> id disciplina:"),
+        label=mark_safe("<span style='color:red'>*</span> Código disciplina:"),
         required=True,
         widget=forms.NumberInput(),
     )
@@ -922,46 +922,17 @@ class FormCursosImpartidos(forms.ModelForm):
         required=True,
     )
 
-    link_bibliografia =  forms.URLField(
-        max_length=200,
-        label="URL texto bibliográfico:",
-        required=False,
-    )
-    
-    imprimir_datos= forms.CharField(
-        max_length=10, 
-        label="Imprimir", 
-        widget=forms.Select(choices=IMPRIMIR_DATOS),
-    )
-
-
-    titulo_documento_guia = forms.CharField(
-        max_length=500,
-        label="Bibliografía:",
-        required=False,
-    )
-    conjunto_tematicas = forms.CharField(
-        max_length=1000,
-        label="Agregue las temáticas del curso:",
-        required=False,
-        widget=forms.Textarea(
-            attrs={
-                "rows": 10,
-                "cols": 1,
-            })
-        )
-
-
 class FormUnidadesCursosImpartidos(forms.ModelForm):
     class Meta:
         model = UnidadesCursosImpartidos
-        exclude = ["disciplina_o_curso"]
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop("current_user", None)
         super().__init__(*args, **kwargs)
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
+        self.fields["disciplina_o_curso"].empty_label = "Seleccione un curso"
 
     unidades_de_tematica =  forms.CharField(
         max_length=1000,
@@ -982,11 +953,10 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
 
     numero_unidad = forms.CharField(
         max_length=3,
-        label="Unidad:",
+        label="Número de unidad:",
         required=False,
         widget=forms.Select(choices=CAPITULOS_LIBRO),
     )
-
 
 class FormCitasBibliograficas(forms.ModelForm):
 

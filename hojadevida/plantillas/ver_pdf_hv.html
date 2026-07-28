@@ -6,7 +6,8 @@
 </head>
 
 <body>
-    {% for imp in imprimir_datos %}
+
+    {% if imprimir_datos %}
 
     <div class="class-div" id="secciones_hoja_de_vida">
 
@@ -90,7 +91,7 @@
             </tr>
 
         </table>
-        {% if imp.imprimir_perfil %}
+        {% if imprimir_datos.imprimir_perfil %}
         <div class="datos-personales-div">
             <span class="titulo-div">Perfil profesional</span>
         </div>
@@ -116,7 +117,7 @@
         {% endif %}
 
 
-        {% if estudios and imp.imprimir_estudio %}
+        {% if estudios and imprimir_datos.imprimir_estudio %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">formación académica</span>
@@ -149,7 +150,7 @@
 
         {% endif %}
 
-        {% if experiencias_laborales and imp.imprimir_experiencia %}
+        {% if experiencias_laborales and imprimir_datos.imprimir_experiencia %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">experiencia laboral</span>
@@ -199,7 +200,7 @@
 
         {% endif %}
 
-        {% if idioma_extrangero and imp.imprimir_idioma %}
+        {% if idioma_extrangero and imprimir_datos.imprimir_idioma %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Idioma extranjero</span>
@@ -299,7 +300,7 @@
 
         {% endif %}
 
-        {% if produccion_academica and imp.imprimir_produccion %}
+        {% if produccion_academica and imprimir_datos.imprimir_produccion %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Producción académica</span>
@@ -382,7 +383,7 @@
 
         {% endif %}
 
-        {% if participacion_cientifica and imp.imprimir_participacion %}
+        {% if participacion_cientifica and imprimir_datos.imprimir_participacion %}
 
         <div class="datos-personales-div">
             <span class="titulo-div">Participación científica</span>
@@ -464,7 +465,7 @@
         {% endif %}
 
 
-        {% if competencias_tecnicas_computacionale and imp.imprimir_tecnicas %}
+        {% if competencias_tecnicas_computacionale and imprimir_datos.imprimir_tecnicas %}
         <div class="datos-personales-div">
             <span class="titulo-div">competencias técnicas</span>
         </div>
@@ -565,7 +566,7 @@
         </table>
         {% endif %}
 
-        {% if imp.imprimir_documentacion %}
+        {% if imprimir_datos.imprimir_documentacion %}
 
 
         <div class="datos-personales-div">
@@ -663,7 +664,8 @@
         {% endif %}
 
     </div>
-    {% endfor %}
+
+    {% endif %}
 </body>
 
 </html>

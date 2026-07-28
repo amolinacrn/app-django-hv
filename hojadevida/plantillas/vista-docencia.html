@@ -56,8 +56,6 @@
                 <div class="form-grid card bg-light" style="margin-bottom:16px">
                     {{ form.identificador_disciplina|as_crispy_field }}
                     {{ form.nombre_disciplina|as_crispy_field }}
-                    {{form.imprimir_datos|as_crispy_field}}
-                    {{ form.conjunto_tematicas|as_crispy_field }}
                 </div>
 
 
@@ -154,80 +152,57 @@
                 <table class="competencias-table">
                     <thead>
                         <tr>
-                            <th style="width: 5%;">
-                                Unidad
-                            </th>
-                            <th style="width: 85%;">
-                                <div style="display: flex; gap:2vw;">
-                                    <div>
-                                        Codigo: {{ qrdat.identificador_disciplina }}
-                                    </div>
-                                    <div>
-                                        Nombre disciplina: {{ qrdat.nombre_disciplina }}
-                                    </div>
-                                </div>
-                            </th>
-
-
                             <th>
+
+                                Disciplina: {{ qrdat.nombre_disciplina }}
+                            </th>
+
+                            <th style="width: 220px">
                                 Opciones
                             </th>
 
                         </tr>
                     </thead>
-
                     <tbody>
-                        {% for tema in qrdat.tematicas_lista %}
+
                         <tr>
-                            <td>
-                                {{ tema.numero_unidad }}
-                            </td>
-                            <td>
-                                {{ tema.tematicas }}
-                            </td>
 
                             <td>
-                                <!-- Ver soporte -->
-                                <button type=" button" class="icon-btn "
-                                    onclick="modalUnidadesDisciplinas(this,'unidades-cursos-impartidos')"
-                                    data-id="{{tema.id}}" data-tematicas="{{ tema.tematicas }}"
-                                    data-titulo_material_ayuda="{{tema.titulo_material_ayuda}}"
-                                    data-url_material_ayuda="{{tema.url_material_ayuda}}"
-                                    data-numero_unidad="{{tema.numero_unidad}}"
-                                    data-unidades_de_tematica="{{tema.unidades_de_tematica}}">
-                                    <img src="{% static 'bs532/img/ver_violeta.svg' %}" alt="Ver">
-                                </button>
+                                <table style="width: 100%;">
+                                    <tbody>
+                                        {% for registro in queryset_unidades %}
+                                        {% if registro.disciplina_o_curso.id == qrdat.id %}
 
-                                <!-- Eliminar -->
-                                <a href="{% url 'delete_file_record' 'UnidadesCursosImpartidos' tema.id %}"
-                                    class="icon-btn">
-                                    <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
-                                </a>
+                                        <tr>
+                                            <td>
+                                                <div class="titulo_produccion">
+                                                    <a type=" button" class="icon-btn "
+                                                        onclick="modalUnidadesDisciplinas(this,'unidades-cursos-impartidos')"
+                                                        data-id="{{registro.id}}"
+                                                        data-disciplina_o_curso="{{ registro.disciplina_o_curso.id }}"
+                                                        data-tematicas="{{registro.tematicas}}"
+                                                        data-unidades_de_tematica="{{registro.unidades_de_tematica}}"
+                                                        data-numero_unidad="{{registro.numero_unidad}}">
+                                                        {{registro.tematicas}}
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
 
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td colspan="3" style="background-color: rgb(255, 255, 255);">
-                                <!-- Ver soporte -->
+                            <td>
 
-                                <div style="display: flex; gap: 20px; ">
-                                    <div style="font-weight: bold; align-content: center; margin-left: auto;">
-                                        Opciones de tabla
-                                    </div>
-                                    <div>
-
-                                        <!-- Editar -->
-
+                                <div class="contenedor_icono_unidades">
+                                    <div class="margin-bottom-conedor">
                                         <button type="button" class="editar-registro icon-btn "
                                             onclick="DiligenciarFormulario(this)" style="cursor:pointer"
                                             data-id="{{ qrdat.id }}"
                                             data-identificador_disciplina="{{ qrdat.identificador_disciplina }}"
-                                            data-nombre_disciplina="{{ qrdat.nombre_disciplina }}"
-                                            data-link_bibliografia="{{ qrdat.link_bibliografia }}"
-                                            data-autor_documento="{{ qrdat.autor_documento }}"
-                                            data-titulo_documento_guia="{{ qrdat.titulo_documento_guia }}"
-                                            data-conjunto_tematicas="{{ qrdat.conjunto_tematicas }}">
+                                            data-nombre_disciplina="{{ qrdat.nombre_disciplina }}">
 
                                             <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
@@ -238,7 +213,14 @@
                                             class="icon-btn">
                                             <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar">
                                         </a>
+                                    </div>
+                                    <div>
 
+                                        <button type=" button" class="btn btn-success btn-sm"
+                                            onclick="modalUnidadesDisciplinas(this,'unidades-cursos-impartidos')"
+                                            data-id="0">
+                                            Agregar unidades
+                                        </button>
                                     </div>
                                 </div>
 
@@ -264,23 +246,24 @@
     <div class="modal-dialog modal-lg" style="margin-top: 5px;">
 
         <div class="modal-content">
-
-            <div class="modal-body px-lg-1 py-lg-1">
+            <div class="modal-header" style="background-color: rgb(13, 135, 206)">
                 <h6 class="modal-title" id="cargarfotoLabel" style="text-align: left;color: rgb(255, 255, 255);">
                     <div style="padding: 1px; margin-left: 0px; margin-right: 0px;">
-                        <div
-                            style="background-color: rgb(13, 135, 206);height: auto; text-transform: uppercase; padding: 10px;">
+                        <div style="height: auto; text-transform: uppercase; padding: 10px;">
                             <b id="identificador_titulo_unidades">
 
                             </b>
+
                         </div>
                     </div>
                 </h6>
-
-                <div id="curso-unidad-contenido" style="margin-top: 15px;">
-
-                </div>
             </div>
+
+
+            <div id="curso-unidad-contenido" style="margin-top: 15px;">
+            </div>
+
+
         </div>
 
     </div>
@@ -295,14 +278,17 @@
 
         const ident_titulo = document.getElementById("identificador_titulo_unidades");
 
-        ident_titulo.innerHTML = `Unidades de ${data.tematicas}`;
+        ident_titulo.innerHTML = `${data.tematicas}`;
 
         const indent_modal = document.getElementById("curso-unidad-contenido");
+
+
 
         fetch(`/hojadevida/${vista_html}/${data.id}`)
             .then(response => response.text())
             .then(html => {
                 indent_modal.innerHTML = html;
+
                 Object.entries(data).forEach(([campo, valor]) => {
                     const id_input = document.getElementById(`id_${campo}`);
 

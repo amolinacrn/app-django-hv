@@ -9,35 +9,49 @@
     {% csrf_token %}
 
     <!-- ////////////////// aqui va el contenido que ya estaba /////////////-->
+    <div class="modal-body">
+        <div class=" form-grid card bg-light" style="margin-bottom:16px">
 
-    <div class=" form-grid card bg-light" style="margin-bottom:16px">
+            {{form.tematicas|as_crispy_field}}
 
-        <div>{{form.tematicas|as_crispy_field}}</div>
+            {{form.numero_unidad|as_crispy_field}}
 
-        <div>{{form.numero_unidad|as_crispy_field}}</div>
+            {{form.disciplina_o_curso|as_crispy_field}}
+
+        </div>
+
+        <div class="card mb-3 p-3 bg-light">
+            {{form.unidades_de_tematica|as_crispy_field}}
+        </div>
 
     </div>
 
-    <div class="card mb-3 p-3 bg-light">
-        {{form.unidades_de_tematica|as_crispy_field}}
-    </div>
 
-    <div class="modal-footer py-lg-0">
-        <button class="btn btn-sm btn-outline-success" type="submit">
-            <div style="display: flex;gap: 5px;">
-                <div>
-                    <img src="{% static 'bs532/img/imghv/guardar.svg' %}"
-                        style="display: flex; width:20px;align-items: center;" alt="My image">
-                </div>
-                <div>
-                    guardar
-                </div>
+
+    <div class="modal-footer" style="justify-content: center; align-items: center;">
+
+        <div style="display: flex; gap: 20px;">
+            <div>
+                <button class=" btn btn-sm btn-success" type="submit">
+                    Guardar
+                </button>
             </div>
-        </button>
+            <a href="{% url 'delete_file_record' 'UnidadesCursosImpartidos' id_actual %}" class="btn btn-danger btn-sm">
+                Eliminar
+            </a>
+            <div>
+                <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-dismiss="modal">
+                    <b>Salir</b>
+                </button>
+            </div>
+        </div>
 
-        <button type="button" class="btn btn-outline-danger btn-sm float-end" data-bs-dismiss="modal">
-            <b>Salir</b>
-        </button>
+
+
+
+
+
+
     </div>
 
 </form>
