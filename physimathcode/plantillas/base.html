@@ -36,21 +36,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-
-  <style>
-    /* .cls-login-name-user {
-      display: inline-block;
-      background-color: #212529;
-      color: rgb(255, 255, 255);
-      font-weight: 700;
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      cursor: default;
-      user-select: none;
-      border: 1px solid #212529;
-    } */
-  </style>
-
 </head>
 
 <body>
@@ -296,6 +281,11 @@
   <div id="container-layout-dual">
 
     <div class="left-section-dual">
+
+      <div id="mininav-home-principal" class="portada-principal-home">
+        <img src="{{url_portada}}" class="portada_login_registre ">
+      </div>
+
       {% block contenido-izquierdo %}
 
       {% endblock %}
@@ -331,16 +321,19 @@
       const contenedor_computador = document.querySelector('.contenedor-home-computador');
       const contenedor_tablet_celular = document.querySelector('.contenedor-home-culular-tablet');
       let leftPanelVentana = document.querySelector('.leftPanel-munu-principal');
-      if (anchoLeftVentana <= 1300) {
+      if (anchoLeftVentana <= 1100) {
         leftPanelVentana.style.width = "0px";
         leftPanelVentana.style.transition = "width 0.4s cubic-bezier(.66,.02,.87,-0.15)";
         contenedor_computador.style.display = "none";
         contenedor_tablet_celular.style.display = "block";
+        left_section_dual.style.height = "100vh";
+        left_section_dual.style.width = "100vw";
       } else {
         leftPanelVentana.style.width = "200px";
         leftPanelVentana.style.transition = "width 0.2s ease";
         contenedor_computador.style.display = "block";
         contenedor_tablet_celular.style.display = "none";
+        left_section_dual.style.height = "auto";
       }
 
     }
@@ -351,8 +344,9 @@
     //Llama a la función al redimensionar la ventana
     window.addEventListener('resize', updateLeftPanel);
 
-    const left_section_dual = document.querySelector(".left-section-dual");
-    left_section_dual.style.background = "linear-gradient(rgba(0, 0, 0, 0.353), rgba(0, 0, 0, 0.386)), url('{{url_portada}}')";
+    // const left_section_dual = document.querySelector(".left-section-dual");
+    // left_section_dual.style.background = "url('{{url_portada}}')";
+
 
   </script>
 

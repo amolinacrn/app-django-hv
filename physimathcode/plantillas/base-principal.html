@@ -40,12 +40,6 @@
       flex: 1;
     }
 
-    .portada {
-      width: 100%;
-      max-height: auto;
-      display: block;
-    }
-
     .mi-footer {
       display: flex;
       gap: 5px;
@@ -116,6 +110,9 @@
       padding-right: 12px;
       padding-bottom: 12px;
     }
+
+    @media (max-width: 1100px) {}
+
 
     @media (max-width: 800px) {
       .mi-footer {
@@ -363,7 +360,7 @@
 
   </div>
 
-  <div id="mininav-home-principal" style="width: 100%; height: auto">
+  <div id="mininav-home-principal" class="portada-principal-home">
     <img src="{{url_portada}}" class="portada">
   </div>
 
@@ -823,6 +820,10 @@
     // const mininav_home_principal = document.querySelector("#mininav-home-principal");
     // mininav_home_principal.style.background = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('{{url_portada}}')";
     // // console.log('');
+
+
+
+
   </script>
 
 
