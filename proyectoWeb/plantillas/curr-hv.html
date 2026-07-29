@@ -61,11 +61,12 @@
 
                         <div class="grid-datos-flex ">
                             <div>
-                                <img src="{{ eye_icon }}github-black.svg" width="21px">
+                                <img src="{{ eye_icon }}website.png" width="21px">
                             </div>
-                            <div>
-                                <a href="https://github.com/amolinacrn" target="_blank" style="color: #000000;">
-                                    GitHub</a>
+                            <div class="elimiar_campo">
+                                <a href="{{e.cuenta_github}}" target="_blank" style="color: #000000;">
+                                    Mi sitio web
+                                </a>
                             </div>
                         </div>
 
@@ -238,6 +239,7 @@
 
             </tr>
             {% for p in produccion_academica %}
+            {% if not p.mostrar_producto %}
             <tr>
                 <td>{{ p.nombre_trabajo }}</td>
                 <td>{{ p.nombre_revista }}</td>
@@ -246,6 +248,7 @@
                 <td>{{ p.fecha_publicacion|date:"d/m/Y" }}</td>
 
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </section>

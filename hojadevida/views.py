@@ -245,7 +245,7 @@ def view_pdf_HV(request):
 
     for _, info in conjuto_modelos.items():
         imprimir_doc = info["imprimir_datos"]
-        if info["queryset"].count() != 0:
+        if info["queryset"].count() != 0 and imprimir_doc:
             for modelo in info["queryset"]:
                 campo_pdf = info["certificado_pdf"]
                 archivo = getattr(modelo, campo_pdf, None) if campo_pdf else None
@@ -887,7 +887,7 @@ class UnidadesCursosImpartidosHV(View):
                                                                     "unidades-cursos-impartidos.html")
         
         contexto["id_actual"] = pk
-        print(pk)
+        
 
         return render(request, plantilla_html, contexto)
 
@@ -974,7 +974,7 @@ class ImprimirHojaDeVidaHV(View):
         form_context=funcion_Menu_HV(request)
        
         form_context ["form_imprimir"]= contexto 
-        print(contexto)
+        
 
         return render(request, plantilla_html, form_context)
 
