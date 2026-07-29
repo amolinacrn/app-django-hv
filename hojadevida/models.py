@@ -226,7 +226,7 @@ class UnidadesCursosImpartidos(models.Model):
 
     tematicas =  models.CharField(max_length=100, blank=True, null=True)
     unidades_de_tematica =  models.CharField(max_length=1000, blank=True, null=True)
-    numero_unidad = models.CharField(max_length=3, blank=True)
+    numero_unidad = models.IntegerField(max_length=3, blank=True)
 
 
 class CitasBibliograficas(models.Model):

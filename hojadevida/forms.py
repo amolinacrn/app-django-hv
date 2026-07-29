@@ -950,12 +950,12 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
         label="Temática:",
         required=False,
     )
-
-    numero_unidad = forms.CharField(
-        max_length=3,
+    
+    numero_unidad = forms.TypedChoiceField(
+        choices=CAPITULOS_LIBRO,
+        coerce=int,
         label="Número de unidad:",
         required=False,
-        widget=forms.Select(choices=CAPITULOS_LIBRO),
     )
 
 class FormCitasBibliograficas(forms.ModelForm):
