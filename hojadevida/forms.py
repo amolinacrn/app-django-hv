@@ -935,7 +935,7 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
         self.fields["disciplina_o_curso"].empty_label = "Seleccione un curso"
 
     unidades_de_tematica =  forms.CharField(
-        max_length=1000,
+        max_length=2000,
         label="Agregue las unidades de ésta temática:",
         required=False,
         widget=forms.Textarea(
@@ -950,7 +950,7 @@ class FormUnidadesCursosImpartidos(forms.ModelForm):
         label="Temática:",
         required=False,
     )
-    
+
     numero_unidad = forms.TypedChoiceField(
         choices=CAPITULOS_LIBRO,
         coerce=int,
