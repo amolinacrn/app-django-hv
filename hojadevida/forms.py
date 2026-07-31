@@ -321,6 +321,11 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         required=False
     )
 
+    nit_empresa= forms.CharField(
+        max_length=10,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        required=True,
+    )
 
     grado_academico = forms.CharField(
         max_length=80,
@@ -433,7 +438,11 @@ class FormExperienciaLaboral(forms.ModelForm):
         required=False,
         widget=forms.Select(choices=TIPO_DE_EMPRESA_LABORAL),
     )
-
+    nit_empresa= forms.CharField(
+        max_length=10,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        required=True,
+    )
     nombre_empresa = forms.CharField(
         max_length=80,
         label=mark_safe("<span style='color:red'>*</span> Nombre empresa:"),
@@ -561,6 +570,12 @@ class FormularioProduccionAcademica(forms.ModelForm):
         required=False,
     )
 
+    nit_empresa= forms.CharField(
+        max_length=10,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        required=True,
+    )
+    
     nombre_trabajo = forms.CharField(
         max_length=300,
         label="Nombre publicación:",
@@ -665,9 +680,10 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     nit_empresa= forms.CharField(
         max_length=10,
-        label="codigo de registro:",
-        required=False,
+        label=mark_safe("<span style='color:red'>*</span> codigo de registro:"),
+        required=True,
     )
+
 class FormularioParticipacionCientifica(forms.ModelForm):
 
     class Meta:

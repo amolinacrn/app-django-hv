@@ -69,7 +69,7 @@ class TitulosAcademico(models.Model):
     )
     cargar_icono = models.ImageField(upload_to="files/img/imgHome/titulos",blank=True, null=True)
     website = models.URLField(max_length=100, blank=True, null=True)
-    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10)
 
     class Meta:
         ordering = ['fecha_inicio']
@@ -99,7 +99,7 @@ class ExperienciasLaborale(models.Model):
     )
     website = models.URLField(max_length=100, blank=True, null=True)
     cargar_icono = models.ImageField(upload_to="files/img/imgHome/experiencia",blank=True, null=True)
-    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10)
 
     class Meta:
         ordering = ['-fecha_inicio']
@@ -126,7 +126,7 @@ class ProduccionAcademica(models.Model):
         upload_to="files/docs/papers", blank=True, null=True
     )
     mostrar_producto = models.BooleanField(default=None, blank=True, null=True)
-    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10)
     class Meta:
         ordering = ['-fecha_publicacion']
 
@@ -226,7 +226,7 @@ class UnidadesCursosImpartidos(models.Model):
 
     tematicas =  models.CharField(max_length=100, blank=True, null=True)
     unidades_de_tematica =  models.CharField(max_length=2000, blank=True, null=True)
-    numero_unidad = models.IntegerField(max_length=3, blank=True)
+    numero_unidad = models.IntegerField(blank=True)
 
 
 class CitasBibliograficas(models.Model):
