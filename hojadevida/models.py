@@ -64,12 +64,12 @@ class TitulosAcademico(models.Model):
     pais_titulo = models.CharField(max_length=20, blank=False, null=False)
     departamento_titulo = models.CharField(max_length=20, blank=False, null=False)
     ciudad_titulo = models.CharField(max_length=50, blank=True, null=True)
-
     documento_soporte = models.FileField(
         upload_to="files/docs/diplomas", blank=True, null=True
     )
-    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/titulos",blank=True, null=True)
     website = models.URLField(max_length=100, blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         ordering = ['fecha_inicio']
@@ -98,7 +98,9 @@ class ExperienciasLaborale(models.Model):
         upload_to="files/docs/experiencia", blank=True, null=True
     )
     website = models.URLField(max_length=100, blank=True, null=True)
-    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/experiencia",blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
+
     class Meta:
         ordering = ['-fecha_inicio']
 
@@ -118,15 +120,13 @@ class ProduccionAcademica(models.Model):
     area_concentracion = models.CharField(max_length=150, blank=True, null=True)
     linea_pesquisa = models.CharField(max_length=150, blank=True, null=True)
     doi_link_publicacion = models.URLField(max_length=100, blank=True, null=True)
-    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/produccion",blank=True, null=True)
     tecnologias_utilizadas =  models.CharField(max_length=500, blank=True, null=True)
-
     documento_soporte = models.FileField(
         upload_to="files/docs/papers", blank=True, null=True
     )
-
     mostrar_producto = models.BooleanField(default=None, blank=True, null=True)
-
+    nit_empresa= models.CharField(max_length=10, blank=True, null=True)
     class Meta:
         ordering = ['-fecha_publicacion']
 
@@ -147,7 +147,7 @@ class ParticipacionCientifica(models.Model):
         upload_to="files/docs/eventos", blank=True, null=True
     )
 
-    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/evento",blank=True, null=True)
 
 
 class IdiomaExtrangero(models.Model):
@@ -193,7 +193,7 @@ class CompetenciasTecnicasComputacionale(models.Model):
     )
 
 
-    cargar_icono = models.ImageField(upload_to="files/img/imgHome",blank=True, null=True)
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/competencia",blank=True, null=True)
 
 
 class CursosImpartidos(models.Model):

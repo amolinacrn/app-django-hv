@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpRequest
 from django.template import Template, Context, loader
+from django.core.exceptions import FieldDoesNotExist
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.templatetags.static import static
@@ -20,6 +21,7 @@ import os
 import os.path
 import unicodedata
 import re
+from collections import defaultdict
 
 def es_acceso_hoja_vida(user):
     return user.is_authenticated and user.groups.filter(
@@ -68,7 +70,24 @@ def delete_image(request, campo):
     if campo in ["foto_perfil", "imagen_de_portada","imagen_panel_izquierdo"]:
         getattr(foto, campo).delete()
 
-    return redirect("get_datos")
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required(login_url="/autenticacion/logear")
+@user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
+def delete_imagen_icono_record(request, model_name, campo, pk ):
+    Model = apps.get_model('hojadevida', model_name)
+    foto = get_object_or_404(Model, pk=pk, nombre_usuario=request.user)
+
+    if campo in ["cargar_icono"]:
+        field = getattr(foto, campo)
+
+        if field:
+            field.delete(save=False)   # Elimina el archivo físico
+            setattr(foto, campo, None) # O "" si el campo no acepta NULL
+            foto.save(update_fields=[campo])
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
@@ -330,15 +349,40 @@ def codigo_vistas_automaticas_post_hv(request,
 
     if name_curso and es_valido:
         codigo = form.cleaned_data["codigo_curso"]
-        obj = form.save(commit=False)
-        obj.nombre_curso = dict(form.fields["codigo_curso"].choices)[codigo]
-        obj.save()
+        objet = form.save(commit=False)
+        objet.nombre_curso = dict(form.fields["codigo_curso"].choices)[codigo]
+        objet.save()
         return (sitweb,idq,es_valido)
 
     if es_valido:
-        form.save()        
-        return (sitweb,idq,es_valido)
 
+        objet = form.save(commit=False)
+
+        try:
+            objet._meta.get_field("nit_empresa")
+        except FieldDoesNotExist:
+            pass
+
+        else:
+
+            nit = objet.nit_empresa
+
+            experiencia = models_model.objects.filter(
+                nombre_usuario_id=request.user.id,
+                nit_empresa=nit,
+                cargar_icono__isnull=False
+            ).exclude(
+                cargar_icono=""
+            ).first()
+
+            if experiencia:
+                objet.cargar_icono = experiencia.cargar_icono
+                print("hola mundo")
+
+        objet.save()
+
+        return (sitweb, idq, es_valido)
+   
     queryset_dat = models_model.objects.filter(
         nombre_usuario=request.user
     )
@@ -350,7 +394,6 @@ def codigo_vistas_automaticas_post_hv(request,
     }
 
     return (plantilla_html, Contexto, es_valido)
-
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
@@ -413,7 +456,6 @@ def Codigo_vistas_automaticas_get_hv(request,formulario_forms,
     }
 
     return (plantilla_html, contexto)
-
 
 class formDatPersonView:
 
@@ -645,6 +687,29 @@ class ExperienciaLaboralHV(View):
                                                                     ExperienciasLaborale,
                                                                     "documento_soporte",
                                                                     "registro_exp_laboral.html")
+        
+        # nits_empresas = list(ExperienciasLaborale.objects.filter(
+        #     nombre_usuario_id=request.user.id)
+        #     )
+
+        # diccionario_nit = {}
+
+        # for obj in nits_empresas:
+
+        #     if obj.cargar_icono:
+        #         diccionario_nit[obj.nit_empresa] = obj.cargar_icono.url
+
+        # for obj in nits_empresas:
+
+        #     url_icono = diccionario_nit.get(obj.nit_empresa)
+
+        #     if url_icono:
+        #         obj.icono_url = request.build_absolute_uri(url_icono)
+        #     else:
+        #         obj.icono_url = ""
+
+        # contexto["queryset_iconos"] = nits_empresas
+        
         return render(request, plantilla_html, contexto)
 
     def post(self, request, id_explab=0):

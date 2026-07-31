@@ -663,6 +663,11 @@ class FormularioProduccionAcademica(forms.ModelForm):
         required=False,
     )    
 
+    nit_empresa= forms.CharField(
+        max_length=10,
+        label="codigo de registro:",
+        required=False,
+    )
 class FormularioParticipacionCientifica(forms.ModelForm):
 
     class Meta:

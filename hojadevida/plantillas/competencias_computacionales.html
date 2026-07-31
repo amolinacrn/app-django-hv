@@ -234,12 +234,30 @@
                     <label class="cargar_documento_whith" for="cargar_icono">
                         Cargue el ícono de su preferencia
                         <div style=" margin-top:7px">
-                            <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+
+                            <div style="display: flex;gap: 10px;">
+                                <div style="width: 100%;">
+                                    <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+                                </div>
+
+                                <div>
+
+                                    <div id="etiqueta_a_file_delete_record">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                         <div class="error-upload">
                             {{ form.cargar_icono.errors.as_text }}
                         </div>
+
                     </label>
+
+
+
                 </div>
 
 
@@ -291,6 +309,8 @@
     </div>
 </div>
 
-
+<script>
+    const deleteBase = "{% url 'delete_imagen_icono_record' 'CompetenciasTecnicasComputacionale' 'cargar_icono' 0 %}";
+</script>
 
 {% endblock content_derecho %}

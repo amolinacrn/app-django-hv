@@ -10,10 +10,13 @@
     {% for e in queryset_produccion_academica %}
     {% if not e.mostrar_producto %}
     <div class="class_div-copia">
+
         <div class="vistas_web_menu">
+
             <div class="icono_producto_curr">
                 <img src="{{e.icono_url}}" class="stilo-imagenes-intereses">
             </div>
+
             <div>
                 <div class="titulo_produccion" style="font-size: 18px; font-weight: bold; padding-bottom: 5px;">
                     <a href="{{e.doi_link_publicacion}}" target="_blank">
@@ -43,6 +46,7 @@
                 </div>
 
             </div>
+
         </div>
 
     </div>

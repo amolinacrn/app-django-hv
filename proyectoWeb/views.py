@@ -189,10 +189,10 @@ def funcion_home(rqst):
         static("bs532/img/")
     )
 
-    imagenes_carrusel = []
+    # imagenes_carrusel = []
 
-    for i in range(1, 20):
-        imagenes_carrusel.append(f"img{i}.jpg")
+    # for i in range(1, 20):
+    #     imagenes_carrusel.append(f"img{i}.jpg")
 
 
     for objeto in list(tecnologias) + list(diplomas) + list(experiencias)+list(areas_de_interes):
@@ -210,7 +210,7 @@ def funcion_home(rqst):
 
         "tecnologias": tecnologias,
 
-        "imagenesCarrusel":imagenes_carrusel,
+        "imagenesCarrusel":areas_de_interes,
         
         "puede_ver_hv": es_acceso_hoja_vida(rqst.user),
 

@@ -60,6 +60,7 @@
           {{ form.doi_link_publicacion|as_crispy_field }}
           {{form.mostrar_producto|as_crispy_field}}
           {{ form.tipos_de_productos|as_crispy_field }}
+          {{form.nit_empresa|as_crispy_field}}
         </div>
 
         <div class="card mb-3 p-3 bg-light">
@@ -87,24 +88,37 @@
             </div>
 
             <div id="ref_img_ver" class="ojo_ver_pdf">
-              <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px">
+              <img src="/static/bs532/img/ver_violeta.svg" style="width: 20px; ">
             </div>
-
-
-
           </div>
 
           <label class="cargar_documento_whith" for="cargar_icono">
             Cargue el ícono de su preferencia
             <div style=" margin-top:7px">
-              <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+
+              <div style="display: flex;gap: 10px;">
+                <div style="width: 100%;">
+                  <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+                </div>
+
+                <div>
+
+                  <div id="etiqueta_a_file_delete_record">
+
+                  </div>
+
+                </div>
+              </div>
+
             </div>
             <div class="error-upload">
               {{ form.cargar_icono.errors.as_text }}
             </div>
-          </label>
-        </div>
 
+          </label>
+
+
+        </div>
 
         <br>
         <hr>
@@ -265,7 +279,8 @@
                   data-tipos_de_productos="{{qrdat.tipos_de_productos}}"
                   data-mostrar_producto="{{qrdat.mostrar_producto}}" data-descripcion="{{qrdat.descripcion}}"
                   data-palabras_clave="{{qrdat.palabras_clave}}" data-cargar_icono="{{qrdat.cargar_icono}}"
-                  data-tecnologias_utilizadas="{{qrdat.tecnologias_utilizadas}}">
+                  data-tecnologias_utilizadas="{{qrdat.tecnologias_utilizadas}}"
+                  data-nit_empresa="{{qrdat.nit_empresa}}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
                 </button>
@@ -283,5 +298,7 @@
     </div>
   </div>
 </div>
-
+<script>
+  const deleteBase = "{% url 'delete_imagen_icono_record' 'ProduccionAcademica' 'cargar_icono' 0 %}";
+</script>
 {% endblock content_derecho %}

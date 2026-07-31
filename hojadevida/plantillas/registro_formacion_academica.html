@@ -63,7 +63,7 @@
           {{form.departamento_titulo|as_crispy_field}}
           {{form.ciudad_titulo|as_crispy_field}}
           {{form.website|as_crispy_field}}
-
+          {{form.nit_empresa|as_crispy_field}}
         </div>
 
         <div class="card form-grid bg-light mb-3 p-3">
@@ -95,15 +95,33 @@
 
           </div>
 
+
           <label class="cargar_documento_whith" for="cargar_icono">
             Cargue el ícono de su preferencia
             <div style=" margin-top:7px">
-              <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+
+              <div style="display: flex;gap: 10px;">
+                <div style="width: 100%;">
+                  <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+                </div>
+
+                <div>
+
+                  <div id="etiqueta_a_file_delete_record">
+
+                  </div>
+
+                </div>
+              </div>
+
             </div>
             <div class="error-upload">
               {{ form.cargar_icono.errors.as_text }}
             </div>
+
           </label>
+
+
         </div>
         <br>
         <hr>
@@ -263,7 +281,8 @@
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}" data-pais_titulo="{{ qrdat.pais_titulo }}"
                   data-departamento_titulo="{{ qrdat.departamento_titulo }}"
                   data-ciudad_titulo="{{ qrdat.ciudad_titulo }}" data-documento_url="{{ qrdat.documento_url }}"
-                  data-cargar_icono="{{qrdat.cargar_icono}}" data-website="{{qrdat.website}}">
+                  data-cargar_icono="{{qrdat.cargar_icono}}" data-website="{{qrdat.website}}"
+                  data-nit_empresa="{{qrdat.nit_empresa}}">
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
                 </button>
 
@@ -284,5 +303,7 @@
   </div>
 
 </div>
-
+<script>
+  const deleteBase = "{% url 'delete_imagen_icono_record' 'TitulosAcademico' 'cargar_icono' 0 %}";
+</script>
 {% endblock content_derecho %}

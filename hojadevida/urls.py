@@ -16,6 +16,11 @@ urlpatterns = [
     ),
 
     path(
+        "delete-imagen-icono/<str:model_name>/<str:campo>/<int:pk>/",
+        delete_imagen_icono_record,
+        name="delete_imagen_icono_record",
+    ),
+    path(
         "Experiencia-laboral/<int:id_explab>",
         ExperienciaLaboralHV.as_view(),
         name="exp_laboral",

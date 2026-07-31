@@ -65,6 +65,7 @@
           <div>{{ form.fecha_fin|as_crispy_field }}</div>
           <div>{{ form.dependencia|as_crispy_field }}</div>
           {{form.website|as_crispy_field}}
+          {{form.nit_empresa|as_crispy_field}}
 
         </div>
 
@@ -93,12 +94,29 @@
           <label class="cargar_documento_whith" for="cargar_icono">
             Cargue el ícono de su preferencia
             <div style=" margin-top:7px">
-              <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+
+              <div style="display: flex;gap: 10px;">
+                <div style="width: 100%;">
+                  <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+                </div>
+
+                <div>
+
+                  <div id="etiqueta_a_file_delete_record">
+
+                  </div>
+
+                </div>
+              </div>
+
             </div>
             <div class="error-upload">
               {{ form.cargar_icono.errors.as_text }}
             </div>
+
           </label>
+
+
         </div>
 
         <br>
@@ -252,7 +270,8 @@
                   data-dependencia="{{ qrdat.dependencia }}" data-direccion_empresa="{{ qrdat.direccion_empresa }}"
                   data-fecha_inicio="{{ qrdat.fecha_inicio|date:'Y-m-d' }}"
                   data-fecha_fin="{{ qrdat.fecha_fin|date:'Y-m-d' }}" data-documento_url="{{ qrdat.documento_url }}"
-                  data-cargar_icono="{{qrdat.cargar_icono}}" data-website="{{qrdat.website}}">
+                  data-cargar_icono="{{qrdat.cargar_icono}}" data-website="{{qrdat.website}}"
+                  data-nit_empresa="{{qrdat.nit_empresa}}">
 
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
@@ -272,5 +291,7 @@
   </div>
 
 </div>
-
+<script>
+  const deleteBase = "{% url 'delete_imagen_icono_record' 'ExperienciasLaborale' 'cargar_icono' 0 %}";
+</script>
 {% endblock content_derecho %}

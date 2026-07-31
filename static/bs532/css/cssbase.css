@@ -617,6 +617,7 @@ input[type="number"] {
   cursor: pointer;
   /* font-size: 20px; */
   border-radius: 50%;
+  pointer-events: auto;
 
   /* margin-left: 10px; */
 }
@@ -633,6 +634,7 @@ input[type="number"] {
   cursor: pointer;
   /* font-size: 20px; */
   border-radius: 50%;
+  pointer-events: auto;
 
 }
 
@@ -655,6 +657,7 @@ input[type="number"] {
   background-color: rgba(0, 100, 0, 0);
   width: 100%;
   padding: 20px;
+  pointer-events: none;
 }
 
 .item {
