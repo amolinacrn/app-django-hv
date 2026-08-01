@@ -472,6 +472,12 @@ input[type="number"] {
   width: 30px;
 }
 
+.border-imagenes-curr {
+  width: 30px;
+  border-radius: 3px;
+}
+
+
 .style-info-personal-personal {
   display: flex;
   align-items: center;

@@ -99,6 +99,12 @@ def curr_hv(request):
     agregar_link(idiomas, "idioma_extrangero")
     agregar_link(diplomas, "titulo_obtenido")
 
+    for objeto in list(competencias) + list(diplomas) + list(experiencias)+list(produccion):
+        try:
+            objeto.icono_url = request.build_absolute_uri(objeto.cargar_icono.url)
+        except Exception:
+            objeto.icono_url = None
+
     # --- contexto ---
     contexto = {
         "puede_ver_hv": es_acceso_hoja_vida(request.user),

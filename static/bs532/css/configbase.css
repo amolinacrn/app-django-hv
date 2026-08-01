@@ -187,6 +187,24 @@
       justify-content: center;
     }
 
+    .tabla_tabla {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tabla_tabla th {
+      background: #9f9f9f42;
+      text-align: left;
+    }
+
+    .tabla_tabla td,
+    .tabla_tabla th {
+      padding: 6px;
+      border-bottom: 1px solid #ddd;
+    }
+
+
+
     .tabla {
       width: 100%;
       border-collapse: collapse;
@@ -195,8 +213,6 @@
     .tabla th {
       background: #9f9f9f;
       text-align: left;
-
-
     }
 
     .tabla td,
