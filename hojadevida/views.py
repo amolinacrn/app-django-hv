@@ -23,10 +23,40 @@ import unicodedata
 import re
 from collections import defaultdict
 
-def es_acceso_hoja_vida(user):
+
+def es_acceso_hoja_vida(user):  
     return user.is_authenticated and user.groups.filter(
         name="acceso-hoja-de-vida"
     ).exists()
+
+def acceso_hoja_de_vida(user):
+    return user.groups.filter(name="acceso-hoja-de-vida").exists()
+
+# def acceso_hoja_de_vida(user):
+
+#     if (
+#         not user.is_authenticated
+#         or not user.groups.filter(name="acceso-hoja-de-vida").exists()
+#     ):
+#         return False
+
+#     permisos = user.get_all_permissions()
+   
+#     for permiso in permisos:
+      
+        
+#         if permiso.startswith("hojadevida."):
+#             return True
+        
+
+
+#     return False
+
+
+# def es_acceso_hoja_vida(user):
+#     return acceso_hoja_de_vida(user)
+
+
 
 def obtener_url_absoluta(request, archivo):
     if not archivo:
@@ -36,16 +66,8 @@ def obtener_url_absoluta(request, archivo):
     except Exception:
         return None
 
-def acceso_hoja_de_vida(user):
-    return user.groups.filter(name="acceso-hoja-de-vida").exists()
 
-def slugify(texto: str) -> str:
-    texto = texto.lower()
-    texto = unicodedata.normalize("NFD", texto)
-    texto = texto.encode("ascii", "ignore").decode("utf-8")
-    texto = re.sub(r"[^a-z0-9\s]", "", texto)
-    texto = re.sub(r"\s+", "_", texto)
-    return texto
+
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
@@ -55,12 +77,6 @@ def delete_file_record(request, model_name, pk):
     obj.delete()
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
-# @login_required(login_url="/autenticacion/logear")
-# @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
-# def phot_delete(request):
-#     deletfoto = FotosPersonale.objects.get(nombre_usuario_id=request.user.id)
-#     deletfoto.foto_perfil.delete()
-#     return redirect("get_datos")
 
 @login_required(login_url="/autenticacion/logear")
 @user_passes_test(acceso_hoja_de_vida,login_url="/autenticacion/acceso-denegado/")
