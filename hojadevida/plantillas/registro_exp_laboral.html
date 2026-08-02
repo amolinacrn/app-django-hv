@@ -48,22 +48,23 @@
         {% csrf_token %}
 
         <div class="form-grid card bg-light" style="margin-bottom:16px">
-          <div>{{ form.tipo_empresa|as_crispy_field }}</div>
-          <div>{{ form.nombre_empresa|as_crispy_field }}</div>
-          <div>{{ form.cargo|as_crispy_field }}</div>
+          {{ form.tipo_empresa|as_crispy_field }}
+          {{ form.nombre_empresa|as_crispy_field }}
+          {{ form.cargo|as_crispy_field }}
 
-          <div>{{ form.tipo_contrato|as_crispy_field }}</div>
-          <div>{{ form.ciudad_contrato|as_crispy_field }}</div>
-          <div>{{ form.departamento_contrato|as_crispy_field }}</div>
+          {{ form.tipo_contrato|as_crispy_field }}
+          {{ form.ciudad_contrato|as_crispy_field }}
+          {{ form.departamento_contrato|as_crispy_field }}
 
-          <div>{{ form.pais_contrato|as_crispy_field }}</div>
-          <div>{{ form.contacto_empresa|as_crispy_field }}</div>
-          <div>{{ form.correo_electronico_empresa|as_crispy_field }}</div>
+          {{ form.pais_contrato|as_crispy_field }}
+          {{ form.contacto_empresa|as_crispy_field }}
+          {{ form.correo_electronico_empresa|as_crispy_field }}
 
-          <div>{{ form.direccion_empresa|as_crispy_field }}</div>
-          <div>{{ form.fecha_inicio|as_crispy_field }}</div>
-          <div>{{ form.fecha_fin|as_crispy_field }}</div>
-          <div>{{ form.dependencia|as_crispy_field }}</div>
+          {{ form.direccion_empresa|as_crispy_field }}
+          {{ form.fecha_inicio|as_crispy_field }}
+          {{ form.fecha_fin|as_crispy_field }}
+
+          {{ form.dependencia|as_crispy_field }}
           {{form.website|as_crispy_field}}
           {{form.nit_empresa|as_crispy_field}}
 

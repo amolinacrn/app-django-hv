@@ -676,26 +676,34 @@
             document.querySelector('.hidden-field-two').style.display = "none";
 
             const form = document.getElementById('editar_datos_formulario');
-            const eliminar_img_x_campo = document.getElementById("etiqueta_a_file_delete_record");
 
 
-            if (data.cargar_icono) {
+            if (data.nit_empresa) {
 
-                const url = deleteBase.replace("/0/", `/${data.id}/`);
+                const eliminar_img_x_campo = document.getElementById("etiqueta_a_file_delete_record");
 
-                eliminar_img_x_campo.innerHTML = `
+                if (data.cargar_icono) {
+
+                    const url = deleteBase.replace("/0/", `/${data.id}/`);
+
+                    eliminar_img_x_campo.innerHTML = `
                         <a href="${url}" class="icon-btn">
                             <img src="{% static 'bs532/img/eliminar.svg' %}" alt="Eliminar" style="margin-top:6px">
                         </a> 
                     `;
-            } else {
-                eliminar_img_x_campo.innerHTML = ``;
+
+                } else {
+
+                    eliminar_img_x_campo.innerHTML = ``;
+
+                }
             }
 
             form.action = 0;
 
             if (Object.keys(data).length !== 0) {
                 form.action = data.id;
+                console.log(data.id);
             } else {
                 form.reset();
             }

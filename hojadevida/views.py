@@ -687,31 +687,10 @@ class ExperienciaLaboralHV(View):
                                                                     "documento_soporte",
                                                                     "registro_exp_laboral.html")
         
-        # nits_empresas = list(ExperienciasLaborale.objects.filter(
-        #     nombre_usuario_id=request.user.id)
-        #     )
-
-        # diccionario_nit = {}
-
-        # for obj in nits_empresas:
-
-        #     if obj.cargar_icono:
-        #         diccionario_nit[obj.nit_empresa] = obj.cargar_icono.url
-
-        # for obj in nits_empresas:
-
-        #     url_icono = diccionario_nit.get(obj.nit_empresa)
-
-        #     if url_icono:
-        #         obj.icono_url = request.build_absolute_uri(url_icono)
-        #     else:
-        #         obj.icono_url = ""
-
-        # contexto["queryset_iconos"] = nits_empresas
         
         return render(request, plantilla_html, contexto)
 
-    def post(self, request, id_explab=0):
+    def post(self, request, id_explab):
 
         if not request.user.is_authenticated:
             return redirect("logear")
