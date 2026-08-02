@@ -817,9 +817,15 @@ class FormularioParticipacionCientifica(forms.ModelForm):
 
 class FormularioIdiomaExtrangero(forms.ModelForm):
 
+    nit_empresa = forms.ChoiceField(
+    label=mark_safe("<span style='color:red'>*</span>  Idioma:"),
+    required=True,
+    choices=[]
+    )
+
     class Meta:
         model = IdiomaExtrangero
-        fields = "__all__"
+        exclude=["tipo_idioma"]
 
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop("current_user", None)
@@ -827,12 +833,9 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
         self.fields["nombre_usuario"].disabled = True
         self.fields["nombre_usuario"].initial = self.current_user
 
-    tipo_idioma = forms.CharField(
-    max_length=30,
-    label=mark_safe("<span style='color:red'>*</span>  Idioma:"),
-    required=True,
-    widget=forms.Select(choices=DOMINIO_LENGUAGES),
-    )
+        self.fields["nit_empresa"].choices = CODIGOS_DE_IDIOMAS
+
+
 
     domimio_conversacional = forms.CharField(
         max_length=3,
@@ -901,14 +904,6 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
         widget=forms.FileInput(),
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
-
-    nit_empresa= forms.CharField(
-        max_length=10,
-        required=True,
-        label=mark_safe("<span style='color:red'>*</span> Código de idioma:"),
-        widget=forms.Select(choices=CODIGOS_DE_IDIOMAS),
-    )
-
 
     cargar_icono = forms.ImageField(
         label="",

@@ -42,7 +42,7 @@
                 {% csrf_token %}
 
                 <div class="form-grid card bg-light" style="margin-bottom:16px">
-                    <div>{{ form.tipo_idioma|as_crispy_field }}</div>
+                    <div>{{ form.nit_empresa|as_crispy_field }}</div>
                     <div>{{ form.domimio_conversacional|as_crispy_field }}</div>
                     <div>{{ form.dominio_lectura|as_crispy_field }}</div>
                     <div>{{ form.dominio_escritura|as_crispy_field }}</div>
@@ -52,7 +52,7 @@
                     <div>{{ form.pais_obtencion_certificado|as_crispy_field }}</div>
                     <div>{{ form.departamento_obtencion_certificado|as_crispy_field }}</div>
                     <div>{{ form.ciudad_obtencion_certificado|as_crispy_field }}</div>
-                    <div>{{ form.nit_empresa|as_crispy_field }}</div>
+
 
                 </div>
 
@@ -295,7 +295,8 @@
             data-pais_obtencion_certificado="{{ qrdat.pais_obtencion_certificado }}"
             data-departamento_obtencion_certificado="{{ qrdat.departamento_obtencion_certificado }}"
             data-ciudad_obtencion_certificado="{{ qrdat.ciudad_obtencion_certificado }}"
-            data-documento_url="{{ qrdat.documento_url }}">
+            data-documento_url="{{ qrdat.documento_url }}" data-cargar_icono="{{qrdat.cargar_icono}}"
+            data-nit_empresa="{{qrdat.nit_empresa}}">
             <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
         </button>
 

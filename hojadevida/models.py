@@ -155,7 +155,7 @@ class IdiomaExtrangero(models.Model):
     nombre_usuario = models.ForeignKey(
         User, blank=False, null=False, on_delete=models.CASCADE
     )
-    tipo_idioma = models.CharField(max_length=30, blank=False, null=False)
+    tipo_idioma = models.CharField(max_length=20)
     domimio_conversacional = models.CharField(max_length=3, blank=False, null=False)
     dominio_lectura = models.CharField(max_length=3, blank=False, null=False)
     dominio_escritura = models.CharField(max_length=3, blank=False, null=False)
@@ -177,7 +177,8 @@ class IdiomaExtrangero(models.Model):
         upload_to="files/docs/idiomas", blank=True, null=True
     )
     cargar_icono = models.ImageField(upload_to="files/img/imgHome/produccion",blank=True, null=True)  
-    nit_empresa= models.CharField(max_length=10)
+    
+    nit_empresa= models.CharField(max_length=20)
 
 class CompetenciasTecnicasComputacionale(models.Model):
     class Meta:

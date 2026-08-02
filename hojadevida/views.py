@@ -324,7 +324,8 @@ def codigo_vistas_automaticas_post_hv(request,
                                       plantilla_html,
                                       sitweb,
                                       idq,
-                                      name_curso=False
+                                      name_curso=False,
+                                      tipo_idioma=False
                                       ):
 
     if idq and idq != 0:
@@ -351,6 +352,14 @@ def codigo_vistas_automaticas_post_hv(request,
         codigo = form.cleaned_data["codigo_curso"]
         objet = form.save(commit=False)
         objet.nombre_curso = dict(form.fields["codigo_curso"].choices)[codigo]
+        objet.save()
+        return (sitweb,idq,es_valido)
+
+
+    if tipo_idioma and es_valido:
+        codigo = form.cleaned_data["nit_empresa"]
+        objet = form.save(commit=False)
+        objet.tipo_idioma = dict(form.fields["nit_empresa"].choices)[codigo]
         objet.save()
         return (sitweb,idq,es_valido)
 
@@ -867,7 +876,10 @@ class IdiomaExtrangeroHV(View):
                                                                 IdiomaExtrangero,
                                                                 "dominio_idiomas.html",
                                                                 "idioma_extangero",
-                                                                pasar_id)
+                                                                pasar_id,
+                                                                False,
+                                                                True
+                                                                )
         if validacion_form:
             return redirect(plantilla, contexto)
         return render(request, plantilla,contexto)

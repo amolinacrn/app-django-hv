@@ -281,7 +281,8 @@
                   data-departamento_evento="{{ qrdat.departamento_evento }}" data-pais_evento="{{ qrdat.pais_evento }}"
                   data-fecha_inicio_evento="{{ qrdat.fecha_inicio_evento|date:'Y-m-d' }}"
                   data-fecha_fin_evento="{{ qrdat.fecha_fin_evento|date:'Y-m-d' }}"
-                  data-modalidad_evento="{{ qrdat.modalidad_evento }}" data-documento_url="{{ qrdat.documento_url }}">
+                  data-modalidad_evento="{{ qrdat.modalidad_evento }}" data-documento_url="{{ qrdat.documento_url }}"
+                  data-cargar_icono="{{qrdat.cargar_icono}}" data-nit_empresa="{{qrdat.nit_empresa}}">
 
                   <img src="{% static 'bs532/img/editar.svg' %}" alt="Editar">
 
