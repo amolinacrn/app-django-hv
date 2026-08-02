@@ -105,7 +105,7 @@
                 <th>Título</th>
                 <th>Institución</th>
                 <th>Periodo</th>
-                <th>Modalidad</th>
+
                 <th>País</th>
             </tr>
             {% for e in estudios %}
@@ -125,7 +125,7 @@
                 </td>
                 <td>{{ e.institucion_universitaria }}</td>
                 <td>{{ e.fecha_inicio|date:"m/Y" }} - {{ e.fecha_finalizacion|date:"m/Y" }}</td>
-                <td>{{ e.modalidad_academica }}</td>
+
                 <td>{{ e.pais_titulo }}</td>
             </tr>
             {% endfor %}
@@ -274,9 +274,9 @@
         <table class="tabla_tabla css-tabla">
             <tr>
                 <th>Producción investigativa</th>
-                <th>Revista científica</th>
-                <th>Área de concentración</th>
-                <th>Línea de investigación:</th>
+
+                <th>Área de concentración / Línea de investigación:</th>
+
                 <th>Fecha publicación</th>
 
             </tr>
@@ -290,17 +290,20 @@
                             <img src="{{p.icono_url}}" class="border-imagenes-curr">
                         </div>
 
-                        <div style="display: flex; align-items: center;">
-                            {{ p.nombre_trabajo }}
+                        <div class="elimiar_campo" style="display: flex; align-items: center;">
+                            <a href="{{p.doi_link_publicacion}}" style="color: #000000;" target="_blank">
+                                {{ p.nombre_trabajo }}
+                            </a>
+
                         </div>
                     </div>
 
 
                 </td>
-                <td>{{ p.nombre_revista }}</td>
-                <td>{{ p.area_concentracion }}</td>
-                <td>{{ p.linea_pesquisa }}</td>
-                <td>{{ p.fecha_publicacion|date:"d/m/Y" }}</td>
+
+                <td>{{ p.area_concentracion }} / {{ p.linea_pesquisa }}</td>
+
+                <td>{{ p.fecha_publicacion|date:" d/m/Y" }}</td>
 
             </tr>
             {% endif %}
