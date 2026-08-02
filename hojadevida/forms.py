@@ -321,10 +321,19 @@ class FormularioTitulosAcademicos(forms.ModelForm):
         required=False
     )
 
+
+
     nit_empresa= forms.CharField(
         max_length=10,
-        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
         required=True,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        widget=forms.NumberInput(),
+        validators=[
+            RegexValidator(
+                regex=r'^\d{1,10}$',
+                message="Ingrese un número de hasta 10 dígitos"
+            )
+        ]
     )
 
     grado_academico = forms.CharField(
@@ -418,7 +427,6 @@ class FormularioTitulosAcademicos(forms.ModelForm):
             MaxZiseImageValidator(max_img_size=0.3),
         ],
     )
-
     
 class FormExperienciaLaboral(forms.ModelForm):
 
@@ -440,8 +448,15 @@ class FormExperienciaLaboral(forms.ModelForm):
     )
     nit_empresa= forms.CharField(
         max_length=10,
-        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
         required=True,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        widget=forms.NumberInput(),
+        validators=[
+            RegexValidator(
+                regex=r'^\d{1,10}$',
+                message="Ingrese un número de hasta 10 dígitos"
+            )
+        ]
     )
     nombre_empresa = forms.CharField(
         max_length=80,
@@ -572,8 +587,15 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     nit_empresa= forms.CharField(
         max_length=10,
-        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
         required=True,
+        label=mark_safe("<span style='color:red'>*</span> Nit empresa:"),
+        widget=forms.NumberInput(),
+        validators=[
+            RegexValidator(
+                regex=r'^\d{1,10}$',
+                message="Ingrese un número de hasta 10 dígitos"
+            )
+        ]
     )
     
     nombre_trabajo = forms.CharField(
@@ -680,8 +702,15 @@ class FormularioProduccionAcademica(forms.ModelForm):
 
     nit_empresa= forms.CharField(
         max_length=10,
-        label=mark_safe("<span style='color:red'>*</span> codigo de registro:"),
         required=True,
+        label=mark_safe("<span style='color:red'>*</span> Código de registro:"),
+        widget=forms.NumberInput(),
+        validators=[
+            RegexValidator(
+                regex=r'^\d{1,10}$',
+                message="Ingrese un número de hasta 10 dígitos"
+            )
+        ]
     )
 
 class FormularioParticipacionCientifica(forms.ModelForm):
@@ -701,7 +730,6 @@ class FormularioParticipacionCientifica(forms.ModelForm):
     label=mark_safe("<span style='color:red'>*</span>  Nombre del evento:"),
     required=True,
     )
-
 
     tipo_evento = forms.CharField(
         max_length=150,

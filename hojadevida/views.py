@@ -362,7 +362,6 @@ def codigo_vistas_automaticas_post_hv(request,
             objet._meta.get_field("nit_empresa")
         except FieldDoesNotExist:
             pass
-
         else:
 
             nit = objet.nit_empresa
@@ -377,8 +376,8 @@ def codigo_vistas_automaticas_post_hv(request,
 
             if experiencia:
                 objet.cargar_icono = experiencia.cargar_icono
-                print("hola mundo")
-
+                print("Hola mundo como estas bien oque")
+            
         objet.save()
 
         return (sitweb, idq, es_valido)
