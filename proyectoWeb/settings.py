@@ -29,9 +29,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DB_DEBUG") 
 
-ALLOWED_HOSTS=[]
+#ALLOWED_HOSTS=[]
 
-#ALLOWED_HOSTS = ['amolina.top', 'www.amolina.top']
+ALLOWED_HOSTS = ['amolina.top', 'www.amolina.top']
 
 
 # Application definition
