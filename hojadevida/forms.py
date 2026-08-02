@@ -802,6 +802,18 @@ class FormularioParticipacionCientifica(forms.ModelForm):
         ],
     )
 
+    nit_empresa= forms.CharField(
+        max_length=10,
+        required=True,
+        label=mark_safe("<span style='color:red'>*</span> Nit universidad:"),
+        widget=forms.NumberInput(),
+            validators=[
+                RegexValidator(
+                    regex=r'^\d{1,10}$',
+                    message="Ingrese un número de hasta 10 dígitos"
+                )
+            ]
+    )
 
 class FormularioIdiomaExtrangero(forms.ModelForm):
 
@@ -890,6 +902,21 @@ class FormularioIdiomaExtrangero(forms.ModelForm):
         validators=[MaxZiseFileValidator(max_file_size=1)],
     )
 
+    nit_empresa= forms.CharField(
+        max_length=10,
+        required=True,
+        label=mark_safe("<span style='color:red'>*</span> Código de idioma:"),
+        widget=forms.Select(choices=CODIGOS_DE_IDIOMAS),
+    )
+
+
+    cargar_icono = forms.ImageField(
+        label="",
+        required=False,
+        validators=[
+            MaxZiseImageValidator(max_img_size=0.3),
+        ],
+    )
 
 
 class CompetenciasTecnicasComputacionalesForm(forms.ModelForm):

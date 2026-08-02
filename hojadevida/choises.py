@@ -4,6 +4,33 @@ capitulos = [None,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ]
 
+
+CODIGOS_DE_IDIOMAS = [
+    (None,"Seleccione..."),
+    ("ZHH", "Chino (Cantonés)"),
+    ("CHS", "Chino (Simplificado)"),
+    ("CHT", "Chino (Tradicional)"),
+    ("CSY", "Checo"),
+    ("NLD", "Holandés"),
+    ("ENG", "Inglés (Reino Unido)"),
+    ("ENU", "Inglés (EE. UU.)"),
+    ("FRC", "Francés (Canadá)"),
+    ("FRA", "Francés (Francia)"),
+    ("DEU", "Alemán"),
+    ("HUN", "Húngaro"),
+    ("ITA", "Italiano"),
+    ("JPN", "Japonés"),
+    ("KOR", "Coreano"),
+    ("PLK", "Polaco"),
+    ("PTB", "Portugués (Brasil)"),
+    ("ROM", "Rumano"),
+    ("RUS", "Ruso"),
+    ("ESP", "Español"),
+    ("TRK", "Turco"),
+]
+
+
+
 TIPOS_PRODUCTO = [
     (None,"Seleccione..."),
     ("Investigación", "Investigación"),

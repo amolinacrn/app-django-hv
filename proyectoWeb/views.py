@@ -99,7 +99,11 @@ def curr_hv(request):
     agregar_link(idiomas, "idioma_extrangero")
     agregar_link(diplomas, "titulo_obtenido")
 
-    for objeto in list(competencias) + list(diplomas) + list(experiencias)+list(produccion):
+    listas_querysets = list(competencias) + list(diplomas) + list(
+        experiencias) + list(produccion) + list(
+            idiomas) + list(participacion)
+
+    for objeto in listas_querysets:
         try:
             objeto.icono_url = request.build_absolute_uri(objeto.cargar_icono.url)
         except Exception:

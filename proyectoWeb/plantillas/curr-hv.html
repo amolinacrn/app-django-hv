@@ -197,7 +197,18 @@
 
                 <!-- Nombre del idioma -->
                 <td>
-                    {{ idioma.tipo_idioma }}
+
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div>
+                            <img src="{{idioma.icono_url}}" class="border-imagenes-curr">
+                        </div>
+
+                        <div style="display: flex; align-items: center;">
+                            {{ idioma.tipo_idioma }}
+                        </div>
+                    </div>
+
+
                 </td>
                 <td>
                     {{ idioma.nevel_certificado }}
@@ -313,7 +324,22 @@
             </tr>
             {% for e in participacion_cientifica %}
             <tr>
-                <td>{{ e.nombre_evento_cientifico }}</td>
+                <td>
+
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div>
+                            <img src="{{e.icono_url}}" class="border-imagenes-curr">
+                        </div>
+
+                        <div style="display: flex; align-items: center;">
+                            {{ e.nombre_evento_cientifico }}
+                        </div>
+                    </div>
+
+
+
+
+                </td>
                 <td> {{ e.institucion_evento }} - {{ e.ciudad_evento }} - {{ e.departamento_evento }} -
                     {{ e.pais_evento }}</td>
                 <td>{{ e.tipo_evento }}</td>

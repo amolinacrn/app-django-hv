@@ -148,6 +148,7 @@ class ParticipacionCientifica(models.Model):
     )
 
     cargar_icono = models.ImageField(upload_to="files/img/imgHome/evento",blank=True, null=True)
+    nit_empresa= models.CharField(max_length=10)
 
 
 class IdiomaExtrangero(models.Model):
@@ -175,7 +176,8 @@ class IdiomaExtrangero(models.Model):
     documento_soporte = models.FileField(
         upload_to="files/docs/idiomas", blank=True, null=True
     )
-  
+    cargar_icono = models.ImageField(upload_to="files/img/imgHome/produccion",blank=True, null=True)  
+    nit_empresa= models.CharField(max_length=10)
 
 class CompetenciasTecnicasComputacionale(models.Model):
     class Meta:

@@ -60,6 +60,8 @@
           <div>{{ form.fecha_fin_evento|as_crispy_field }}</div>
           <div>{{ form.modalidad_evento|as_crispy_field }}</div>
           <div>{{ form.departamento_evento|as_crispy_field }}</div>
+          <div>{{ form.nit_empresa|as_crispy_field }}</div>
+
 
 
         </div>
@@ -84,6 +86,36 @@
             </div>
 
           </div>
+
+
+
+          <label class="cargar_documento_whith" for="cargar_icono">
+            Cargue el ícono de su preferencia
+            <div style=" margin-top:7px">
+
+              <div style="display: flex;gap: 10px;">
+                <div style="width: 100%;">
+                  <input type="file" name="cargar_icono" id="cargar_icono" class=" upload-img green">
+                </div>
+
+                <div>
+
+                  <div id="etiqueta_a_file_delete_record">
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="error-upload">
+              {{ form.cargar_icono.errors.as_text }}
+            </div>
+
+          </label>
+
+
+
         </div>
 
 
@@ -187,6 +219,9 @@
         <table class="competencias-table">
           <thead>
             <tr>
+              <th>
+                Icono
+              </th>
               <th>Nombre evento</th>
               <th>Tipo</th>
               <th>Institución</th>
@@ -200,6 +235,9 @@
           <tbody>
             {% for qrdat in querydat %}
             <tr>
+              <td>
+                <img src="{{qrdat.icono_url}}" class="border_imagenes_portada">
+              </td>
               <td>
                 {{ qrdat.nombre_evento_cientifico }}
               </td>
@@ -264,6 +302,8 @@
   </div>
 </div>
 
-
+<script>
+  const deleteBase = "{% url 'delete_imagen_icono_record' 'ParticipacionCientifica' 'cargar_icono' 0 %}";
+</script>
 
 {% endblock content_derecho %}
