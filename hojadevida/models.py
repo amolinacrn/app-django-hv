@@ -46,6 +46,7 @@ class DatosPersonale(models.Model):
     universidad_titulo_mas_reciete = models.CharField(max_length=50, blank=False, null=False)
     afiliacion = models.CharField(max_length=300, blank=True, null=True)
     descripcion = models.CharField(max_length=200, blank=True, null=True)
+    linkedIn = models.URLField(max_length=200,blank=True)
 
 class TitulosAcademico(models.Model):
     nombre_usuario = models.ForeignKey(
