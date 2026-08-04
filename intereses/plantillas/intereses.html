@@ -5,38 +5,43 @@
 
 {% block content_derecho %}
 
-{% for e in queryset_produccion_academica %}
-{% if e.mostrar_producto %}
+<div>
+    {% for e in queryset_produccion_academica %}
+    {% if e.mostrar_producto %}
 
-<div class="class_div-copia">
-    <div class="vistas_web_menu">
-        <div class="icono_producto_curr">
-            <img src="{{e.icono_url}}" class="stilo-imagenes-intereses">
-        </div>
-        <div>
-            <div style="font-size: 20px; font-weight: bold; padding-bottom: 5px;">
-                {{e.linea_pesquisa}}
+    <div class="class_div-copia">
+        <div class="vistas_web_menu">
+            <div class="icono_producto_curr">
+                <img src="{{e.icono_url}}" class="stilo-imagenes-intereses">
             </div>
-            <div style="font-weight: bold; padding-bottom: 5px;">
-
-                {{e.area_concentracion}}
-            </div>
-            <hr style="border: 2px solid #f38807;">
-            <div style="padding-bottom: 5px;">
-                {{e.descripcion}}
-            </div>
-            <hr style="border: 2px solid #f38807;">
             <div>
-                <b>
-                    Palabras clave:
-                </b>
-                {{e.palabras_clave}}
+                <div style="font-size: 20px; font-weight: bold; padding-bottom: 5px;">
+                    {{e.linea_pesquisa}}
+                </div>
+                <div style="font-weight: bold; padding-bottom: 5px;">
+
+                    {{e.area_concentracion}}
+                </div>
+                <hr style="border: 2px solid #f38807;">
+                <div style="padding-bottom: 5px;">
+                    {{e.descripcion}}
+                </div>
+                <hr style="border: 2px solid #f38807;">
+                <div>
+                    <b>
+                        Palabras clave:
+                    </b>
+                    {{e.palabras_clave}}
+                </div>
             </div>
         </div>
     </div>
+
+
+    {% endif %}
+    {% endfor %}
+
 </div>
 
 
-{% endif %}
-{% endfor %}
 {% endblock %}
